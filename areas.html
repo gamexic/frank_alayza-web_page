@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Áreas de Frank Alayza - Emprendimiento, ciencia de datos y programación.">
+  <title>Áreas – Frank Alayza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Ir al contenido principal</a>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Frank Alayza - Inicio">Frank Alayza</a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="areas.html" class="current">Áreas</a></li>
+          <li><a href="certificados.html">Certificados</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="areas-section page-section">
+      <div class="container">
+        <h1 class="section-title">En qué me especializo</h1>
+        <p class="section-intro">Estas son las áreas en las que trabajo y aporto valor:</p>
+        <div class="areas-grid">
+          <article class="area-card">
+            <div class="area-icon" aria-hidden="true">◆</div>
+            <h2>Emprendimiento</h2>
+            <p>Ideo, valido y ejecuto proyectos. Experiencia en lanzamiento de productos, estrategia y crecimiento de negocio.</p>
+          </article>
+          <article class="area-card">
+            <div class="area-icon" aria-hidden="true">◆</div>
+            <h2>Ciencia de datos</h2>
+            <p>Análisis, modelos y visualización. Extraigo insights de datos para tomar mejores decisiones y automatizar procesos.</p>
+          </article>
+          <article class="area-card">
+            <div class="area-icon" aria-hidden="true">◆</div>
+            <h2>Programación</h2>
+            <p>Desarrollo de software: aplicaciones, APIs, scripts y herramientas que resuelven problemas reales.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">© <span id="year"></span> Frank Alayza. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
