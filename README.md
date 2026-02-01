@@ -1,6 +1,6 @@
 # Frank Alayza – Página web personal
 
-Página web profesional para tu marca personal: emprendedor, científico de datos y programador. Inspirada en el estilo limpio y elegante de [adriasolapastor.com](https://adriasolapastor.com).
+Página web profesional para tu marca personal: emprendedor, científico de datos y programador, amante de la tecnologia y de la Inteligencia Artifical. Inspirada en el estilo limpio y elegante.
 
 ## Contenido
 
