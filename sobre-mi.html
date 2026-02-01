@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('frank-alayza-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Ir al contenido principal</a>
@@ -27,6 +34,14 @@
       </nav>
       <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
+      </button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </span>
       </button>
     </div>
   </header>
@@ -98,52 +113,71 @@
       </div>
     </section>
 
-    <!-- Mi trayectoria: fondo oscuro, línea de tiempo vertical -->
+    <!-- Mi trayectoria: fondo oscuro, línea de tiempo alternante -->
     <section class="timeline-section">
       <div class="container container--wide">
         <h2 class="timeline-section-title animate-in">
           Cómo crear valor con mis conocimientos y experiencias para el desarrollo de mi marca personal y proyectos.
         </h2>
-        <div class="timeline">
-          <article class="timeline-item animate-in" data-delay="0">
-            <div class="timeline-year">2024 – Actualidad</div>
-            <div class="timeline-dot" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Emprendedor y Científico de Datos</h3>
-              <p>Desarrollo proyectos propios combinando análisis de datos, desarrollo de software y estrategia. Enfocado en productos y consultoría que generan impacto con datos.</p>
+        <div class="timeline timeline--alternating">
+          <article class="timeline-item timeline-item--left animate-in" data-delay="0">
+            <div class="timeline-year-badge" aria-hidden="true">2024</div>
+            <div class="timeline-card">
+              <div class="timeline-card__content">
+                <span class="timeline-card__period">2024 – Actualidad</span>
+                <h3>Emprendedor y Científico de Datos</h3>
+                <p>Desarrollo proyectos propios combinando análisis de datos, desarrollo de software y estrategia. Enfocado en productos y consultoría que generan impacto con datos.</p>
+              </div>
+            </div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+          </article>
+
+          <article class="timeline-item timeline-item--right animate-in" data-delay="80">
+            <div class="timeline-year-badge" aria-hidden="true">2022</div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card">
+              <div class="timeline-card__content">
+                <span class="timeline-card__period">2022 – 2024</span>
+                <h3>Científico de Datos / Analista</h3>
+                <p>Análisis de datos, modelos predictivos y visualización para toma de decisiones. Colaboración con equipos de producto y negocio.</p>
+              </div>
             </div>
           </article>
-          <article class="timeline-item animate-in" data-delay="80">
-            <div class="timeline-year">2022 – 2024</div>
-            <div class="timeline-dot" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Científico de Datos / Analista</h3>
-              <p>Análisis de datos, modelos predictivos y visualización para toma de decisiones. Colaboración con equipos de producto y negocio.</p>
+
+          <article class="timeline-item timeline-item--left animate-in" data-delay="160">
+            <div class="timeline-year-badge" aria-hidden="true">2020</div>
+            <div class="timeline-card">
+              <div class="timeline-card__content">
+                <span class="timeline-card__period">2020 – 2022</span>
+                <h3>Desarrollador / Analista de Datos</h3>
+                <p>Desarrollo de scripts, pipelines y reportes. Primeros proyectos de machine learning y automatización de procesos.</p>
+              </div>
+            </div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+          </article>
+
+          <article class="timeline-item timeline-item--right animate-in" data-delay="240">
+            <div class="timeline-year-badge" aria-hidden="true">2018</div>
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card">
+              <div class="timeline-card__content">
+                <span class="timeline-card__period">2018 – 2020</span>
+                <h3>Inicios en programación y datos</h3>
+                <p>Formación en programación, bases de datos y estadística. Proyectos académicos y personales.</p>
+              </div>
             </div>
           </article>
-          <article class="timeline-item animate-in" data-delay="160">
-            <div class="timeline-year">2020 – 2022</div>
-            <div class="timeline-dot" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Desarrollador / Analista de Datos</h3>
-              <p>Desarrollo de scripts, pipelines y reportes. Primeros proyectos de machine learning y automatización de procesos.</p>
+
+          <article class="timeline-item timeline-item--left animate-in" data-delay="320">
+            <div class="timeline-year-badge" aria-hidden="true">2014</div>
+            <div class="timeline-card">
+              <div class="timeline-card__content">
+                <span class="timeline-card__period">2014 – 2018</span>
+                <h3>Formación universitaria</h3>
+                <p>Estudios en [tu carrera o institución]. Bases en matemáticas, estadística e informática.</p>
+              </div>
             </div>
-          </article>
-          <article class="timeline-item animate-in" data-delay="240">
-            <div class="timeline-year">2018 – 2020</div>
-            <div class="timeline-dot" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Inicios en programación y datos</h3>
-              <p>Formación en programación, bases de datos y estadística. Proyectos académicos y personales.</p>
-            </div>
-          </article>
-          <article class="timeline-item animate-in" data-delay="320">
-            <div class="timeline-year">2014 – 2018</div>
-            <div class="timeline-dot" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Formación universitaria</h3>
-              <p>Estudios en [tu carrera o institución]. Bases en matemáticas, estadística e informática.</p>
-            </div>
+            <div class="timeline-marker" aria-hidden="true"></div>
           </article>
         </div>
       </div>

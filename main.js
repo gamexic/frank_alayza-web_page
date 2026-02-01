@@ -1,6 +1,45 @@
 (function () {
   'use strict';
 
+  // Theme toggle functionality
+  var THEME_KEY = 'frank-alayza-theme';
+  var themeToggle = document.getElementById('theme-toggle');
+
+  function getStoredTheme() {
+    return localStorage.getItem(THEME_KEY) || 'dark';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+
+    if (themeToggle) {
+      var label = theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+      themeToggle.setAttribute('aria-label', label);
+    }
+  }
+
+  function toggleTheme() {
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  }
+
+  // Initialize theme toggle button
+  if (themeToggle) {
+    // Set initial aria-label
+    var currentTheme = getStoredTheme();
+    var label = currentTheme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+    themeToggle.setAttribute('aria-label', label);
+
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+
+  // Remove no-transition class after initial load
+  window.addEventListener('load', function() {
+    document.documentElement.classList.remove('no-transition');
+  });
+
   // Año en el footer
   var yearEl = document.getElementById('year');
   if (yearEl) {
