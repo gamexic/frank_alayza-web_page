@@ -28,6 +28,7 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="sobre-mi.html" class="current">Sobre mí</a></li>
           <li><a href="areas.html">Áreas</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
           <li><a href="certificados.html">Certificados</a></li>
           <li><a href="contacto.html">Contacto</a></li>
         </ul>
@@ -35,6 +36,10 @@
       <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+      <a href="assets/cv-frank-alayza.pdf" class="btn-cv" download aria-label="Descargar CV">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="btn-cv__text">CV</span>
+      </a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
         <span class="theme-toggle__icon theme-toggle__icon--sun">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg>
@@ -60,7 +65,10 @@
               <li><span class="check" aria-hidden="true">✓</span> Desarrollador de aplicaciones, análisis y pipelines de datos.</li>
               <li><span class="check" aria-hidden="true">✓</span> Me centro en la rentabilidad y el crecimiento sostenible.</li>
             </ul>
-            <a href="contacto.html" class="btn btn-primary animate-in" data-delay="320">Conóceme</a>
+            <div class="about-hero-buttons animate-in" data-delay="320">
+              <a href="contacto.html" class="btn btn-primary">Conóceme</a>
+              <a href="assets/cv-frank-alayza.pdf" class="btn btn-secondary" download>Descargar CV</a>
+            </div>
             <div class="about-hero-social animate-in" data-delay="400" aria-label="Redes sociales">
               <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
               <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
@@ -69,6 +77,61 @@
           <div class="about-hero-visual animate-in" data-delay="120">
             <div class="about-placeholder about-hero-photo">
               <span>FA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Habilidades Técnicas -->
+    <section class="skills-section">
+      <div class="container">
+        <h2 class="skills-title animate-in">Habilidades Técnicas</h2>
+        <p class="skills-subtitle animate-in" data-delay="80">Herramientas y tecnologías con las que trabajo</p>
+        <div class="skills-grid">
+          <div class="skills-group animate-in" data-delay="0">
+            <h3 class="skills-group__title">Lenguajes</h3>
+            <div class="skills-tags">
+              <span class="skill-tag skill-tag--advanced">Python</span>
+              <span class="skill-tag skill-tag--advanced">SQL</span>
+              <span class="skill-tag skill-tag--intermediate">JavaScript</span>
+              <span class="skill-tag skill-tag--intermediate">R</span>
+            </div>
+          </div>
+          <div class="skills-group animate-in" data-delay="80">
+            <h3 class="skills-group__title">Data Science</h3>
+            <div class="skills-tags">
+              <span class="skill-tag skill-tag--advanced">Pandas</span>
+              <span class="skill-tag skill-tag--advanced">NumPy</span>
+              <span class="skill-tag skill-tag--intermediate">Scikit-learn</span>
+              <span class="skill-tag skill-tag--basic">TensorFlow</span>
+            </div>
+          </div>
+          <div class="skills-group animate-in" data-delay="160">
+            <h3 class="skills-group__title">Visualización</h3>
+            <div class="skills-tags">
+              <span class="skill-tag skill-tag--advanced">Tableau</span>
+              <span class="skill-tag skill-tag--intermediate">Power BI</span>
+              <span class="skill-tag skill-tag--intermediate">Matplotlib</span>
+              <span class="skill-tag skill-tag--intermediate">Plotly</span>
+            </div>
+          </div>
+          <div class="skills-group animate-in" data-delay="240">
+            <h3 class="skills-group__title">Desarrollo</h3>
+            <div class="skills-tags">
+              <span class="skill-tag skill-tag--advanced">Git</span>
+              <span class="skill-tag skill-tag--intermediate">Docker</span>
+              <span class="skill-tag skill-tag--intermediate">AWS</span>
+              <span class="skill-tag skill-tag--intermediate">FastAPI</span>
+            </div>
+          </div>
+          <div class="skills-group animate-in" data-delay="320">
+            <h3 class="skills-group__title">Competencias</h3>
+            <div class="skills-tags">
+              <span class="skill-tag skill-tag--advanced">Liderazgo</span>
+              <span class="skill-tag skill-tag--advanced">Comunicación de datos</span>
+              <span class="skill-tag skill-tag--intermediate">Gestión de proyectos</span>
+              <span class="skill-tag skill-tag--intermediate">Pensamiento analítico</span>
             </div>
           </div>
         </div>
@@ -113,6 +176,26 @@
       </div>
     </section>
 
+    <!-- Logros y Estadísticas -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card animate-in" data-delay="0">
+            <div class="stat-card__number">15+</div>
+            <p class="stat-card__label">Proyectos completados</p>
+          </div>
+          <div class="stat-card animate-in" data-delay="80">
+            <div class="stat-card__number">6+</div>
+            <p class="stat-card__label">Años de experiencia</p>
+          </div>
+          <div class="stat-card animate-in" data-delay="160">
+            <div class="stat-card__number">10+</div>
+            <p class="stat-card__label">Certificaciones</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Mi trayectoria: fondo oscuro, línea de tiempo alternante -->
     <section class="timeline-section">
       <div class="container container--wide">
@@ -134,7 +217,6 @@
 
           <article class="timeline-item timeline-item--right animate-in" data-delay="80">
             <div class="timeline-year-badge" aria-hidden="true">2022</div>
-            <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-card">
               <div class="timeline-card__content">
                 <span class="timeline-card__period">2022 – 2024</span>
@@ -142,6 +224,7 @@
                 <p>Análisis de datos, modelos predictivos y visualización para toma de decisiones. Colaboración con equipos de producto y negocio.</p>
               </div>
             </div>
+            <div class="timeline-marker" aria-hidden="true"></div>
           </article>
 
           <article class="timeline-item timeline-item--left animate-in" data-delay="160">
@@ -158,7 +241,6 @@
 
           <article class="timeline-item timeline-item--right animate-in" data-delay="240">
             <div class="timeline-year-badge" aria-hidden="true">2018</div>
-            <div class="timeline-marker" aria-hidden="true"></div>
             <div class="timeline-card">
               <div class="timeline-card__content">
                 <span class="timeline-card__period">2018 – 2020</span>
@@ -166,6 +248,7 @@
                 <p>Formación en programación, bases de datos y estadística. Proyectos académicos y personales.</p>
               </div>
             </div>
+            <div class="timeline-marker" aria-hidden="true"></div>
           </article>
 
           <article class="timeline-item timeline-item--left animate-in" data-delay="320">

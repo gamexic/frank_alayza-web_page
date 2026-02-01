@@ -110,4 +110,39 @@
       observer.observe(el);
     });
   }
+
+  // Projects filter functionality
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var projectCards = document.querySelectorAll('.project-card');
+
+  if (filterBtns.length && projectCards.length) {
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        // Update active button
+        filterBtns.forEach(function(b) {
+          b.classList.remove('filter-btn--active');
+        });
+        btn.classList.add('filter-btn--active');
+
+        var filter = btn.getAttribute('data-filter');
+
+        // Filter projects
+        projectCards.forEach(function(card) {
+          var category = card.getAttribute('data-category');
+
+          if (filter === 'all' || category === filter) {
+            card.style.display = '';
+            card.classList.remove('project-card--hidden');
+          } else {
+            card.classList.add('project-card--hidden');
+            setTimeout(function() {
+              if (card.classList.contains('project-card--hidden')) {
+                card.style.display = 'none';
+              }
+            }, 300);
+          }
+        });
+      });
+    });
+  }
 })();

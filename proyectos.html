@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Proyectos de Frank Alayza - Portfolio de ciencia de datos, desarrollo y emprendimiento.">
+  <title>Proyectos – Frank Alayza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('frank-alayza-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ir al contenido principal</a>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Frank Alayza - Inicio">Frank Alayza</a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="areas.html">Áreas</a></li>
+          <li><a href="proyectos.html" class="current">Proyectos</a></li>
+          <li><a href="certificados.html">Certificados</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="assets/cv-frank-alayza.pdf" class="btn-cv" download aria-label="Descargar CV">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="btn-cv__text">CV</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Projects Hero -->
+    <section class="projects-hero">
+      <div class="container">
+        <h1 class="projects-hero__title animate-in">Proyectos</h1>
+        <p class="projects-hero__subtitle animate-in" data-delay="80">Una selección de mis trabajos en ciencia de datos, desarrollo de software y emprendimiento.</p>
+      </div>
+    </section>
+
+    <!-- Projects Filter & Grid -->
+    <section class="projects-section">
+      <div class="container">
+        <!-- Filters -->
+        <div class="projects-filters animate-in" data-delay="160">
+          <button class="filter-btn filter-btn--active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="data-science">Ciencia de Datos</button>
+          <button class="filter-btn" data-filter="desarrollo">Desarrollo</button>
+          <button class="filter-btn" data-filter="emprendimiento">Emprendimiento</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project-card animate-in" data-delay="0" data-category="data-science">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>DS</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Análisis Predictivo de Ventas</h2>
+              <p class="project-card__description">Modelo de machine learning para predecir tendencias de ventas utilizando datos históricos y variables externas.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">Scikit-learn</span>
+                <span class="project-tag">Pandas</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Ver Demo</a>
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card animate-in" data-delay="100" data-category="desarrollo">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>DEV</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">API REST de Gestión</h2>
+              <p class="project-card__description">Backend completo con autenticación, CRUD y documentación automática usando FastAPI y PostgreSQL.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">FastAPI</span>
+                <span class="project-tag">PostgreSQL</span>
+                <span class="project-tag">Docker</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Documentación</a>
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card animate-in" data-delay="200" data-category="emprendimiento">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>EMP</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Plataforma SaaS Analytics</h2>
+              <p class="project-card__description">Producto propio de analytics para pequeñas empresas con dashboard interactivo y reportes automatizados.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">React</span>
+                <span class="project-tag">Node.js</span>
+                <span class="project-tag">AWS</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Ver Producto</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card animate-in" data-delay="300" data-category="data-science">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>VIZ</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Dashboard de KPIs</h2>
+              <p class="project-card__description">Visualización interactiva de métricas de negocio con Tableau conectado a múltiples fuentes de datos.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">Tableau</span>
+                <span class="project-tag">SQL</span>
+                <span class="project-tag">ETL</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Ver Dashboard</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card animate-in" data-delay="400" data-category="desarrollo">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>WEB</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Sitio Web Personal</h2>
+              <p class="project-card__description">Este mismo sitio web, desarrollado con HTML, CSS y JavaScript vanilla con enfoque en rendimiento y accesibilidad.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">HTML</span>
+                <span class="project-tag">CSS</span>
+                <span class="project-tag">JavaScript</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project-card animate-in" data-delay="500" data-category="emprendimiento">
+            <div class="project-card__image">
+              <div class="project-placeholder">
+                <span>BOT</span>
+              </div>
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Bot de Automatización</h2>
+              <p class="project-card__description">Automatización de procesos repetitivos para equipos de ventas, reduciendo tiempo operativo en un 60%.</p>
+              <div class="project-card__tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">Selenium</span>
+                <span class="project-tag">APIs</span>
+              </div>
+              <div class="project-card__links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Caso de Estudio</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">© <span id="year"></span> Frank Alayza. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
