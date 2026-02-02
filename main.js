@@ -111,38 +111,153 @@
     });
   }
 
-  // Projects filter functionality
-  var filterBtns = document.querySelectorAll('.filter-btn');
-  var projectCards = document.querySelectorAll('.project-card');
+  // Generic filter functionality (works for projects, blog, certificates)
+  function initFilters(filterSelector, cardSelector) {
+    var filterBtns = document.querySelectorAll(filterSelector + ' .filter-btn');
+    var cards = document.querySelectorAll(cardSelector);
 
-  if (filterBtns.length && projectCards.length) {
-    filterBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        // Update active button
-        filterBtns.forEach(function(b) {
-          b.classList.remove('filter-btn--active');
+    if (filterBtns.length && cards.length) {
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          // Update active button within this filter group
+          filterBtns.forEach(function(b) {
+            b.classList.remove('filter-btn--active');
+          });
+          btn.classList.add('filter-btn--active');
+
+          var filter = btn.getAttribute('data-filter');
+
+          // Filter cards
+          cards.forEach(function(card) {
+            var category = card.getAttribute('data-category');
+
+            if (filter === 'all' || category === filter) {
+              card.style.display = '';
+              card.classList.remove('project-card--hidden');
+              card.classList.remove('blog-card--hidden');
+              card.classList.remove('cert-card--hidden');
+            } else {
+              card.classList.add('project-card--hidden');
+              card.classList.add('blog-card--hidden');
+              card.classList.add('cert-card--hidden');
+              setTimeout(function() {
+                if (card.classList.contains('project-card--hidden') ||
+                    card.classList.contains('blog-card--hidden') ||
+                    card.classList.contains('cert-card--hidden')) {
+                  card.style.display = 'none';
+                }
+              }, 300);
+            }
+          });
         });
-        btn.classList.add('filter-btn--active');
+      });
+    }
+  }
 
-        var filter = btn.getAttribute('data-filter');
+  // Initialize filters for different pages
+  initFilters('.projects-filters', '.project-card');
+  initFilters('.blog-filters', '.blog-card');
+  initFilters('.cert-filters', '.cert-card');
 
-        // Filter projects
-        projectCards.forEach(function(card) {
-          var category = card.getAttribute('data-category');
+  // FAQ Accordion functionality
+  var faqItems = document.querySelectorAll('.faq-item__question');
+  if (faqItems.length) {
+    faqItems.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        var answer = btn.nextElementSibling;
 
-          if (filter === 'all' || category === filter) {
-            card.style.display = '';
-            card.classList.remove('project-card--hidden');
-          } else {
-            card.classList.add('project-card--hidden');
-            setTimeout(function() {
-              if (card.classList.contains('project-card--hidden')) {
-                card.style.display = 'none';
-              }
-            }, 300);
+        // Close all other FAQs
+        faqItems.forEach(function(otherBtn) {
+          if (otherBtn !== btn) {
+            otherBtn.setAttribute('aria-expanded', 'false');
+            var otherAnswer = otherBtn.nextElementSibling;
+            if (otherAnswer) {
+              otherAnswer.classList.remove('is-open');
+            }
           }
         });
+
+        // Toggle current FAQ
+        btn.setAttribute('aria-expanded', !isExpanded);
+        if (answer) {
+          answer.classList.toggle('is-open');
+        }
       });
     });
   }
+
+  // Certificate accordion functionality
+  var certAccordionToggle = document.querySelector('.cert-accordion__toggle');
+  if (certAccordionToggle) {
+    certAccordionToggle.addEventListener('click', function() {
+      var isExpanded = certAccordionToggle.getAttribute('aria-expanded') === 'true';
+      var content = certAccordionToggle.nextElementSibling;
+
+      certAccordionToggle.setAttribute('aria-expanded', !isExpanded);
+      if (content) {
+        content.classList.toggle('is-open');
+      }
+    });
+  }
+
+  // Contact form validation
+  var contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var message = document.getElementById('message');
+      var isValid = true;
+
+      // Remove previous error states
+      [name, email, message].forEach(function(input) {
+        if (input) {
+          input.style.borderColor = '';
+        }
+      });
+
+      // Validate name
+      if (name && name.value.trim().length < 2) {
+        name.style.borderColor = '#ef4444';
+        isValid = false;
+      }
+
+      // Validate email
+      if (email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          email.style.borderColor = '#ef4444';
+          isValid = false;
+        }
+      }
+
+      // Validate message
+      if (message && message.value.trim().length < 10) {
+        message.style.borderColor = '#ef4444';
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Form is valid - in production, you would send to a backend
+        alert('¡Gracias por tu mensaje! Te responderé pronto.');
+        contactForm.reset();
+      }
+    });
+  }
+
+  // Newsletter form (simple validation)
+  var newsletterForms = document.querySelectorAll('.blog-newsletter__form');
+  newsletterForms.forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailInput = form.querySelector('input[type="email"]');
+      if (emailInput && emailInput.value) {
+        alert('¡Gracias por suscribirte! Recibirás contenido sobre IA y datos.');
+        form.reset();
+      }
+    });
+  });
 })();

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Servicios de Frank Alayza - Consultoría de IA, ciencia de datos, automatización y desarrollo de soluciones con LLMs.">
+  <title>Servicios – Frank Alayza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('frank-alayza-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ir al contenido principal</a>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Frank Alayza - Inicio">Frank Alayza</a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="servicios.html" class="current">Servicios</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="contenido.html">Contenido</a></li>
+          <li><a href="recursos.html">Recursos</a></li>
+          <li><a href="certificados.html">Certificados</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="assets/cv-frank-alayza.pdf" class="btn-cv" download aria-label="Descargar CV">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="btn-cv__text">CV</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero Servicios -->
+    <section class="services-hero">
+      <div class="container">
+        <h1 class="services-hero__title animate-in">Servicios</h1>
+        <p class="services-hero__subtitle animate-in" data-delay="80">Transformo datos en decisiones y código en soluciones. Descubre cómo puedo ayudarte.</p>
+      </div>
+    </section>
+
+    <!-- Servicios principales -->
+    <section class="services-main-section">
+      <div class="container">
+        <div class="services-cards-grid">
+          <article class="service-detail-card animate-in" data-delay="0">
+            <div class="service-detail-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <h2 class="service-detail-card__title">Consultoría de IA aplicada a negocio</h2>
+            <p class="service-detail-card__description">Te ayudo a identificar oportunidades donde la IA puede generar impacto real en tu negocio. Evaluamos casos de uso, viabilidad técnica y ROI esperado antes de invertir en desarrollo.</p>
+            <ul class="service-detail-card__features">
+              <li>Auditoría de procesos automatizables</li>
+              <li>Evaluación de madurez de datos</li>
+              <li>Roadmap de implementación de IA</li>
+              <li>Selección de tecnologías y proveedores</li>
+            </ul>
+          </article>
+
+          <article class="service-detail-card animate-in" data-delay="80">
+            <div class="service-detail-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 2a10 10 0 0 1 10 10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h2 class="service-detail-card__title">Desarrollo de soluciones con LLMs/Agentes</h2>
+            <p class="service-detail-card__description">Diseño y construyo soluciones basadas en modelos de lenguaje y agentes inteligentes: chatbots, asistentes, automatización de documentos, y más.</p>
+            <ul class="service-detail-card__features">
+              <li>Chatbots y asistentes con LLMs</li>
+              <li>Agentes autónomos para tareas específicas</li>
+              <li>RAG (Retrieval Augmented Generation)</li>
+              <li>Integración con APIs y sistemas existentes</li>
+            </ul>
+          </article>
+
+          <article class="service-detail-card animate-in" data-delay="160">
+            <div class="service-detail-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            </div>
+            <h2 class="service-detail-card__title">Ciencia de datos para decisiones</h2>
+            <p class="service-detail-card__description">Convierto tus datos en insights accionables. Desde análisis exploratorio hasta modelos predictivos que informan decisiones estratégicas.</p>
+            <ul class="service-detail-card__features">
+              <li>Análisis exploratorio y estadístico</li>
+              <li>Modelos de predicción y clasificación</li>
+              <li>Segmentación y clustering</li>
+              <li>Dashboards y visualización de datos</li>
+            </ul>
+          </article>
+
+          <article class="service-detail-card animate-in" data-delay="240">
+            <div class="service-detail-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h2 class="service-detail-card__title">Automatización y pipelines de datos</h2>
+            <p class="service-detail-card__description">Elimino trabajo manual y errores con pipelines automatizados. ETLs, integraciones, scraping y procesos que funcionan solos.</p>
+            <ul class="service-detail-card__features">
+              <li>Diseño de pipelines ETL/ELT</li>
+              <li>Automatización de reportes</li>
+              <li>Web scraping y extracción de datos</li>
+              <li>Orquestación y monitoreo</li>
+            </ul>
+          </article>
+
+          <article class="service-detail-card animate-in" data-delay="320">
+            <div class="service-detail-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h2 class="service-detail-card__title">Auditoría de datos/dashboards/KPIs</h2>
+            <p class="service-detail-card__description">Reviso tus dashboards, métricas y procesos de datos actuales. Identifico problemas, oportunidades de mejora y te entrego un plan de acción.</p>
+            <ul class="service-detail-card__features">
+              <li>Revisión de calidad de datos</li>
+              <li>Evaluación de KPIs y métricas</li>
+              <li>Optimización de dashboards existentes</li>
+              <li>Documentación y mejores prácticas</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paquetes -->
+    <section class="packages-section">
+      <div class="container">
+        <h2 class="section-title animate-in">Paquetes</h2>
+        <p class="section-intro animate-in" data-delay="80">Opciones flexibles según tus necesidades y etapa del proyecto</p>
+        <div class="packages-grid">
+          <article class="package-card animate-in" data-delay="0">
+            <div class="package-card__header">
+              <h3 class="package-card__title">Diagnóstico</h3>
+              <p class="package-card__tagline">Entender antes de actuar</p>
+            </div>
+            <div class="package-card__content">
+              <p class="package-card__description">Sesión de análisis para evaluar tu situación actual, identificar oportunidades y definir los siguientes pasos.</p>
+              <ul class="package-card__includes">
+                <li>Llamada de diagnóstico (1-2h)</li>
+                <li>Análisis de datos/procesos actuales</li>
+                <li>Documento con hallazgos y recomendaciones</li>
+                <li>Roadmap priorizado de acciones</li>
+              </ul>
+              <p class="package-card__ideal"><strong>Ideal para:</strong> Empresas que no saben por dónde empezar o quieren validar una idea antes de invertir.</p>
+            </div>
+            <div class="package-card__footer">
+              <a href="contacto.html" class="btn btn-secondary">Solicitar diagnóstico</a>
+            </div>
+          </article>
+
+          <article class="package-card package-card--featured animate-in" data-delay="100">
+            <div class="package-card__badge">Popular</div>
+            <div class="package-card__header">
+              <h3 class="package-card__title">MVP</h3>
+              <p class="package-card__tagline">De idea a prototipo funcional</p>
+            </div>
+            <div class="package-card__content">
+              <p class="package-card__description">Desarrollo de un producto mínimo viable que valide tu hipótesis con datos reales y usuarios.</p>
+              <ul class="package-card__includes">
+                <li>Definición de alcance y métricas de éxito</li>
+                <li>Desarrollo del MVP funcional</li>
+                <li>Iteraciones basadas en feedback</li>
+                <li>Documentación técnica</li>
+                <li>Sesión de handoff y capacitación</li>
+              </ul>
+              <p class="package-card__ideal"><strong>Ideal para:</strong> Startups, equipos de producto, o empresas que quieren probar una solución de IA/datos rápidamente.</p>
+            </div>
+            <div class="package-card__footer">
+              <a href="contacto.html" class="btn btn-primary">Desarrollar MVP</a>
+            </div>
+          </article>
+
+          <article class="package-card animate-in" data-delay="200">
+            <div class="package-card__header">
+              <h3 class="package-card__title">Acompañamiento</h3>
+              <p class="package-card__tagline">Soporte continuo y escalable</p>
+            </div>
+            <div class="package-card__content">
+              <p class="package-card__description">Colaboración a largo plazo para implementar, mantener y evolucionar tus soluciones de datos e IA.</p>
+              <ul class="package-card__includes">
+                <li>Horas mensuales dedicadas</li>
+                <li>Soporte técnico prioritario</li>
+                <li>Iteraciones y mejoras continuas</li>
+                <li>Sesiones de estrategia mensuales</li>
+                <li>Capacitación al equipo</li>
+              </ul>
+              <p class="package-card__ideal"><strong>Ideal para:</strong> Empresas que necesitan un partner técnico de confianza para el largo plazo.</p>
+            </div>
+            <div class="package-card__footer">
+              <a href="contacto.html" class="btn btn-secondary">Explorar acompañamiento</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="service-process-section">
+      <div class="container">
+        <h2 class="section-title animate-in">Mi proceso de trabajo</h2>
+        <p class="section-intro animate-in" data-delay="80">Metodología clara para entregar resultados</p>
+        <div class="service-process-grid">
+          <div class="service-process-step animate-in" data-delay="0">
+            <div class="service-process-step__number">1</div>
+            <h3 class="service-process-step__title">Descubrimiento</h3>
+            <p class="service-process-step__description">Entiendo tu negocio, objetivos, datos disponibles y definimos juntos las métricas de éxito.</p>
+          </div>
+          <div class="service-process-step animate-in" data-delay="80">
+            <div class="service-process-step__number">2</div>
+            <h3 class="service-process-step__title">Propuesta</h3>
+            <p class="service-process-step__description">Te presento un plan detallado con alcance, entregables, timeline y presupuesto transparente.</p>
+          </div>
+          <div class="service-process-step animate-in" data-delay="160">
+            <div class="service-process-step__number">3</div>
+            <h3 class="service-process-step__title">Desarrollo</h3>
+            <p class="service-process-step__description">Construyo la solución con entregas incrementales, comunicación constante y ajustes según feedback.</p>
+          </div>
+          <div class="service-process-step animate-in" data-delay="240">
+            <div class="service-process-step__number">4</div>
+            <h3 class="service-process-step__title">Entrega</h3>
+            <p class="service-process-step__description">Handoff completo con documentación, capacitación y soporte post-entrega incluido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Garantías -->
+    <section class="guarantees-section">
+      <div class="container">
+        <h2 class="section-title animate-in">Garantías</h2>
+        <div class="guarantees-grid">
+          <div class="guarantee-item animate-in" data-delay="0">
+            <div class="guarantee-item__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 class="guarantee-item__title">Transparencia total</h3>
+            <p class="guarantee-item__description">Sin sorpresas. Presupuestos claros, comunicación constante y acceso a todo el código/documentación.</p>
+          </div>
+          <div class="guarantee-item animate-in" data-delay="80">
+            <div class="guarantee-item__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="guarantee-item__title">Entrega en tiempo</h3>
+            <p class="guarantee-item__description">Deadlines realistas que cumplo. Si algo cambia, te informo con anticipación y ajustamos juntos.</p>
+          </div>
+          <div class="guarantee-item animate-in" data-delay="160">
+            <div class="guarantee-item__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 class="guarantee-item__title">Soporte post-entrega</h3>
+            <p class="guarantee-item__description">No desaparezco después de entregar. Incluyo soporte para resolver dudas y ajustes menores.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title animate-in">Preguntas frecuentes</h2>
+        <div class="faq-list">
+          <div class="faq-item animate-in" data-delay="0">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>¿Trabajas con empresas de cualquier tamaño?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Sí, trabajo con startups, pymes y equipos dentro de empresas grandes. El paquete de Diagnóstico es ideal para empezar sin importar el tamaño.</p>
+            </div>
+          </div>
+          <div class="faq-item animate-in" data-delay="80">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>¿Qué pasa si no tengo datos organizados?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Parte del servicio incluye ayudarte a organizar, limpiar y estructurar tus datos. En el Diagnóstico evaluamos el estado actual y definimos los pasos necesarios.</p>
+            </div>
+          </div>
+          <div class="faq-item animate-in" data-delay="160">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>¿Cuánto tiempo toma desarrollar un MVP?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Depende del alcance, pero típicamente entre 4-8 semanas. En la fase de Propuesta defino un timeline realista basado en tus necesidades específicas.</p>
+            </div>
+          </div>
+          <div class="faq-item animate-in" data-delay="240">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>¿Firmas NDA o acuerdos de confidencialidad?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Absolutamente. La confidencialidad es fundamental. Firmo NDAs y trato todos los datos e información de mis clientes con la máxima discreción.</p>
+            </div>
+          </div>
+          <div class="faq-item animate-in" data-delay="320">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>¿Trabajas de forma remota?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Sí, trabajo 100% remoto con clientes de cualquier ubicación. Uso herramientas de comunicación y gestión que permiten colaborar efectivamente a distancia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content animate-in">
+          <h2 class="cta-title">¿Listo para empezar?</h2>
+          <p class="cta-subtitle">Agenda una llamada de diagnóstico gratuita para explorar cómo puedo ayudarte.</p>
+          <a href="contacto.html" class="btn btn-primary btn-large">Agendar llamada</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer footer-enhanced">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <div class="footer-brand">Frank Alayza</div>
+          <p class="footer-bio">Científico de datos y desarrollador. Transformo datos en decisiones y código en soluciones con impacto real.</p>
+          <div class="footer-social">
+            <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://github.com/tu-usuario" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+            <a href="https://twitter.com/tu-usuario" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre-mi.html">Sobre mí</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Recursos</h4>
+          <ul class="footer-links">
+            <li><a href="contenido.html">Contenido</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+            <li><a href="certificados.html">Certificados</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:tu@email.com">tu@email.com</a></li>
+            <li><a href="contacto.html">Enviar mensaje</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© <span id="year"></span> Frank Alayza. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
