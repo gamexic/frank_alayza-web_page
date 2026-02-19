@@ -2181,6 +2181,18 @@ body,
   color: var(--color-text-muted);
   font-size: 0.85rem;
 }
+.logo-placeholder--image {
+  width: 220px;
+  height: 88px;
+  border-style: solid;
+  padding: 10px;
+}
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -2265,15 +2277,19 @@ body,
 .human-text strong {
   color: var(--color-text);
 }
-.human-placeholder {
+.human-photo-frame {
   aspect-ratio: 4/3;
   background: var(--color-bg-alt);
   border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.human-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
 }
 
 @media (max-width: 768px) {
