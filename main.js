@@ -162,26 +162,62 @@
   // FAQ Accordion functionality
   var faqItems = document.querySelectorAll('.faq-item__question');
   if (faqItems.length) {
+    function closeFaqItem(btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      var parent = btn.closest('.faq-item');
+      if (parent) {
+        parent.classList.remove('faq-item--open');
+      }
+
+      var answer = btn.nextElementSibling;
+      if (answer) {
+        answer.classList.remove('is-open');
+        answer.style.maxHeight = null;
+      }
+    }
+
+    function openFaqItem(btn) {
+      btn.setAttribute('aria-expanded', 'true');
+      var parent = btn.closest('.faq-item');
+      if (parent) {
+        parent.classList.add('faq-item--open');
+      }
+
+      var answer = btn.nextElementSibling;
+      if (answer) {
+        answer.classList.add('is-open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+
     faqItems.forEach(function(btn) {
       btn.addEventListener('click', function() {
         var isExpanded = btn.getAttribute('aria-expanded') === 'true';
-        var answer = btn.nextElementSibling;
 
         // Close all other FAQs
         faqItems.forEach(function(otherBtn) {
           if (otherBtn !== btn) {
-            otherBtn.setAttribute('aria-expanded', 'false');
-            var otherAnswer = otherBtn.nextElementSibling;
-            if (otherAnswer) {
-              otherAnswer.classList.remove('is-open');
-            }
+            closeFaqItem(otherBtn);
           }
         });
 
         // Toggle current FAQ
-        btn.setAttribute('aria-expanded', !isExpanded);
-        if (answer) {
-          answer.classList.toggle('is-open');
+        if (isExpanded) {
+          closeFaqItem(btn);
+        } else {
+          openFaqItem(btn);
+        }
+      });
+    });
+
+    // Keep open panel height in sync on resize
+    window.addEventListener('resize', function() {
+      faqItems.forEach(function(btn) {
+        if (btn.getAttribute('aria-expanded') === 'true') {
+          var answer = btn.nextElementSibling;
+          if (answer) {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          }
         }
       });
     });
