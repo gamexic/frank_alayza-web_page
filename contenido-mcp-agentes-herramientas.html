@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MCP en la práctica: cómo conectar herramientas a agentes de IA con arquitectura clara, seguridad y gobernanza.">
+  <title>MCP en la práctica - Frank Alayza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond%3Aital%2Cwght%400%2C400%3B0%2C600%3B0%2C700%3B1%2C400&family=Inter%3Awght%40300%3B400%3B500%3B600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('frank-alayza-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ir al contenido principal</a>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Frank Alayza - Inicio">Frank Alayza</a>
+      <nav class="nav" aria-label="Navegacion principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mi</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="contenido.html" class="current">Contenido</a></li>
+          <li><a href="recursos.html">Recursos</a></li>
+          <li><a href="certificados.html">Certificados</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="assets/cv-frank-alayza.pdf" class="btn-cv" download aria-label="Descargar CV">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="btn-cv__text">CV</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article-page">
+    <section class="article-hero">
+      <div class="container">
+        <div class="article-hero__inner animate-in">
+          <div class="article-meta">
+            <span class="article-category">Modelos fundacionales</span>
+            <span class="article-readtime">Lectura: 8 min</span>
+          </div>
+          <h1 class="article-title">MCP en la práctica: conecta herramientas a tus agentes con control</h1>
+          <p class="article-subtitle">MCP te permite estandarizar cómo tus agentes acceden a sistemas externos, con una arquitectura clara para escalar automatización sin perder gobernanza.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="article-layout">
+      <div class="container">
+        <article class="article-content animate-in" data-delay="80">
+          <div class="article-callout">
+            <strong>Lo importante</strong>
+            <p>MCP (Model Context Protocol) es un estándar abierto que define cómo conectar aplicaciones de IA con herramientas y datos. Su valor no está en "otra integración", sino en operar muchas integraciones con un patrón consistente.</p>
+          </div>
+
+          <section class="article-section">
+            <h2>1. Qué es MCP y por qué importa para negocio</h2>
+            <p>Cuando cada agente se conecta de forma diferente a CRM, base de conocimiento, archivos o APIs internas, el costo operativo se dispara. MCP reduce esa fragmentación con un contrato común entre cliente y servidor.</p>
+            <p>Resultado: menor costo de integración, más reutilización y despliegue más rápido de casos de uso de IA en distintas áreas.</p>
+          </section>
+
+          <section class="article-section">
+            <h2>2. Arquitectura mínima que debes entender</h2>
+            <ul class="article-list">
+              <li><strong>Host MCP:</strong> la aplicación donde vive la experiencia del usuario.</li>
+              <li><strong>Cliente MCP:</strong> componente que inicia y gestiona conexión con servidores MCP.</li>
+              <li><strong>Servidor MCP:</strong> expone capacidades (herramientas, recursos y prompts) hacia el agente.</li>
+            </ul>
+            <p>En implementación moderna, puedes operar con transportes como <strong>stdio</strong> y <strong>Streamable HTTP</strong> según el tipo de entorno.</p>
+          </section>
+
+          <section class="article-section">
+            <h2>3. Casos reales donde genera impacto</h2>
+            <ul class="article-list">
+              <li>Asistentes internos que consultan documentos y bases de conocimiento.</li>
+              <li>Automatización comercial conectada a CRM y correo.</li>
+              <li>Operaciones que combinan tickets, métricas y acciones en sistemas internos.</li>
+              <li>Flujos de analítica donde el agente consulta datos y produce reportes accionables.</li>
+            </ul>
+            <p>El patrón ganador es empezar con un proceso acotado, medir impacto y escalar por etapas.</p>
+          </section>
+
+          <section class="article-section">
+            <h2>4. Seguridad y gobernanza desde el día uno</h2>
+            <ul class="article-list">
+              <li>Aplica principio de mínimo privilegio por servidor y herramienta.</li>
+              <li>Define autenticación y autorización explícita para cada conector.</li>
+              <li>Mantén aprobación humana en acciones de alto impacto.</li>
+              <li>Registra trazabilidad de consultas, herramientas invocadas y respuestas.</li>
+            </ul>
+            <p>Sin gobernanza, escalar MCP puede amplificar riesgo. Con gobernanza, se convierte en una ventaja de plataforma.</p>
+          </section>
+
+          <div class="article-checklist">
+            <h3>Checklist de implementación segura</h3>
+            <ul>
+              <li>Selecciona un caso de uso con KPI claro de negocio.</li>
+              <li>Diseña un servidor MCP para un dominio específico primero.</li>
+              <li>Documenta permisos, límites y criterios de aprobación humana.</li>
+              <li>Mide calidad, tiempo de respuesta y ahorro operativo por sprint.</li>
+              <li>Escala a nuevos dominios solo tras validar estabilidad y control.</li>
+            </ul>
+          </div>
+
+          <div class="article-cta">
+            <h3>De integración puntual a arquitectura reusable</h3>
+            <p>Si quieres implementar MCP en tu operación de IA con seguridad y enfoque en ROI, puedo ayudarte a diseñar la arquitectura y el roadmap de adopción por fases.</p>
+          </div>
+
+          <div class="article-footer-nav">
+            <a href="contenido.html" class="btn btn-secondary">Volver a Contenido</a>
+            <a href="contacto.html" class="btn btn-primary">Conversemos tu caso</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer footer-enhanced">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <div class="footer-brand">Frank Alayza</div>
+          <p class="footer-bio">AI Engineer / AI Native. Transformo datos en decisiones y código en soluciones con impacto real.</p>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobre-mi.html">Sobre mí</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Contenido</h4>
+          <ul class="footer-links">
+            <li><a href="contenido.html">Artículos</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+            <li><a href="certificados.html">Certificados</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="footer-heading">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:frankalayzah@gmail.com">frankalayzah@gmail.com</a></li>
+            <li><a href="contacto.html">Enviar mensaje</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© <span id="year"></span> Frank Alayza. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="privacidad.html">Privacidad</a>
+          <a href="terminos.html">Términos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

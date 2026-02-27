@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guia practica para implementar RAG en chatbots empresariales con arquitectura simple, calidad de datos y evaluacion continua.">
+  <title>RAG explicado simple para chatbots de empresa - Frank Alayza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond%3Aital%2Cwght%400%2C400%3B0%2C600%3B0%2C700%3B1%2C400&family=Inter%3Awght%40300%3B400%3B500%3B600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('frank-alayza-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Ir al contenido principal</a>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Frank Alayza - Inicio">Frank Alayza</a>
+      <nav class="nav" aria-label="Navegacion principal"><ul><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mi</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="proyectos.html">Proyectos</a></li><li><a href="contenido.html" class="current">Contenido</a></li><li><a href="recursos.html">Recursos</a></li><li><a href="certificados.html">Certificados</a></li><li><a href="contacto.html">Contacto</a></li></ul></nav>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="assets/cv-frank-alayza.pdf" class="btn-cv" download aria-label="Descargar CV"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-cv__text">CV</span></a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema"><span class="theme-toggle__icon theme-toggle__icon--sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM5.64 5.64a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zm12.02 12.02a1 1 0 0 1 1.41 0l.71.71a1 1 0 1 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM5.64 18.36a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0zm12.02-12.02a1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-1.41 0z"/></svg></span><span class="theme-toggle__icon theme-toggle__icon--moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></span></button>
+    </div>
+  </header>
+
+  <main id="main" class="article-page">
+    <section class="article-hero"><div class="container"><div class="article-hero__inner animate-in"><div class="article-meta"><span class="article-category">IA para la vida real</span><span class="article-readtime">Lectura: 8 min</span></div><h1 class="article-title">RAG explicado simple: como hacer que tu chatbot sepa de tu empresa</h1><p class="article-subtitle">RAG no es magia. Es una arquitectura para que el modelo responda con contexto de tu negocio y no solo con conocimiento general.</p></div></div></section>
+    <section class="article-layout"><div class="container"><article class="article-content animate-in" data-delay="80">
+      <div class="article-callout"><strong>Idea central</strong><p>Si quieres respuestas utiles para operaciones reales, el chatbot debe recuperar informacion confiable de tus propias fuentes antes de generar la respuesta.</p></div>
+      <section class="article-section"><h2>1. Arquitectura minima de RAG</h2><p>Empieza simple: ingesta de documentos, segmentacion, embeddings, busqueda semantica y generacion con contexto. No necesitas una infraestructura gigante para validar valor.</p></section>
+      <section class="article-section"><h2>2. Calidad de datos primero</h2><p>El rendimiento de RAG depende mas de tus documentos que del modelo. Normaliza formatos, elimina duplicados y define propietarios de contenido para mantener base limpia.</p></section>
+      <section class="article-section"><h2>3. Prompt y citacion de contexto</h2><p>El prompt debe forzar al asistente a responder solo con contexto recuperado y declarar cuando no hay evidencia suficiente. Esto reduce alucinaciones y mejora confianza.</p></section>
+      <section class="article-section"><h2>4. Medicion operativa</h2><p>Mide precision, tasa de escalamiento a humano, tiempo de respuesta y satisfaccion del usuario. Sin metricas, no sabras si tu RAG esta resolviendo negocio o solo generando texto bonito.</p></section>
+      <div class="article-checklist"><h3>Checklist para un RAG util</h3><ul><li>Define 20 preguntas frecuentes reales antes de construir.</li><li>Crea pipeline de actualizacion de documentos.</li><li>Exige respuestas con evidencia del contexto recuperado.</li><li>Incluye fallback cuando no exista informacion suficiente.</li><li>Revisa semanalmente respuestas fallidas para mejorar retrieval.</li></ul></div>
+      <div class="article-cta"><h3>RAG orientado a resultado</h3><p>Un buen RAG no se evalua por complejidad tecnica, se evalua por cuantas consultas resuelve con calidad y cuanto tiempo le devuelve a tu equipo.</p></div>
+      <div class="article-footer-nav"><a href="contenido.html" class="btn btn-secondary">Volver a Contenido</a><a href="contacto.html" class="btn btn-primary">Conversemos tu caso</a></div>
+    </article></div></section>
+  </main>
+
+  <footer class="footer footer-enhanced"><div class="container"><div class="footer-grid"><div class="footer-column"><div class="footer-brand">Frank Alayza</div><p class="footer-bio">AI Engineer / AI Native. Transformo datos en decisiones y codigo en soluciones con impacto real.</p></div><div class="footer-column"><h4 class="footer-heading">Navegacion</h4><ul class="footer-links"><li><a href="index.html">Inicio</a></li><li><a href="sobre-mi.html">Sobre mi</a></li><li><a href="servicios.html">Servicios</a></li><li><a href="proyectos.html">Proyectos</a></li></ul></div><div class="footer-column"><h4 class="footer-heading">Contenido</h4><ul class="footer-links"><li><a href="contenido.html">Articulos</a></li><li><a href="recursos.html">Recursos</a></li><li><a href="certificados.html">Certificados</a></li></ul></div><div class="footer-column"><h4 class="footer-heading">Contacto</h4><ul class="footer-links"><li><a href="mailto:frankalayzah@gmail.com">frankalayzah@gmail.com</a></li><li><a href="contacto.html">Enviar mensaje</a></li></ul></div></div><div class="footer-bottom"><p class="footer-copyright">© <span id="year"></span> Frank Alayza. Todos los derechos reservados.</p><div class="footer-legal"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Terminos</a></div></div></div></footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -237,7 +237,7 @@
     });
   }
 
-  // Contact form validation
+  // Contact form: validate and compose email draft
   var contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -245,11 +245,12 @@
 
       var name = document.getElementById('name');
       var email = document.getElementById('email');
+      var subject = document.getElementById('subject');
       var message = document.getElementById('message');
       var isValid = true;
 
       // Remove previous error states
-      [name, email, message].forEach(function(input) {
+      [name, email, subject, message].forEach(function(input) {
         if (input) {
           input.style.borderColor = '';
         }
@@ -270,6 +271,12 @@
         }
       }
 
+      // Validate subject
+      if (subject && !subject.value) {
+        subject.style.borderColor = '#ef4444';
+        isValid = false;
+      }
+
       // Validate message
       if (message && message.value.trim().length < 10) {
         message.style.borderColor = '#ef4444';
@@ -277,22 +284,67 @@
       }
 
       if (isValid) {
-        // Form is valid - in production, you would send to a backend
-        alert('¡Gracias por tu mensaje! Te responderé pronto.');
-        contactForm.reset();
+        var subjectText = 'Contacto web';
+        if (subject) {
+          var selectedOption = subject.options[subject.selectedIndex];
+          if (selectedOption && selectedOption.text && subject.value) {
+            subjectText = 'Contacto web - ' + selectedOption.text;
+          }
+        }
+
+        var bodyLines = [
+          'Hola Frank,',
+          '',
+          'Te escribo desde el formulario de contacto de tu web.',
+          '',
+          'Nombre: ' + (name ? name.value.trim() : ''),
+          'Email: ' + (email ? email.value.trim() : ''),
+          'Asunto: ' + (subject && subject.value ? subject.options[subject.selectedIndex].text : 'No especificado'),
+          '',
+          'Mensaje:',
+          (message ? message.value.trim() : '')
+        ];
+
+        var mailtoUrl = 'mailto:frankalayzah@gmail.com'
+          + '?subject=' + encodeURIComponent(subjectText)
+          + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+
+        window.location.href = mailtoUrl;
+      } else {
+        alert('Debes completar todos los campos para poder enviar el mensaje.');
       }
     });
   }
 
-  // Newsletter form (simple validation)
+  // Newsletter form
   var newsletterForms = document.querySelectorAll('.blog-newsletter__form');
   newsletterForms.forEach(function(form) {
+    var action = (form.getAttribute('action') || '').trim();
+
+    // Fallback only for demo/local forms without real endpoint.
+    if (!action || action === '#') {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          alert('¡Gracias por suscribirte! Recibirás contenido sobre IA y datos.');
+          form.reset();
+        }
+      });
+      return;
+    }
+
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
       var emailInput = form.querySelector('input[type="email"]');
-      if (emailInput && emailInput.value) {
-        alert('¡Gracias por suscribirte! Recibirás contenido sobre IA y datos.');
-        form.reset();
+      if (!emailInput || !emailInput.value) {
+        e.preventDefault();
+        return;
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
       }
     });
   });

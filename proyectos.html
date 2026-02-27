@@ -62,252 +62,63 @@
       </div>
     </section>
 
-    <!-- Projects Filter & Grid -->
+    <!-- Projects Grid -->
     <section class="projects-section">
       <div class="container">
-        <!-- Filters -->
-        <div class="projects-filters animate-in" data-delay="160">
-          <button class="filter-btn filter-btn--active" data-filter="all">Todos</button>
-          <button class="filter-btn" data-filter="ia">IA</button>
-          <button class="filter-btn" data-filter="data">Data</button>
-          <button class="filter-btn" data-filter="automatizacion">Automatización</button>
-          <button class="filter-btn" data-filter="producto">Producto</button>
-          <button class="filter-btn" data-filter="opensource">Open Source</button>
-        </div>
-
-        <!-- Projects Grid -->
-        <div class="projects-grid">
-          <!-- Project 1: IA -->
-          <article class="project-card project-card--detailed animate-in" data-delay="0" data-category="ia">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>IA</span>
+        <div class="cases-grid">
+          <article class="case-card animate-in" data-delay="0">
+            <div class="case-card__badge">Analítica Predictiva</div>
+            <h2 class="case-card__title">Simulador de escenarios competitivos para consultora</h2>
+            <div class="case-card__content">
+              <div class="case-card__item">
+                <span class="case-card__label">Problema</span>
+                <p>Una empresa de consultoría realizaba predicciones de resultados de forma manual; el proceso era lento, complejo y dificultaba reaccionar frente a la competencia.</p>
               </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Chatbot con RAG para Soporte</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>Empresa de servicios con alto volumen de consultas repetitivas en soporte técnico.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Equipo saturado, tiempos de respuesta de +24h, clientes insatisfechos.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>Chatbot con LLM + base de conocimiento vectorial (RAG) + escalamiento inteligente a humanos.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>70% de consultas resueltas automáticamente, tiempo de respuesta promedio: 2 minutos.</p>
-                </div>
+              <div class="case-card__item">
+                <span class="case-card__label">Enfoque</span>
+                <p>Desarrollo de una aplicación web con Python (backend y frontend) capaz de iterar múltiples combinaciones de variables para identificar el escenario óptimo con mayor velocidad y consistencia.</p>
               </div>
-              <div class="project-card__tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">LangChain</span>
-                <span class="project-tag">OpenAI</span>
-                <span class="project-tag">Pinecone</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Caso de Estudio</a>
+              <div class="case-card__item case-card__item--result">
+                <span class="case-card__label">Resultado</span>
+                <p>Simulaciones de predicción en minutos y con un clic, mayor precisión analítica y reducción de costos operativos al disminuir la carga de análisis manual.</p>
               </div>
             </div>
           </article>
 
-          <!-- Project 2: Data -->
-          <article class="project-card project-card--detailed animate-in" data-delay="100" data-category="data">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>DATA</span>
+          <article class="case-card animate-in" data-delay="100">
+            <div class="case-card__badge">Optimización Operativa</div>
+            <h2 class="case-card__title">Digitalización administrativa para negocio particular</h2>
+            <div class="case-card__content">
+              <div class="case-card__item">
+                <span class="case-card__label">Problema</span>
+                <p>El negocio tenía procesos administrativos y gestión de datos mayormente manuales, con baja trazabilidad y poca velocidad operativa.</p>
               </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Dashboard Ejecutivo E-commerce</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>E-commerce mediano con datos dispersos en múltiples fuentes (Shopify, GA, CRM).</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Reportes manuales semanales, decisiones tardías, sin visibilidad de métricas clave.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>Pipeline ETL automatizado + data warehouse en BigQuery + dashboard en tiempo real.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>Visibilidad diaria, 8h/semana ahorradas en reportes, decisiones basadas en datos.</p>
-                </div>
+              <div class="case-card__item">
+                <span class="case-card__label">Enfoque</span>
+                <p>Implementación de plantillas de Excel con fórmulas, digitalización de procesos clave y automatización de flujos entre aplicaciones según cada necesidad.</p>
               </div>
-              <div class="project-card__tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">BigQuery</span>
-                <span class="project-tag">Power BI</span>
-                <span class="project-tag">Airflow</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Ver Dashboard</a>
+              <div class="case-card__item case-card__item--result">
+                <span class="case-card__label">Resultado</span>
+                <p>Operación más ordenada y ágil, mejor adopción tecnológica y menor dependencia de tareas repetitivas gracias a automatizaciones.</p>
               </div>
             </div>
           </article>
 
-          <!-- Project 3: Automatización -->
-          <article class="project-card project-card--detailed animate-in" data-delay="200" data-category="automatizacion">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>AUTO</span>
+          <article class="case-card animate-in" data-delay="200">
+            <div class="case-card__badge">Transformación Digital</div>
+            <h2 class="case-card__title">Negocio independiente orientado por datos</h2>
+            <div class="case-card__content">
+              <div class="case-card__item">
+                <span class="case-card__label">Problema</span>
+                <p>El negocio operaba con registros en hojas físicas, sin visibilidad del desempeño ni información confiable para tomar decisiones.</p>
               </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Pipeline de Procesamiento de Facturas</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>Empresa de distribución que procesa cientos de facturas de proveedores mensualmente.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Procesamiento manual, errores frecuentes de captura, retrasos en pagos.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>OCR + extracción con IA + validación automática + integración directa con ERP.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>95% procesado automáticamente, errores reducidos 80%, ciclo de pago optimizado.</p>
-                </div>
+              <div class="case-card__item">
+                <span class="case-card__label">Enfoque</span>
+                <p>Digitalización integral del negocio, estructuración de datos y automatización de campañas de marketing para medir resultados y decidir en base a evidencia.</p>
               </div>
-              <div class="project-card__tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">Azure OCR</span>
-                <span class="project-tag">FastAPI</span>
-                <span class="project-tag">PostgreSQL</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Caso de Estudio</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 4: Producto -->
-          <article class="project-card project-card--detailed animate-in" data-delay="300" data-category="producto">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>MVP</span>
-              </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Plataforma SaaS de Analytics</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>Producto propio para pequeñas empresas que necesitan analytics sin complejidad técnica.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Pymes sin acceso a herramientas de BI por costo o complejidad técnica.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>MVP con integraciones plug-and-play, dashboards pre-configurados por industria.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>Producto validado con usuarios reales, iteraciones basadas en feedback continuo.</p>
-                </div>
-              </div>
-              <div class="project-card__tags">
-                <span class="project-tag">React</span>
-                <span class="project-tag">Node.js</span>
-                <span class="project-tag">PostgreSQL</span>
-                <span class="project-tag">AWS</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Ver Producto</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 5: Open Source -->
-          <article class="project-card project-card--detailed animate-in" data-delay="400" data-category="opensource">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>OSS</span>
-              </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Librería de utilidades para Data Pipelines</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>Colección de herramientas y utilidades que uso frecuentemente en proyectos de datos.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Código repetitivo en cada proyecto para validación, logging, configuración.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>Librería modular, bien documentada, con tests y ejemplos de uso.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>Código reutilizable, contribuciones de la comunidad, aprendizaje compartido.</p>
-                </div>
-              </div>
-              <div class="project-card__tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">PyPI</span>
-                <span class="project-tag">pytest</span>
-                <span class="project-tag">GitHub Actions</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Documentación</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 6: IA -->
-          <article class="project-card project-card--detailed animate-in" data-delay="500" data-category="ia">
-            <div class="project-card__image">
-              <div class="project-placeholder">
-                <span>ML</span>
-              </div>
-            </div>
-            <div class="project-card__content">
-              <h2 class="project-card__title">Modelo Predictivo de Ventas</h2>
-              <div class="project-card__context">
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Contexto</span>
-                  <p>Retail con múltiples SKUs y estacionalidad variable en demanda.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Problema</span>
-                  <p>Forecasting manual con hojas de cálculo, stock-outs frecuentes, exceso de inventario.</p>
-                </div>
-                <div class="project-card__context-item">
-                  <span class="project-card__context-label">Enfoque</span>
-                  <p>Modelo de series temporales + variables externas (clima, eventos) + API de predicción.</p>
-                </div>
-                <div class="project-card__context-item project-card__context-item--result">
-                  <span class="project-card__context-label">Resultado</span>
-                  <p>Error de predicción reducido 40%, optimización de inventario, menos stockouts.</p>
-                </div>
-              </div>
-              <div class="project-card__tags">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">Prophet</span>
-                <span class="project-tag">XGBoost</span>
-                <span class="project-tag">MLflow</span>
-              </div>
-              <div class="project-card__links">
-                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Caso de Estudio</a>
+              <div class="case-card__item case-card__item--result">
+                <span class="case-card__label">Resultado</span>
+                <p>Aumento sostenido de clientes e incremento de ingresos superior al 120%.</p>
               </div>
             </div>
           </article>
