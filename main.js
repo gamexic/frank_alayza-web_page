@@ -51,20 +51,46 @@
   var nav = document.querySelector('.nav');
 
   if (navToggle && nav) {
+    function closeMobileMenu() {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Abrir menú');
+      nav.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function openMobileMenu() {
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Cerrar menú');
+      nav.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
     navToggle.addEventListener('click', function () {
       var isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !isOpen);
-      nav.classList.toggle('is-open');
-      document.body.style.overflow = isOpen ? '' : 'hidden';
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
 
     // Cerrar al hacer clic en cualquier enlace del menú
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        navToggle.setAttribute('aria-expanded', 'false');
-        nav.classList.remove('is-open');
-        document.body.style.overflow = '';
+        closeMobileMenu();
       });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
+      }
     });
   }
 
