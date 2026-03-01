@@ -1,106 +1,152 @@
-# Frank Alayza – Página web personal
+# Frank Alayza - Web Personal
 
-Página web profesional para tu marca personal: emprendedor, científico de datos y programador, amante de la tecnologia y de la Inteligencia Artifical. Inspirada en el estilo limpio y elegante.
+Sitio web estatico personal/profesional de Frank Alayza.
 
-## Contenido
+## Stack
 
-- **Hero**: presentación con tu nombre y propuesta de valor
-- **Enfoque**: mensaje central (datos, código, emprendimiento)
-- **Áreas**: Emprendimiento, Ciencia de datos, Programación
-- **Sobre mí**: credenciales y experiencia con viñetas
-- **Certificados**: tarjetas para mostrar tus certificaciones (puedes añadir imágenes y enlaces)
-- **Contacto**: email, LinkedIn, GitHub
+- HTML (`*.html`)
+- CSS (`styles.css`)
+- JavaScript vanilla (`main.js`)
+- Assets locales (`assets/`)
 
-## Cómo ver la página
-
-Abre `index.html` en el navegador o sirve la carpeta con un servidor local:
+## Ejecutar en local
 
 ```bash
-# Con Python
+# Opcion 1
 python3 -m http.server 8000
 
-# Con Node (npx)
+# Opcion 2
 npx serve .
 ```
 
-Luego visita `http://localhost:8000`.
+Abrir: `http://localhost:8000`
 
-## Personalización
+## Estructura principal
 
-1. **Contacto** (en `index.html`): sustituye `tu@email.com`, la URL de LinkedIn y la de GitHub por tus datos reales.
-2. **Certificados**: reemplaza las tarjetas de ejemplo por tus certificados. Puedes usar `<img src="ruta/certificado.jpg">` dentro de `.cert-placeholder` y poner el título e institución en cada `.cert-card`.
-3. **Foto**: en la sección “Sobre mí” hay un placeholder con “FA”. Puedes sustituir `.about-placeholder` por una imagen tuya si lo deseas.
-
-## Estructura de archivos
-
-- `index.html` – estructura y contenido
-- `styles.css` – estilos (tipografía Cormorant Garamond + Inter, paleta sobria)
-- `main.js` – menú móvil y año en el footer
+- `index.html`: landing principal
+- `sobre-mi.html`, `servicios.html`, `proyectos.html`, `contenido.html`, `recursos.html`, `certificados.html`, `contacto.html`
+- `privacidad.html`, `terminos.html`
+- `styles.css`: estilos globales y responsive
+- `main.js`: tema, menu movil, animaciones e interacciones
+- `assets/`: imagenes, CV y certificados
+- `CNAME`: dominio custom de GitHub Pages (`frankalayza.me`)
 
 ---
 
-## Sistema de Temas
+## Publicacion oficial (GitHub Pages + dominio custom)
 
-La página incluye un toggle de tema (sol/luna) en el header que permite alternar entre modo claro y oscuro. La preferencia se guarda en `localStorage` y se aplica un script anti-flash para evitar parpadeos al cargar.
+Estado objetivo:
 
-### Modo Oscuro (Predeterminado)
+- Hosting: **GitHub Pages**
+- Dominio: **`frankalayza.me`**
+- SSL: **GitHub Pages (HTTPS automatico)**
+- Despliegue: **`git push` a `master`**
 
-Estética neón profesional con fondos oscuros y acentos brillantes.
+> En esta etapa **NO** se usa el VPS para publicar este sitio.
 
-**Paleta:**
+### 1) Configuracion inicial (solo una vez)
 
-| Elemento | Color | Hex |
-|----------|-------|-----|
-| Fondo principal | Negro profundo | `#0a0a0f` |
-| Fondo secundario | Negro azulado | `#12121a` |
-| Fondo cards | Gris oscuro | `#1a1a24` |
-| Texto principal | Blanco hueso | `#f0f0f5` |
-| Texto secundario | Gris claro | `#a0a0b0` |
-| Neón Azul | Cian eléctrico | `#00d4ff` |
-| Neón Morado | Violeta brillante | `#a855f7` |
-| Neón Dorado | Ámbar | `#fbbf24` |
-| Neón Verde | Esmeralda | `#22c55e` |
+#### 1.1 GitHub Pages
 
-**Efectos visuales:**
-- Gradientes neón en timeline, botones y bordes
-- Glow pulsante en marcadores del timeline
-- Sombras con tinte de colores neón
-- Hover con efectos de brillo
+En tu repo de GitHub:
 
-### Modo Claro
+1. Ir a `Settings > Pages`.
+2. En `Source`, elegir `Deploy from a branch`.
+3. Branch: `master`.
+4. Folder: `/ (root)`.
+5. Guardar.
 
-Estética limpia y vibrante con fondos cálidos y acentos coloridos.
+#### 1.2 Dominio custom
 
-**Paleta:**
+1. En la misma pantalla (`Settings > Pages`), en `Custom domain`, escribir:
+   - `frankalayza.me`
+2. Guardar.
 
-| Elemento | Color | Hex |
-|----------|-------|-----|
-| Fondo principal | Crema cálido | `#faf9f7` |
-| Fondo secundario | Beige suave | `#f0ede8` |
-| Fondo cards | Blanco puro | `#ffffff` |
-| Texto principal | Casi negro | `#1a1a1a` |
-| Texto secundario | Gris medio | `#5c5c5c` |
-| Azul Eléctrico | Acento principal | `#0066ff` |
-| Violeta | Acento secundario | `#7c3aed` |
-| Ámbar | Acento cálido | `#f59e0b` |
-| Esmeralda | Acento success | `#10b981` |
+#### 1.3 DNS del dominio
 
-**Efectos visuales:**
-- Hero con gradiente radial sutil azul/violeta
-- Botones con gradiente azul → violeta
-- Cards con borde colorido al hover
-- Timeline con línea azul brillante
-- Links con underline gradiente
+En tu proveedor DNS, dejar asi:
 
-### Toggle de Tema
+- Registros A para el apex (`@`):
+  - `185.199.108.153`
+  - `185.199.109.153`
+  - `185.199.110.153`
+  - `185.199.111.153`
+- `www` como CNAME a:
+  - `frankalayza.me`
+  - (alternativa valida: `gamexic.github.io`)
 
-- Botón con íconos sol/luna en el header
-- Transiciones suaves de 0.4s entre temas
-- Preferencia guardada en `localStorage`
-- Script anti-flash en `<head>` para carga instantánea
+#### 1.4 HTTPS
+
+1. Esperar validacion de dominio en GitHub Pages.
+2. Activar `Enforce HTTPS`.
 
 ---
+
+## Flujo para volver a subir cambios (cada vez)
+
+1. Hacer cambios en archivos del proyecto.
+2. Probar localmente (`python3 -m http.server 8000`).
+3. Commit y push:
+
+```bash
+git add .
+git commit -m "feat: actualiza contenido/estilos"
+git push origin master
+```
+
+4. Esperar despliegue automatico de GitHub Pages (normalmente 1-3 min).
+5. Validar en:
+   - `https://frankalayza.me`
+   - `https://www.frankalayza.me` (si lo usas)
+
+---
+
+## Checklist de validacion post-deploy
+
+1. Carga `https://frankalayza.me` sin errores.
+2. No hay 404 de CSS/JS/imagenes.
+3. Navegacion completa entre paginas funciona.
+4. Modo claro/oscuro funciona.
+5. Responsive correcto en movil y desktop.
+6. Candado HTTPS visible en navegador.
+
+---
+
+## Troubleshooting
+
+### A) El dominio no abre o no actualiza
+
+- Revisar `Settings > Pages` y estado del deploy.
+- Verificar DNS (propagacion puede tardar).
+- Confirmar que `CNAME` exista en el root con `frankalayza.me`.
+
+Verificacion rapida DNS:
+
+```bash
+dig +short frankalayza.me A
+dig +short www.frankalayza.me CNAME
+```
+
+### B) HTTPS no se puede activar
+
+- Esperar a que GitHub termine validacion del dominio.
+- Revisar que no haya registros DNS conflictivos.
+
+### C) Se despliega una version vieja
+
+- Confirmar que el push fue a `master`.
+- Revisar que Pages este leyendo `master` + `/ (root)`.
+- Hacer hard refresh del navegador.
+
+---
+
+## Notas importantes
+
+1. El archivo `CNAME` debe mantenerse en el root del repo.
+2. Si cambias de branch de publicacion, actualizar `Settings > Pages`.
+3. El SSL comprado no es necesario en esta arquitectura (GitHub ya provee TLS).
+4. Por seguridad, si compartiste credenciales de servidores en algun canal, cambia claves y usa SSH keys.
 
 ## Licencia
 
-Uso personal. Puedes modificar y publicar como quieras.
+Uso personal. Puedes modificar y publicar segun tus necesidades.
