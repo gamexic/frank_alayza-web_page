@@ -97,6 +97,10 @@
   // Header: sombra al hacer scroll
   var header = document.querySelector('.header');
   if (header) {
+    function syncHeaderHeight() {
+      document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+    }
+
     function onScroll() {
       if (window.scrollY > 30) {
         header.classList.add('header--scrolled');
@@ -104,6 +108,10 @@
         header.classList.remove('header--scrolled');
       }
     }
+
+    window.addEventListener('resize', syncHeaderHeight);
+    window.addEventListener('load', syncHeaderHeight);
+    syncHeaderHeight();
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }

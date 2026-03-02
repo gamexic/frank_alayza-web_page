@@ -41,6 +41,7 @@
   --neon-gold: #fbbf24;
   --neon-green: #22c55e;
   --header-bg: rgba(250, 249, 247, 0.95);
+  --header-height: 96px;
 }
 
 /* Dark theme */
@@ -94,6 +95,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
   overflow-x: hidden;
 }
 
@@ -104,6 +106,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
+  padding-top: var(--header-height);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -166,8 +169,10 @@ a:hover {
 
 /* Header */
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 50;
   background: var(--header-bg);
   backdrop-filter: blur(12px);
