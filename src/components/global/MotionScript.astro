@@ -39,7 +39,13 @@
     const els = document.querySelectorAll<HTMLElement>('[data-counter]');
     els.forEach((el) => {
       const raw = el.dataset.counter || el.textContent || '0';
-      const { prefix, value, suffix, decimals } = parseCounter(raw);
+      const parsed = parseCounter(raw);
+      const { value, decimals } = parsed;
+      // data-prefix / data-suffix explicitos (Counter.astro) tienen prioridad y
+      // envuelven SIEMPRE al numero animado; si no existen, se usan los que
+      // parseCounter deriva del string completo (p.ej. data-counter="+120%").
+      const prefix = el.dataset.prefix !== undefined ? el.dataset.prefix : parsed.prefix;
+      const suffix = el.dataset.suffix !== undefined ? el.dataset.suffix : parsed.suffix;
       const render = (v: number) => {
         el.textContent = prefix + v.toFixed(decimals) + suffix;
       };

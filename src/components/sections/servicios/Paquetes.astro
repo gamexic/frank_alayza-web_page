@@ -20,7 +20,7 @@ import { packages, packagesIntro } from '~/data/packages';
   tone="base"
   width="wide"
 >
-  <div class="pkg-grid">
+  <div class="pkg-grid reveal">
     {packages.map((pkg) => (
       <Card
         class:list={['pkg-card', { 'pkg-card--featured': pkg.featured }]}
@@ -103,6 +103,19 @@ import { packages, packagesIntro } from '~/data/packages';
 
   .pkg-card__badge {
     align-self: flex-start;
+    /* Glow dorado que respira muy suave para atraer la vista al plan destacado. */
+    animation: badgePulse 3.4s var(--ease-out-expo) infinite;
+    will-change: box-shadow;
+  }
+
+  @keyframes badgePulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+    }
+    50% {
+      box-shadow: 0 0 15px -1px rgba(251, 191, 36, 0.5);
+    }
   }
 
   .pkg-card__head {
@@ -209,6 +222,9 @@ import { packages, packagesIntro } from '~/data/packages';
   @media (prefers-reduced-motion: reduce) {
     .pkg-card--featured {
       transform: none !important;
+    }
+    .pkg-card__badge {
+      animation: none;
     }
   }
 </style>

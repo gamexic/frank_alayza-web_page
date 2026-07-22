@@ -1,0 +1,55 @@
+# Despliegue automatico del sitio (Astro) a GitHub Pages.
+#
+# Flujo:
+#   1. Se dispara en cada push a la rama "master" y tambien de forma manual
+#      (boton "Run workflow" en la pestana Actions -> workflow_dispatch).
+#   2. Job "build": withastro/action instala dependencias, ejecuta `astro build`
+#      y sube el contenido de dist/ como artefacto de Pages (incluye CNAME y
+#      .nojekyll que viven en public/, asi el dominio custom se conserva).
+#   3. Job "deploy": actions/deploy-pages publica ese artefacto en GitHub Pages.
+#
+# IMPORTANTE: en el repositorio, Settings -> Pages -> "Build and deployment" ->
+# Source DEBE estar en "GitHub Actions" (NO en "Deploy from a branch"). Si sigue
+# en "Deploy from a branch", este workflow no publica y ademas la web en vivo se
+# rompe al pushear el codigo Astro (no hay index.html en la raiz de master).
+# Ver el README (seccion DEPLOY, "Secuencia critica") antes del primer push.
+
+name: Deploy a GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Permisos minimos que exige actions/deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo despliegue a la vez; no cancela el que ya este en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # withastro/action detecta el gestor de paquetes, instala dependencias,
+      # ejecuta el build y sube dist/ como artefacto de Pages automaticamente.
+      - name: Build con Astro
+        uses: withastro/action@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

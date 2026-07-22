@@ -271,3 +271,52 @@ const accentVar = (a: string): string =>
     }
   }
 </style>
+
+<script>
+  // Hover-tilt 3D muy sutil (<=3deg) en las showcase cards de negocios.
+  // Solo desktop con puntero fino y sin reduced-motion. Autocontenido: se
+  // reinicia en astro:page-load y limpia sus listeners en astro:before-swap.
+  type TiltCleanup = () => void;
+  let tiltCleanups: TiltCleanup[] = [];
+
+  function initShowcaseTilt() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (reduce || !canHover) return;
+
+    const MAX = 3; // grados maximos de inclinacion
+
+    document.querySelectorAll<HTMLElement>('.showcase').forEach((card) => {
+      if (card.dataset.tiltBound === '1') return;
+      card.dataset.tiltBound = '1';
+
+      const onMove = (e: PointerEvent) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5; // -0.5 .. 0.5
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        const ry = (px * MAX * 2).toFixed(2);
+        const rx = (-py * MAX * 2).toFixed(2);
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+      };
+      const onLeave = () => {
+        // Vuelve al estado gobernado por CSS (.reveal.is-visible -> transform:none).
+        card.style.transform = '';
+      };
+
+      card.addEventListener('pointermove', onMove);
+      card.addEventListener('pointerleave', onLeave);
+      tiltCleanups.push(() => {
+        card.removeEventListener('pointermove', onMove);
+        card.removeEventListener('pointerleave', onLeave);
+        card.style.transform = '';
+        delete card.dataset.tiltBound;
+      });
+    });
+  }
+
+  initShowcaseTilt();
+  document.addEventListener('astro:page-load', initShowcaseTilt);
+  document.addEventListener('astro:before-swap', () => {
+    while (tiltCleanups.length) tiltCleanups.pop()?.();
+  });
+</script>

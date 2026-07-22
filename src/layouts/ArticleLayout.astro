@@ -78,6 +78,12 @@ const blogPosting = {
 >
   <JsonLd slot="head" data={blogPosting} />
 
+  {/* Barra fina de progreso de lectura (dorada, fija arriba). Se mueve solo con
+      el scroll del usuario, por lo que es segura con reduced-motion. */}
+  <div class="reading-progress" aria-hidden="true">
+    <span class="reading-progress__fill" data-reading-progress></span>
+  </div>
+
   <article class="article">
     <!-- Hero -->
     <header class="article-hero" data-accent={accent}>
@@ -192,6 +198,30 @@ const blogPosting = {
 </BaseLayout>
 
 <style>
+  /* ---------- Barra de progreso de lectura ---------- */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    /* Encima del header (100), debajo del menú móvil (120). */
+    z-index: 110;
+    pointer-events: none;
+    background: transparent;
+  }
+
+  .reading-progress__fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: var(--grad-gold);
+    box-shadow: 0 0 10px -1px rgba(251, 191, 36, 0.6);
+    /* Sin transición: sigue el scroll 1:1 (accesible con reduced-motion). */
+  }
+
   /* ---------- Hero ---------- */
   .article-hero {
     position: relative;
@@ -738,3 +768,53 @@ const blogPosting = {
     color: var(--text-muted);
   }
 </style>
+
+<script>
+  // Progreso de lectura: escala la barra dorada según el scroll del documento.
+  // Solo listeners pasivos + rAF; se reinicia en astro:page-load y limpia en
+  // astro:before-swap para no acumular listeners con View Transitions.
+  let readingProgressCleanup: (() => void) | null = null;
+
+  function initReadingProgress() {
+    const fill = document.querySelector<HTMLElement>('[data-reading-progress]');
+    if (!fill) return;
+
+    // Evita listeners duplicados (page-load puede dispararse varias veces).
+    if (readingProgressCleanup) {
+      readingProgressCleanup();
+      readingProgressCleanup = null;
+    }
+
+    const doc = document.documentElement;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0;
+      fill.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+
+    readingProgressCleanup = () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }
+
+  document.addEventListener('astro:page-load', initReadingProgress);
+  document.addEventListener('astro:before-swap', () => {
+    if (readingProgressCleanup) {
+      readingProgressCleanup();
+      readingProgressCleanup = null;
+    }
+  });
+</script>

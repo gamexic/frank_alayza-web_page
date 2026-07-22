@@ -1,152 +1,168 @@
-# Frank Alayza - Web Personal
+# Frank Alayza — Web personal
 
-Sitio web estatico personal/profesional de Frank Alayza.
+Sitio web personal y profesional de **Frank Alayza** (frankalayza.me): administrador
+de negocios de tecnologia y builder AI Native. Rediseño premium construido con
+**Astro 5**, tema oscuro puro (negro + dorado, acentos neon cian/morado), identidad
+de marca propia e iconografia 100% vectorial (cero emojis, cero iconos genericos).
+
+El sitio se sirve como HTML estatico en **GitHub Pages** con dominio custom
+`frankalayza.me`.
 
 ## Stack
 
-- HTML (`*.html`)
-- CSS (`styles.css`)
-- JavaScript vanilla (`main.js`)
-- Assets locales (`assets/`)
+- **Astro 5** — build estatico. `build.format: 'file'` conserva las URLs actuales
+  1:1 (`servicios.html`, `contenido-mvp-4-semanas.html`, etc.), sin redirects.
+- **@astrojs/sitemap** — `sitemap-index.xml` automatico.
+- **sharp** — optimizacion de imagenes (`astro:assets`: webp/avif + srcset + width/height).
+- **GSAP** (npm) — animaciones cinematograficas por scroll.
+- **@fontsource** — fuentes self-hosted (sin Google Fonts externo): Space Grotesk
+  (titulares), Chakra Petch (cifras/eyebrows), Inter (cuerpo).
+- **CSS propio con design tokens** (no Tailwind): `src/styles/{tokens,base,global}.css`
+  + estilos scoped por componente.
 
-## Ejecutar en local
+Requisitos: Node 20+ (probado con Node 26 / npm 11).
 
-```bash
-# Opcion 1
-python3 -m http.server 8000
-
-# Opcion 2
-npx serve .
-```
-
-Abrir: `http://localhost:8000`
-
-## Estructura principal
-
-- `index.html`: landing principal
-- `sobre-mi.html`, `servicios.html`, `proyectos.html`, `contenido.html`, `recursos.html`, `certificados.html`, `contacto.html`
-- `privacidad.html`, `terminos.html`
-- `styles.css`: estilos globales y responsive
-- `main.js`: tema, menu movil, animaciones e interacciones
-- `assets/`: imagenes, CV y certificados
-- `CNAME`: dominio custom de GitHub Pages (`frankalayza.me`)
-
----
-
-## Publicacion oficial (GitHub Pages + dominio custom)
-
-Estado objetivo:
-
-- Hosting: **GitHub Pages**
-- Dominio: **`frankalayza.me`**
-- SSL: **GitHub Pages (HTTPS automatico)**
-- Despliegue: **`git push` a `master`**
-
-> En esta etapa **NO** se usa el VPS para publicar este sitio.
-
-### 1) Configuracion inicial (solo una vez)
-
-#### 1.1 GitHub Pages
-
-En tu repo de GitHub:
-
-1. Ir a `Settings > Pages`.
-2. En `Source`, elegir `Deploy from a branch`.
-3. Branch: `master`.
-4. Folder: `/ (root)`.
-5. Guardar.
-
-#### 1.2 Dominio custom
-
-1. En la misma pantalla (`Settings > Pages`), en `Custom domain`, escribir:
-   - `frankalayza.me`
-2. Guardar.
-
-#### 1.3 DNS del dominio
-
-En tu proveedor DNS, dejar asi:
-
-- Registros A para el apex (`@`):
-  - `185.199.108.153`
-  - `185.199.109.153`
-  - `185.199.110.153`
-  - `185.199.111.153`
-- `www` como CNAME a:
-  - `frankalayza.me`
-  - (alternativa valida: `gamexic.github.io`)
-
-#### 1.4 HTTPS
-
-1. Esperar validacion de dominio en GitHub Pages.
-2. Activar `Enforce HTTPS`.
-
----
-
-## Flujo para volver a subir cambios (cada vez)
-
-1. Hacer cambios en archivos del proyecto.
-2. Probar localmente (`python3 -m http.server 8000`).
-3. Commit y push:
+## Comandos
 
 ```bash
-git add .
-git commit -m "feat: actualiza contenido/estilos"
-git push origin master
+npm install     # instalar dependencias
+npm run dev      # servidor de desarrollo (http://localhost:4321)
+npm run build    # build de produccion -> dist/
+npm run preview  # previsualizar el build de dist/ en local
 ```
 
-4. Esperar despliegue automatico de GitHub Pages (normalmente 1-3 min).
-5. Validar en:
-   - `https://frankalayza.me`
-   - `https://www.frankalayza.me` (si lo usas)
+## Estructura de carpetas (resumen)
 
----
-
-## Checklist de validacion post-deploy
-
-1. Carga `https://frankalayza.me` sin errores.
-2. No hay 404 de CSS/JS/imagenes.
-3. Navegacion completa entre paginas funciona.
-4. Modo claro/oscuro funciona.
-5. Responsive correcto en movil y desktop.
-6. Candado HTTPS visible en navegador.
-
----
-
-## Troubleshooting
-
-### A) El dominio no abre o no actualiza
-
-- Revisar `Settings > Pages` y estado del deploy.
-- Verificar DNS (propagacion puede tardar).
-- Confirmar que `CNAME` exista en el root con `frankalayza.me`.
-
-Verificacion rapida DNS:
-
-```bash
-dig +short frankalayza.me A
-dig +short www.frankalayza.me CNAME
+```
+public/                     # se copia tal cual al build (NO se procesa)
+  CNAME                      # dominio custom: frankalayza.me
+  .nojekyll                  # evita que GitHub Pages aplique Jekyll
+  robots.txt
+  favicon.svg
+  assets/certificados/*.pdf  # 12 PDFs de certificados
+  assets/cv/cv-frank-alayza.pdf
+  assets/og/share.jpg        # imagen Open Graph por defecto (ver Higgsfield: og-base)
+src/
+  assets/
+    fotos/                   # fotos reales (optimizadas por astro:assets)
+    marca/                   # logos (gold/blue/mix) + logo-icon.svg + monograma FA
+    higgsfield/              # ENCHUFE de assets Higgsfield (ver mas abajo)
+  components/
+    global/                  # Header, Footer, NeuralBackground, Reveal/Motion scripts
+    ui/                      # Icon, Logo, MediaSlot, Button, Card, Toast, Modal, ...
+    sections/                # secciones por pagina (home, about, servicios, ...)
+    forms/                   # ContactForm, NewsletterForm (FormSubmit AJAX)
+    seo/                     # JsonLd.astro (Person / BlogPosting)
+  content/blog/              # 12 articulos en Markdown (coleccion "blog")
+  data/                      # fuente unica de verdad (site, services, projects, ...)
+  layouts/                   # BaseLayout, ArticleLayout, LegalLayout
+  pages/                     # rutas (index, sobre-mi, servicios, [post], 404, ...)
+  styles/                    # tokens.css, base.css, global.css
+astro.config.mjs
+.github/workflows/deploy.yml # CI de despliegue a GitHub Pages
 ```
 
-### B) HTTPS no se puede activar
+Los datos viven en `src/data/*.ts` (site, nav, services, packages, guarantees, faq,
+projects, values, process, timeline, skills, resources, certificates, blog,
+higgsfield). Editar contenido = editar datos, sin tocar el markup.
 
-- Esperar a que GitHub termine validacion del dominio.
-- Revisar que no haya registros DNS conflictivos.
+## Sistema de iconos y marca
 
-### C) Se despliega una version vieja
+- **`src/components/ui/Icon.astro`** — set propio de ~35 iconos vectoriales
+  (viewBox 24, stroke 1.5 redondeado): una linea en `currentColor` mas UN acento de
+  color (nodo/segmento de circuito, eco del logo). Props: `name`, `size`, `accent`,
+  `chip`, `label`. Reemplaza por completo cualquier emoji o icono de terceros.
+- **`src/components/ui/Logo.astro`** — logo de marca (cabeza de perfil fusionada con
+  una red de nodos) vectorizado a SVG, animable con `stroke-dashoffset`. Variantes
+  gold / cyan / mix. Tambien alimenta `public/favicon.svg`.
+- **`src/components/global/NeuralBackground.astro`** — canvas de nodos que se conectan
+  (fondo ambiental); pausado con `visibilitychange` y estatico bajo `prefers-reduced-motion`.
+- **Regla de marca**: cero emojis nativos en cualquier superficie del sitio. Todo
+  simbolo se dibuja con `Icon.astro` o `Logo.astro`.
 
-- Confirmar que el push fue a `master`.
-- Revisar que Pages este leyendo `master` + `/ (root)`.
-- Hacer hard refresh del navegador.
+## Slots de Higgsfield (enchufe de assets sin tocar codigo)
 
----
+El sitio **se ve completo sin ningun asset generado**: cada slot tiene un fallback
+propio animado (canvas, gradientes o foto real optimizada). Cuando Frank genera un
+asset en Higgsfield, basta con **soltar el archivo con el nombre EXACTO** en
+`src/assets/higgsfield/` y volver a hacer `npm run build`. El componente
+`MediaSlot.astro` (`import.meta.glob`) detecta el archivo y lo enchufa; si no existe,
+renderiza el fallback.
 
-## Notas importantes
+Nombres exactos de archivo (carpeta `src/assets/higgsfield/`):
 
-1. El archivo `CNAME` debe mantenerse en el root del repo.
-2. Si cambias de branch de publicacion, actualizar `Settings > Pages`.
-3. El SSL comprado no es necesario en esta arquitectura (GitHub ya provee TLS).
-4. Por seguridad, si compartiste credenciales de servidores en algun canal, cambia claves y usa SSH keys.
+| Archivo | Uso |
+|---|---|
+| `hero-loop.mp4` | Loop de fondo del hero (home). Poster opcional: `hero-loop-poster.jpg` |
+| `logo-reveal.mp4` | Reveal del logo de marca (cabeza-nodos) |
+| `retrato-frank.png` | Retrato principal (sobre-mi / home) |
+| `retrato-secundario.jpg` | Retrato secundario / b-roll |
+| `fondo-neural.jpg` | Fondo abstracto neural (banda CTA / secciones) |
+| `proyecto-clevun.jpg` | Cover del negocio Clevun (proyectos) |
+| `proyecto-iceguin.jpg` | Cover del negocio Iceguin (proyectos) |
+| `article-cover-<categoria>.jpg` | Cover por categoria del blog (5, ver abajo) |
+
+Las 5 categorias de `article-cover-<categoria>.jpg`:
+`ia-vida-real`, `data-negocio`, `construyendo-productos`, `modelos-fundacionales`,
+`escalada-disciplina`.
+
+**Excepcion — imagen Open Graph (`og-base.jpg`)**: esta NO pasa por el enchufe de
+`MediaSlot`. El sitio la lee desde `public/assets/og/share.jpg`. Para enchufarla,
+exporta la imagen a 1200x630 y guardala en `public/assets/og/share.jpg`.
+
+Reglas de los videos: audio SIEMPRE off, duracion maxima 8 s, MP4.
+
+Documento de encargos para generar estos assets (prompts listos, modelo recomendado
+y specs por cada slot): `~/Downloads/ENCARGOS-HIGGSFIELD-frankalayza.md` (y su version
+`.html` imprimible).
+
+## Formularios (FormSubmit)
+
+Los formularios de contacto (`ContactForm.astro`) y newsletter (`NewsletterForm.astro`)
+envian via **FormSubmit AJAX** (`fetch` a `formsubmit.co/ajax/...`) con validacion
+inline y feedback mediante toasts propios accesibles. Nada de `mailto:` ni
+`alert/confirm/prompt`. Incluyen honeypot (`_honey`) y `_captcha=false`.
+
+- **Activacion (una sola vez)**: el primer envio real dispara un email de
+  confirmacion de FormSubmit a `frankalayzah@gmail.com`. Hay que abrir ese correo y
+  confirmar para que empiecen a llegar los mensajes.
+- **Cambio a token (recomendado)**: tras activar, FormSubmit entrega un token
+  aleatorio. Conviene sustituir `frankalayzah@gmail.com` por ese token en el codigo
+  para no exponer el correo publicamente. Los puntos a cambiar estan marcados con
+  `CONFIRMAR FRANK` en `ContactForm.astro` y `NewsletterForm.astro` (el `action` del
+  `<form>` y la URL del `fetch`).
+
+## DEPLOY (GitHub Pages)
+
+El despliegue esta automatizado en `.github/workflows/deploy.yml`: en cada push a
+`master` (o manualmente con "Run workflow"), `withastro/action` construye el sitio y
+`actions/deploy-pages` lo publica. El `CNAME` y el `.nojekyll` viajan en `public/`, asi
+que el dominio custom se conserva.
+
+### Secuencia critica (primer paso de vanilla a Astro)
+
+Hoy la web en vivo se sirve con **"Deploy from a branch" (master / root)**. Si se
+pushea el codigo Astro con esa configuracion, **la web en vivo se rompe** porque ya
+no hay `index.html` en la raiz de `master` (todo se genera en `dist/`). Por eso el
+orden importa:
+
+1. **Merge local** de `redesign-astro` a `master` y borrar la rama temporal.
+   **Sin push todavia.**
+2. En GitHub, ve a **Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"**.
+   Cambiar ESTO **ANTES** de pushear. Mientras tanto, Pages sigue sirviendo la ultima
+   version ya desplegada, asi que el sitio no se cae.
+3. **Push a `master`**: el workflow construye y despliega automaticamente.
+4. **Verificar** `https://frankalayza.me` en vivo (navegacion, HTTPS, imagenes).
+
+> Si por error se pushea antes del paso 2, restaurar el Source a "GitHub Actions"
+> de inmediato y relanzar el workflow desde la pestana Actions.
+
+### Post-deploy
+
+- Activar FormSubmit con el primer envio (ver seccion anterior).
+- Confirmar que `dist/` contiene los mismos nombres `.html` que las URLs actuales
+  (paridad 1:1) y el `404.html` propio.
 
 ## Licencia
 
-Uso personal. Puedes modificar y publicar segun tus necesidades.
+Uso personal.

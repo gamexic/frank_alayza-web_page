@@ -23,7 +23,7 @@ const levelLabel: Record<string, string> = {
   intro={skillsIntro}
   tone="base"
 >
-  <div class="skills__grid" data-skills>
+  <div class="skills__grid stagger" data-skills>
     {skills.map((group) => (
       <Card class="skills-group" accent="cyan" data-skills-group>
         <div class="skills-group__head">
@@ -137,6 +137,9 @@ const levelLabel: Record<string, string> = {
 </style>
 
 <script>
+  // Observadores activos, para desconectarlos al salir de la página (View Transitions).
+  let skillObservers: IntersectionObserver[] = [];
+
   function initSkillBars() {
     const grids = document.querySelectorAll<HTMLElement>('[data-skills]');
     if (!grids.length) return;
@@ -176,9 +179,14 @@ const levelLabel: Record<string, string> = {
       );
 
       groups.forEach((g) => io.observe(g));
+      skillObservers.push(io);
     });
   }
 
   initSkillBars();
   document.addEventListener('astro:page-load', initSkillBars);
+  document.addEventListener('astro:before-swap', () => {
+    skillObservers.forEach((io) => io.disconnect());
+    skillObservers = [];
+  });
 </script>

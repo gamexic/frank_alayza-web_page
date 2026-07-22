@@ -1,0 +1,678 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Ir al inicio de Clevun" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - text: clevun
+        - generic [ref=e5]: .
+      - navigation "Navegación principal" [ref=e6]:
+        - link "Producto" [ref=e7] [cursor=pointer]:
+          - /url: /#producto
+        - link "Equipo" [ref=e8] [cursor=pointer]:
+          - /url: /#equipo
+        - link "Capacidades" [ref=e9] [cursor=pointer]:
+          - /url: /#capacidades
+        - link "Rubros" [ref=e10] [cursor=pointer]:
+          - /url: /#rubros
+        - link "Precios" [ref=e11] [cursor=pointer]:
+          - /url: /#pricing
+        - link "Preguntas" [ref=e12] [cursor=pointer]:
+          - /url: /#faq
+        - link "Blog" [ref=e13] [cursor=pointer]:
+          - /url: /blog
+      - generic [ref=e14]:
+        - link "Entrar" [ref=e15] [cursor=pointer]:
+          - /url: https://app.clevun.com
+        - link "Prueba gratis" [ref=e16] [cursor=pointer]:
+          - /url: https://app.clevun.com/registro?src=nav
+  - main [ref=e17]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - paragraph [ref=e21]: El sistema con IA para administrar tu negocio
+        - heading "Tu negocio responde, agenda y cobra solo." [level=1] [ref=e22]: Tu negocio responde,agenda y cobra solo.
+        - paragraph [ref=e23]:
+          - text: "Un equipo de agentes de IA atiende el WhatsApp de tu clínica, veterinaria, estudio o tienda las 24 horas: responde al instante, agenda citas, cobra por Yape y cada mañana te dice qué se te está escapando —"
+          - strong [ref=e24]: junto a ti
+          - text: . Tú decides cuánto delegar.
+        - generic [ref=e25]:
+          - link "Empieza gratis" [ref=e26] [cursor=pointer]:
+            - /url: https://app.clevun.com/registro?src=hero
+          - link "Ver a Clevy en acción" [ref=e29] [cursor=pointer]:
+            - /url: "#prueba-clevy"
+        - paragraph [ref=e30]: 7 días gratis con 200 conversaciones · Sin tarjeta · Tu cuenta nace lista, con datos de ejemplo de tu rubro
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]: Hola, ¿tienen cita para mañana?
+          - generic [ref=e39]:
+            - text: "¡Hola María! Sí: mañana tengo"
+            - strong [ref=e40]: 10:00am
+            - text: o
+            - strong [ref=e41]: 4:30pm
+            - text: . ¿Cuál te acomoda?
+          - generic [ref=e42]: 4:30 porfa
+          - generic [ref=e47]:
+            - paragraph [ref=e48]: Cita agendada — mañana 4:30pm
+            - paragraph [ref=e49]: Clevy la registró sola en tu agenda
+          - paragraph [ref=e50]: Mientras tanto, tú estabas atendiendo.
+        - generic [ref=e51]: Respondió en 4 seg
+        - generic [ref=e55]: Agendó sola
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - paragraph [ref=e63]: Pruébalo tú mismo
+        - heading "Escríbele a Clevy como si fueras el cliente." [level=2] [ref=e64]: Escríbele a Clevycomo si fueras el cliente.
+        - paragraph [ref=e65]:
+          - text: "Elige un negocio y conversa: Clevy responde al instante, cotiza del catálogo y agenda la cita sola. Es una"
+          - strong [ref=e66]: demostración guionada
+          - text: — tu Clevy real se configura con los datos de TU negocio.
+        - tablist "Elige un rubro para la demostración" [ref=e67]:
+          - tab "Clínica dental" [selected] [ref=e68] [cursor=pointer]
+          - tab "Veterinaria" [ref=e72] [cursor=pointer]
+          - tab "Tienda online" [ref=e78] [cursor=pointer]
+        - list [ref=e82]
+        - link "Quiero mi propia Clevy — 7 días gratis" [ref=e83] [cursor=pointer]:
+          - /url: https://app.clevun.com/registro?src=demo
+      - generic [ref=e84]:
+        - generic [ref=e87]:
+          - generic [ref=e88]: ‹
+          - generic [ref=e94]:
+            - paragraph [ref=e95]: Clínica Sonrisa
+            - paragraph [ref=e96]: en línea
+        - paragraph [ref=e104]: Demostración guionada — sin IA en vivo. Así se ve una conversación real con Clevy.
+    - region [ref=e105]:
+      - generic [ref=e106]:
+        - paragraph [ref=e107]: "Sin humo: así se ve por dentro"
+        - heading "Este es Clevun, de verdad." [level=2] [ref=e108]
+        - paragraph [ref=e109]: "No es un render ni una maqueta: es la app real navegándose — el consejo de Clevy al abrir el día, la agenda llenándose sola, un WhatsApp atendido y la caja cuadrada. Lo mismo que verás tú al entrar."
+        - paragraph [ref=e117]: Grabado en una cuenta con datos de ejemplo — tu cuenta nace igual de lista, con los de tu rubro.
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - paragraph [ref=e121]: Hecho para tu rubro
+        - heading "No es una plantilla genérica. Es Clevun en tu idioma." [level=2] [ref=e122]: No es una plantilla genérica.Es Clevun en tu idioma.
+        - paragraph [ref=e123]: "Al registrarte eliges tu rubro y TODO se adapta: el lenguaje, las pestañas, las herramientas de tu profesión y cómo habla Clevy con tus clientes. Tu cuenta nace con datos de ejemplo de tu mundo para que explores con confianza."
+      - generic [ref=e124]:
+        - link "Clínicas dentales Clínicas dentales Odontograma, historia clínica y post-operatorios" [ref=e125] [cursor=pointer]:
+          - /url: /para/clinicas-dentales
+          - img "Clínicas dentales" [ref=e127]
+          - generic [ref=e130]: Clínicas dentales
+          - generic [ref=e131]: Odontograma, historia clínica y post-operatorios
+        - 'link "Centros médicos Centros médicos Cualquier especialidad: signos vitales, recetas, laboratorio" [ref=e136] [cursor=pointer]':
+          - /url: /para/centros-medicos
+          - img "Centros médicos" [ref=e138]
+          - generic [ref=e142]: Centros médicos
+          - generic [ref=e143]: "Cualquier especialidad: signos vitales, recetas, laboratorio"
+        - link "Veterinarias Veterinarias Mascotas con carnet de vacunas y recordatorios" [ref=e148] [cursor=pointer]:
+          - /url: /para/veterinarias
+          - img "Veterinarias" [ref=e150]
+          - generic [ref=e155]: Veterinarias
+          - generic [ref=e156]: Mascotas con carnet de vacunas y recordatorios
+        - link "Estética y belleza Estética y belleza Fotos antes/después y paquetes de sesiones" [ref=e161] [cursor=pointer]:
+          - /url: /para/centros-de-estetica
+          - img "Estética y belleza" [ref=e163]
+          - generic [ref=e167]: Estética y belleza
+          - generic [ref=e168]: Fotos antes/después y paquetes de sesiones
+        - link "Barberías y peluquerías Barberías y peluquerías Clientes que vuelven cada mes con el recordatorio del corte" [ref=e173] [cursor=pointer]:
+          - /url: /para/barberias
+          - img "Barberías y peluquerías" [ref=e175]
+          - generic [ref=e179]: Barberías y peluquerías
+          - generic [ref=e180]: Clientes que vuelven cada mes con el recordatorio del corte
+        - link "Fisioterapia Fisioterapia Plan de sesiones con avance y evolución física" [ref=e185] [cursor=pointer]:
+          - /url: /para/fisioterapia
+          - img "Fisioterapia" [ref=e187]
+          - generic [ref=e193]: Fisioterapia
+          - generic [ref=e194]: Plan de sesiones con avance y evolución física
+        - link "Psicología Psicología Agenda con discreción absoluta y notas privadas" [ref=e199] [cursor=pointer]:
+          - /url: /para/psicologia
+          - img "Psicología" [ref=e201]
+          - generic [ref=e204]: Psicología
+          - generic [ref=e205]: Agenda con discreción absoluta y notas privadas
+        - link "Gimnasios Gimnasios Progreso físico y reactivación motivadora" [ref=e210] [cursor=pointer]:
+          - /url: /para/gimnasios
+          - img "Gimnasios" [ref=e212]
+          - generic [ref=e214]: Gimnasios
+          - generic [ref=e215]: Progreso físico y reactivación motivadora
+        - link "Estudios de abogados Estudios de abogados Casos, expedientes y aviso de audiencias" [ref=e220] [cursor=pointer]:
+          - /url: /para/abogados
+          - img "Estudios de abogados" [ref=e222]
+          - generic [ref=e225]: Estudios de abogados
+          - generic [ref=e226]: Casos, expedientes y aviso de audiencias
+        - link "Academias Academias Matrículas, clases de prueba y cobro de ciclos" [ref=e231] [cursor=pointer]:
+          - /url: /para/academias
+          - img "Academias" [ref=e233]
+          - generic [ref=e236]: Academias
+          - generic [ref=e237]: Matrículas, clases de prueba y cobro de ciclos
+        - link "Tiendas online Tiendas online Vendedora IA que cotiza, cobra y coordina entregas" [ref=e242] [cursor=pointer]:
+          - /url: /para/tiendas-online
+          - img "Tiendas online" [ref=e244]
+          - generic [ref=e247]: Tiendas online
+          - generic [ref=e248]: Vendedora IA que cotiza, cobra y coordina entregas
+        - link "Talleres mecánicos Talleres mecánicos Trabajos con estado y el vehículo avisado por WhatsApp" [ref=e253] [cursor=pointer]:
+          - /url: /para/talleres-mecanicos
+          - img "Talleres mecánicos" [ref=e255]
+          - generic [ref=e258]: Talleres mecánicos
+          - generic [ref=e259]: Trabajos con estado y el vehículo avisado por WhatsApp
+        - link "Cualquier negocio Cualquier negocio Citas, recordatorios y cobros para servicios" [ref=e264] [cursor=pointer]:
+          - /url: /para/negocios
+          - img "Cualquier negocio" [ref=e266]
+          - generic [ref=e270]: Cualquier negocio
+          - generic [ref=e271]: Citas, recordatorios y cobros para servicios
+    - generic [ref=e277]:
+      - generic [ref=e278]:
+        - paragraph [ref=e279]: Qué hace por ti
+        - heading "Un equipo incansable, no otra app que administrar." [level=2] [ref=e280]: Un equipo incansable,no otra app que administrar.
+      - generic [ref=e281]:
+        - article [ref=e282]:
+          - heading "Clevy atiende tu WhatsApp 24/7" [level=3] [ref=e286]
+          - paragraph [ref=e287]: "Responde precios y horarios al instante, agenda citas sola y deriva a tu equipo cuando detecta una urgencia o un caso que necesita criterio humano. Jamás inventa: solo usa TU catálogo y TUS reglas."
+          - paragraph [ref=e288]: "Respuesta promedio: segundos, no horas"
+        - article [ref=e289]:
+          - heading "Agenda que se cuida sola" [level=3] [ref=e295]
+          - paragraph [ref=e296]: Recordatorios automáticos que reducen las faltas, confirmación con un “1”, reagendado con un “2”, y reactivación de clientes que dejaron de venir. Cada mensaje es una plantilla que TÚ editas.
+          - paragraph [ref=e297]: Recordatorios, confirmaciones y reactivación incluidos
+        - article [ref=e298]:
+          - heading "Cobra sin perseguir a nadie" [level=3] [ref=e304]
+          - paragraph [ref=e305]: Clevy envía tu QR de Yape/Plin en el mismo chat cuando el cliente quiere pagar, lleva las deudas al día y te ordena la caja. El dinero se registra donde debe, en soles.
+          - paragraph [ref=e306]: Caja, deudas y comisiones en un solo lugar
+        - article [ref=e307]:
+          - heading "Siete especialistas, un solo sistema" [level=3] [ref=e313]
+          - paragraph [ref=e314]: "Detrás de Clevy trabajan 7 agentes especialistas —ventas, finanzas, contabilidad, marketing, operaciones y RR.HH.— coordinados por un cerebro central. Cada mañana te dejan el consejo del día: a quién cobrar, qué confirmar, qué se te escapa."
+          - paragraph [ref=e315]: Conoce al equipo más abajo — tú decides cuánto delegar
+    - generic [ref=e317]:
+      - generic [ref=e318]:
+        - paragraph [ref=e319]: Conoce al equipo
+        - heading "No es un chatbot. Es un equipo de IA." [level=2] [ref=e320]: No es un chatbot.Es un equipo de IA.
+        - paragraph [ref=e321]:
+          - text: Clevy es la cara de
+          - strong [ref=e322]: 7 agentes especialistas
+          - text: que trabajan juntos —cada uno experto en su área— coordinados por un mismo cerebro. Elige uno y mira exactamente qué vigila por ti.
+      - generic [ref=e325]:
+        - tablist "Agentes de Clevy" [ref=e326]:
+          - tab "Clevy Central El director Coordina" [selected] [ref=e327] [cursor=pointer]:
+            - generic [ref=e333]:
+              - generic [ref=e334]: Clevy Central
+              - generic [ref=e335]: El director
+            - generic [ref=e336]: Coordina
+          - tab "Clevy Ventas La primera línea Atiende" [ref=e337] [cursor=pointer]:
+            - generic [ref=e341]:
+              - generic [ref=e342]: Clevy Ventas
+              - generic [ref=e343]: La primera línea
+            - generic [ref=e344]: Atiende
+          - tab "Clevy Finanzas El que cuida la caja Cobra" [ref=e345] [cursor=pointer]:
+            - generic [ref=e351]:
+              - generic [ref=e352]: Clevy Finanzas
+              - generic [ref=e353]: El que cuida la caja
+            - generic [ref=e354]: Cobra
+          - tab "Clevy Contabilidad El ordenado Cuadra" [ref=e355] [cursor=pointer]:
+            - generic [ref=e361]:
+              - generic [ref=e362]: Clevy Contabilidad
+              - generic [ref=e363]: El ordenado
+            - generic [ref=e364]: Cuadra
+          - tab "Clevy Marketing El que trae clientes Atrae" [ref=e365] [cursor=pointer]:
+            - generic [ref=e370]:
+              - generic [ref=e371]: Clevy Marketing
+              - generic [ref=e372]: El que trae clientes
+            - generic [ref=e373]: Atrae
+          - tab "Clevy Operaciones El que cuida la agenda Agenda" [ref=e374] [cursor=pointer]:
+            - generic [ref=e380]:
+              - generic [ref=e381]: Clevy Operaciones
+              - generic [ref=e382]: El que cuida la agenda
+            - generic [ref=e383]: Agenda
+          - tab "Clevy RR.HH. El que cuida al equipo Cuida" [ref=e384] [cursor=pointer]:
+            - generic [ref=e390]:
+              - generic [ref=e391]: Clevy RR.HH.
+              - generic [ref=e392]: El que cuida al equipo
+            - generic [ref=e393]: Cuida
+        - tabpanel "Clevy Central El director Coordina" [ref=e395]:
+          - generic [ref=e402]:
+            - heading "Clevy Central" [level=3] [ref=e403]
+            - paragraph [ref=e404]: El director
+          - paragraph [ref=e405]: El cerebro del equipo. Le preguntas a tu negocio en lenguaje natural —"¿cuánto facturé esta semana?"— y responde con datos reales. Reúne cada mañana el consejo del día y propone acciones que tú apruebas con un toque; jamás ejecuta algo sensible sin tu permiso.
+          - paragraph [ref=e406]: Qué vigila por ti
+          - list [ref=e407]:
+            - listitem [ref=e408]:
+              - generic [ref=e410]: "Reúne el consejo del día: el TOP-3 de todo el equipo"
+            - listitem [ref=e411]:
+              - generic [ref=e413]: Responde “¿cuánto facturé esta semana?” al instante
+            - listitem [ref=e414]:
+              - generic [ref=e416]: Te deja el resumen diario del negocio en tu bandeja
+            - listitem [ref=e417]:
+              - generic [ref=e419]: Propone la acción; tú apruebas con un toque
+          - generic "Ejemplo de nota en la bitácora" [ref=e420]:
+            - text: Ejemplo en tu bitácora
+            - paragraph [ref=e421]: "Buenos días. Hoy conviene: cobrar S/ 1,240 a 3 pacientes, confirmar 8 citas de mañana y reactivar a 5 que no vienen hace 60 días."
+      - generic [ref=e426]:
+        - paragraph [ref=e427]: Cómo trabaja el equipo
+        - 'heading "Especialistas coordinados — con un jefe: tú." [level=3] [ref=e428]'
+      - generic [ref=e429]:
+        - article [ref=e430]:
+          - heading "Autonomía graduada" [level=4] [ref=e435]
+          - paragraph [ref=e436]: "Cada agente empieza solo observando. Cuando apruebas sus sugerencias, sube de nivel: observa → sugiere → aprueba → autónomo. Tú marcas hasta dónde delega."
+        - article [ref=e437]:
+          - heading "Una bitácora común" [level=4] [ref=e442]
+          - paragraph [ref=e443]: "Todos escriben en el mismo diario: quién hizo qué, cuándo y con qué evidencia. Nada se pierde y cada movimiento queda auditado."
+        - article [ref=e444]:
+          - heading "Proponen, tú decides" [level=4] [ref=e451]
+          - paragraph [ref=e452]: Nada sensible se ejecuta sin tu permiso. El equipo prepara la acción; tú apruebas con un toque — o la dejas en automático cuando ya confías.
+        - article [ref=e453]:
+          - heading "El consejo del día" [level=4] [ref=e458]
+          - paragraph [ref=e459]: "Cada mañana, en tu tablero, el TOP-3 de todo el equipo: a quién cobrar, qué confirmar y qué se te está escapando — en soles."
+    - generic [ref=e461]:
+      - generic [ref=e462]:
+        - paragraph [ref=e463]: Todo lo que hace Clevun
+        - heading "No es una agenda con WhatsApp. Es la operación entera de tu negocio." [level=2] [ref=e464]: No es una agenda con WhatsApp.Es la operación entera de tu negocio.
+        - paragraph [ref=e465]: Explora cada área. Todo esto ya funciona hoy — elige una y mira lo que Clevun hace por ti mientras tú atiendes.
+      - generic [ref=e466]:
+        - tablist "Áreas de Clevun" [ref=e467]:
+          - tab "Clevy IA en WhatsApp" [selected] [ref=e468] [cursor=pointer]
+          - tab "Agenda y citas" [ref=e473] [cursor=pointer]
+          - tab "Dinero y cobranza" [ref=e480] [cursor=pointer]
+          - tab "Rentabilidad por hora" [ref=e487] [cursor=pointer]
+          - tab "Marketing y crecimiento" [ref=e495] [cursor=pointer]
+          - tab "Equipo de IA y Asesor" [ref=e501] [cursor=pointer]
+          - tab "Suite clínica" [ref=e508] [cursor=pointer]
+        - tabpanel "Clevy IA en WhatsApp" [ref=e516]:
+          - paragraph [ref=e517]: Atención que nunca duerme, nunca se enferma y nunca deja a un cliente en visto.
+          - paragraph [ref=e518]: "Clevy vive en tu WhatsApp y atiende sola — pero solo con TU información: jamás inventa un precio ni un horario."
+          - list [ref=e519]:
+            - listitem [ref=e520]:
+              - generic [ref=e526]: Responde precios, horarios y dudas al instante, 24/7
+            - listitem [ref=e527]:
+              - generic [ref=e533]: Agenda, confirma, reagenda y cancela citas sola
+            - listitem [ref=e534]:
+              - generic [ref=e540]: Deriva a tu equipo ante urgencias, reclamos o casos delicados
+            - listitem [ref=e541]:
+              - generic [ref=e546]: Entiende notas de voz y puede responder también por audio
+            - listitem [ref=e547]:
+              - generic [ref=e552]: "Arma paquetes de citas: “una limpieza para mí y otra para mi hijo”"
+            - listitem [ref=e553]:
+              - generic [ref=e557]: Envía tu QR de pago cuando el cliente escribe “PAGAR”
+    - generic [ref=e559]:
+      - generic [ref=e560]:
+        - paragraph [ref=e561]: Multi-sede
+        - heading "¿Una sede o diez? Clevun crece contigo." [level=2] [ref=e562]: ¿Una sede o diez?Clevun crece contigo.
+        - paragraph [ref=e563]: Abre una sucursal y no cambies de sistema. Cada local opera solo, con su propio número de WhatsApp y sus reglas — pero tú ves el negocio completo desde un lugar.
+      - generic [ref=e564]:
+        - generic [ref=e565]:
+          - generic [ref=e566]:
+            - generic [ref=e567]: clevun.
+            - generic [ref=e568]: tu negocio
+          - generic [ref=e569]:
+            - article [ref=e570]:
+              - generic [ref=e571]:
+                - generic [ref=e576]: Sede Miraflores
+                - generic [ref=e577]: Principal
+              - paragraph [ref=e578]:
+                - generic [ref=e579]: WhatsApp
+                - generic [ref=e580]: +51 987 654 321
+              - paragraph [ref=e581]:
+                - generic [ref=e582]: Horario
+                - generic [ref=e583]: Lun–Sáb · 9:00–20:00
+            - article [ref=e584]:
+              - generic [ref=e585]:
+                - generic [ref=e590]: Sede San Isidro
+                - generic [ref=e591]: Sucursal
+              - paragraph [ref=e592]:
+                - generic [ref=e593]: WhatsApp
+                - generic [ref=e594]: +51 991 222 333
+              - paragraph [ref=e595]:
+                - generic [ref=e596]: Horario
+                - generic [ref=e597]: Lun–Vie · 8:00–18:00
+            - article [ref=e598]:
+              - generic [ref=e599]:
+                - generic [ref=e604]: Sede Surco
+                - generic [ref=e605]: Sucursal
+              - paragraph [ref=e606]:
+                - generic [ref=e607]: WhatsApp
+                - generic [ref=e608]: +51 955 444 111
+              - paragraph [ref=e609]:
+                - generic [ref=e610]: Horario
+                - generic [ref=e611]: Mar–Sáb · 10:00–19:00
+        - list [ref=e614]:
+          - listitem [ref=e615]:
+            - generic [ref=e620]:
+              - paragraph [ref=e621]: Cada sede, su mundo
+              - paragraph [ref=e622]: WhatsApp, horarios, feriados y hasta precios propios por sede — sin que se mezclen.
+          - listitem [ref=e623]:
+            - generic [ref=e629]:
+              - paragraph [ref=e630]: Un solo paciente
+              - paragraph [ref=e631]: La misma persona, la veas desde la sede que la veas. Su historia y su saldo viajan con ella.
+          - listitem [ref=e632]:
+            - generic [ref=e637]:
+              - paragraph [ref=e638]: Todo por sede
+              - paragraph [ref=e639]: Agenda, caja, cobros y métricas separados por local — y el consolidado para el dueño.
+          - listitem [ref=e640]:
+            - generic [ref=e645]:
+              - paragraph [ref=e646]: Cada quien lo suyo
+              - paragraph [ref=e647]: La recepción de una sede no ve la caja de otra ni el P&L. Tú decides quién ve qué.
+    - generic [ref=e649]:
+      - generic [ref=e650]:
+        - generic [ref=e652]:
+          - paragraph [ref=e653]: Cómo empezar
+          - heading "Hoy te registras. Hoy mismo atiende." [level=2] [ref=e654]: Hoy te registras.Hoy mismo atiende.
+        - list [ref=e657]:
+          - listitem [ref=e658]:
+            - text: "01"
+            - heading "Regístrate en 2 minutos" [level=3] [ref=e660]
+            - paragraph [ref=e661]: Eliges tu rubro y tu cuenta nace lista, con datos de ejemplo de tu mundo. Un asistente te guía paso a paso — sin técnicos, sin instalaciones.
+          - listitem [ref=e662]:
+            - text: "02"
+            - heading "Conecta tu WhatsApp" [level=3] [ref=e664]
+            - paragraph [ref=e665]: Escaneas un QR con el número de tu negocio (el mismo que ya usas) y listo. ¿Tus clientes están en un Excel? Lo arrastras así como esté y los importamos solos.
+          - listitem [ref=e666]:
+            - text: "03"
+            - heading "Clevy empieza a trabajar" [level=3] [ref=e668]
+            - paragraph [ref=e669]: "Desde el primer mensaje: responde, agenda y cobra con tus precios y tus reglas. Tú lo ves todo desde el panel y ajustas lo que quieras, cuando quieras."
+      - generic [ref=e676]:
+        - paragraph [ref=e677]: ¿Vienes de otro sistema o de un cuaderno?
+        - paragraph [ref=e678]:
+          - text: "Te ayudamos a migrar gratis: mándanos tu Excel como esté y tu cuenta amanece cargada. Y si un día te quieres ir, exportas todos tus datos con un click —"
+          - strong [ref=e679]: tus datos son tuyos
+          - text: .
+    - heading "Nada se te escapa." [level=2] [ref=e682]
+    - generic [ref=e684]:
+      - paragraph [ref=e685]: “El primer mes recuperé S/ 3,800 de pacientes que ya daba por perdidos. Clevy les escribía, ellos confirmaban su cita, y llegaban. Me paga solo.”
+      - generic [ref=e686]:
+        - generic [ref=e687]: FA
+        - generic [ref=e688]:
+          - paragraph [ref=e689]: Dr. Frank Alayza
+          - paragraph [ref=e690]: Odontólogo · Stefy Dental Perú, Piura — consultorio piloto
+    - generic [ref=e692]:
+      - generic [ref=e693]:
+        - paragraph [ref=e694]: Precios Founding Member
+        - heading "Planes simples. Sin sorpresas." [level=2] [ref=e695]
+        - paragraph [ref=e696]:
+          - text: Pagas por conversaciones (sesiones de 24 h). Si superas tu plan, cada extra cuesta
+          - strong [ref=e697]: S/ 0.50
+          - text: — nunca te cortamos a mitad de una conversación.
+      - generic [ref=e698]:
+        - paragraph [ref=e699]: Todos los planes incluyen
+        - list [ref=e700]:
+          - listitem [ref=e701]: ✓ Clevy IA atendiendo tu WhatsApp 24/7
+          - listitem [ref=e702]: ✓ Agenda con recordatorios y confirmación “1·2·3”
+          - listitem [ref=e703]: ✓ Reservas online y página pública de tu negocio
+          - listitem [ref=e704]: "✓ Cobros: QR de Yape/Plin, deudas y caja diaria"
+          - listitem [ref=e705]: ✓ El equipo de IA y el consejo del día
+          - listitem [ref=e706]: ✓ Las herramientas propias de tu rubro
+      - generic [ref=e707]:
+        - article [ref=e708]:
+          - heading "Inicial" [level=3] [ref=e709]
+          - paragraph [ref=e710]: Para empezar
+          - paragraph [ref=e711]: Negocios que recién arrancan con IA
+          - paragraph [ref=e712]:
+            - generic [ref=e713]: S/ 199
+            - generic [ref=e714]: S/ 149
+            - generic [ref=e715]: /mes
+          - paragraph [ref=e716]: Precio Founding — ahorras 25%
+          - paragraph [ref=e717]:
+            - strong [ref=e718]: "400"
+            - text: conversaciones/mes
+          - paragraph [ref=e719]: "Además de todo lo incluido:"
+          - list [ref=e720]:
+            - listitem [ref=e721]: ✓ 1 número de WhatsApp
+            - listitem [ref=e722]: ✓ 2 usuarios del equipo
+            - listitem [ref=e723]: ✓ Clevy entiende notas de voz y cobra a pedido
+            - listitem [ref=e724]: ✓ Métricas básicas
+            - listitem [ref=e725]: ✓ Soporte por email
+          - link "Probar 7 días gratis" [ref=e726] [cursor=pointer]:
+            - /url: https://app.clevun.com/registro?src=plan-inicial
+        - article [ref=e727]:
+          - generic [ref=e728]: El más elegido
+          - heading "Pro" [level=3] [ref=e732]
+          - paragraph [ref=e733]: El más elegido
+          - paragraph [ref=e734]: Negocios que ya viven en WhatsApp
+          - paragraph [ref=e735]:
+            - generic [ref=e736]: S/ 499
+            - generic [ref=e737]: S/ 349
+            - generic [ref=e738]: /mes
+          - paragraph [ref=e739]: Precio Founding — ahorras 30%
+          - paragraph [ref=e740]:
+            - strong [ref=e741]: 1,200
+            - text: conversaciones/mes
+          - paragraph [ref=e742]: "Además de todo lo incluido:"
+          - list [ref=e743]:
+            - listitem [ref=e744]: ✓ 1 número de WhatsApp
+            - listitem [ref=e745]: ✓ 5 usuarios del equipo
+            - listitem [ref=e746]: ✓ Chat con Clevy Central (200 preguntas/mes)
+            - listitem [ref=e747]: ✓ Análisis IA del Asesor (1 al día)
+            - listitem [ref=e748]: ✓ Portal del cliente y membresías
+            - listitem [ref=e749]: ✓ Métricas avanzadas del negocio
+            - listitem [ref=e750]: ✓ Soporte prioritario
+          - link "Probar 7 días gratis" [ref=e751] [cursor=pointer]:
+            - /url: https://app.clevun.com/registro?src=plan-pro
+        - article [ref=e752]:
+          - heading "Premium" [level=3] [ref=e753]
+          - paragraph [ref=e754]: Para crecer
+          - paragraph [ref=e755]: Alto volumen o varias sedes
+          - paragraph [ref=e756]:
+            - generic [ref=e757]: S/ 999
+            - generic [ref=e758]: S/ 699
+            - generic [ref=e759]: /mes
+          - paragraph [ref=e760]: Precio Founding — ahorras 30%
+          - paragraph [ref=e761]:
+            - strong [ref=e762]: 3,000
+            - text: conversaciones/mes
+          - paragraph [ref=e763]: "Además de todo lo incluido:"
+          - list [ref=e764]:
+            - listitem [ref=e765]: ✓ Hasta 3 números (multi-sede)
+            - listitem [ref=e766]: ✓ Usuarios ilimitados
+            - listitem [ref=e767]: ✓ Chat con Clevy Central (500 preguntas/mes)
+            - listitem [ref=e768]: ✓ Análisis IA del Asesor (3 al día)
+            - listitem [ref=e769]: ✓ Capas IA de los 6 agentes (acceso anticipado)
+            - listitem [ref=e770]: ✓ Métricas avanzadas + exportar tus datos
+            - listitem [ref=e771]: ✓ Soporte dedicado
+          - link "Probar 7 días gratis" [ref=e772] [cursor=pointer]:
+            - /url: https://app.clevun.com/registro?src=plan-premium
+      - group [ref=e773]:
+        - generic "Comparar todo, fila por fila" [ref=e774] [cursor=pointer]
+      - paragraph [ref=e780]:
+        - text: ¿Más de 3 sedes o un volumen alto? Tenemos un
+        - strong [ref=e781]: plan a medida
+        - text: —
+        - link "conversemos" [ref=e782] [cursor=pointer]:
+          - /url: "#contacto"
+        - text: y lo armamos para tu operación.
+      - paragraph [ref=e783]:
+        - text: La prueba gratis dura
+        - strong [ref=e784]: 7 días e incluye 200 conversaciones
+        - text: ", sin tarjeta — y trae el"
+        - strong [ref=e785]: producto completo
+        - text: (nivel Premium, chat con Clevy Central incluido). Al terminar eliges tu plan — si no, tu cuenta se pausa y tus datos te esperan.
+      - generic [ref=e791]:
+        - paragraph [ref=e792]: Si en tus primeros 30 días Clevy no te agenda ni una sola cita, te devolvemos el 100% de lo que pagaste ese mes.
+        - paragraph [ref=e793]: "Sin letra chica. Y como siempre: sin permanencia — al cancelar mantienes el acceso hasta el fin del periodo que ya pagaste."
+    - generic [ref=e795]:
+      - generic [ref=e796]:
+        - paragraph [ref=e797]: Preguntas frecuentes
+        - heading "Todo lo que te preguntas." [level=2] [ref=e798]: Todo lo quete preguntas.
+        - paragraph [ref=e799]: ¿Tienes otra? Escríbenos por WhatsApp — te responde una persona, lo prometemos
+        - link "Preguntar por WhatsApp" [ref=e804] [cursor=pointer]:
+          - /url: https://wa.me/51950730710?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20Clevun
+      - generic [ref=e805]:
+        - group [ref=e806]:
+          - generic "¿La IA va a hablar como yo o va a sonar rara?" [ref=e807] [cursor=pointer]:
+            - text: ¿La IA va a hablar como yo o va a sonar rara?
+            - generic [ref=e808]: +
+        - group [ref=e809]:
+          - generic "¿Y si mi paciente se da cuenta de que es una IA?" [ref=e810] [cursor=pointer]:
+            - text: ¿Y si mi paciente se da cuenta de que es una IA?
+            - generic [ref=e811]: +
+        - group [ref=e812]:
+          - generic "¿Reemplaza a mi asistenta?" [ref=e813] [cursor=pointer]:
+            - text: ¿Reemplaza a mi asistenta?
+            - generic [ref=e814]: +
+        - group [ref=e815]:
+          - generic "¿Cuánto demora en estar funcionando?" [ref=e816] [cursor=pointer]:
+            - text: ¿Cuánto demora en estar funcionando?
+            - generic [ref=e817]: +
+        - group [ref=e818]:
+          - generic "¿Qué pasa si la IA contesta algo mal?" [ref=e819] [cursor=pointer]:
+            - text: ¿Qué pasa si la IA contesta algo mal?
+            - generic [ref=e820]: +
+        - group [ref=e821]:
+          - generic "¿Necesito cambiar mi número de WhatsApp?" [ref=e822] [cursor=pointer]:
+            - text: ¿Necesito cambiar mi número de WhatsApp?
+            - generic [ref=e823]: +
+        - group [ref=e824]:
+          - generic "¿Funciona si ya tengo otro software (Doctocliq, Dentalink, etc.)?" [ref=e825] [cursor=pointer]:
+            - text: ¿Funciona si ya tengo otro software (Doctocliq, Dentalink, etc.)?
+            - generic [ref=e826]: +
+        - group [ref=e827]:
+          - generic "¿Qué es una \"conversación\"?" [ref=e828] [cursor=pointer]:
+            - text: ¿Qué es una "conversación"?
+            - generic [ref=e829]: +
+        - group [ref=e830]:
+          - generic "¿Necesito tarjeta para la prueba?" [ref=e831] [cursor=pointer]:
+            - text: ¿Necesito tarjeta para la prueba?
+            - generic [ref=e832]: +
+        - group [ref=e833]:
+          - generic "¿Qué pasa al terminar la prueba?" [ref=e834] [cursor=pointer]:
+            - text: ¿Qué pasa al terminar la prueba?
+            - generic [ref=e835]: +
+        - group [ref=e836]:
+          - generic "¿Qué pasa si supero mi límite de conversaciones?" [ref=e837] [cursor=pointer]:
+            - text: ¿Qué pasa si supero mi límite de conversaciones?
+            - generic [ref=e838]: +
+        - group [ref=e839]:
+          - generic "¿Cómo decido entre Inicial, Pro y Premium?" [ref=e840] [cursor=pointer]:
+            - text: ¿Cómo decido entre Inicial, Pro y Premium?
+            - generic [ref=e841]: +
+        - group [ref=e842]:
+          - generic "¿Puedo cambiar de plan después?" [ref=e843] [cursor=pointer]:
+            - text: ¿Puedo cambiar de plan después?
+            - generic [ref=e844]: +
+        - group [ref=e845]:
+          - generic "¿Tengo que instalar algo?" [ref=e846] [cursor=pointer]:
+            - text: ¿Tengo que instalar algo?
+            - generic [ref=e847]: +
+        - group [ref=e848]:
+          - generic "¿La IA puede pasar la conversación a una persona?" [ref=e849] [cursor=pointer]:
+            - text: ¿La IA puede pasar la conversación a una persona?
+            - generic [ref=e850]: +
+        - group [ref=e851]:
+          - generic "¿Hay permanencia?" [ref=e852] [cursor=pointer]:
+            - text: ¿Hay permanencia?
+            - generic [ref=e853]: +
+        - group [ref=e854]:
+          - generic "¿Tienen alguna garantía?" [ref=e855] [cursor=pointer]:
+            - text: ¿Tienen alguna garantía?
+            - generic [ref=e856]: +
+    - generic [ref=e858]:
+      - paragraph [ref=e859]: Nada se te escapa.
+      - heading "Mientras lees esto, alguien le escribió a un negocio que sí contestó." [level=2] [ref=e860]: Mientras lees esto,alguien le escribió a un negocioque sí contestó.
+      - paragraph [ref=e861]: Regístrate hoy y esta misma noche tu WhatsApp responde solo. 7 días gratis, sin tarjeta, con datos de ejemplo de tu rubro para explorar sin miedo.
+      - generic [ref=e862]:
+        - link "Crear mi cuenta gratis" [ref=e863] [cursor=pointer]:
+          - /url: https://app.clevun.com/registro?src=cierre
+        - link "Prefiero que me contacten" [ref=e866] [cursor=pointer]:
+          - /url: "#contacto"
+    - generic [ref=e868]:
+      - generic [ref=e869]:
+        - heading "¿Prefieres que te escribamos nosotros?" [level=2] [ref=e870]
+        - paragraph [ref=e871]: Déjanos tu nombre y WhatsApp. Te contactamos para mostrarte cómo Clevun atiende a tus clientes por ti — sin compromiso.
+      - generic [ref=e872]:
+        - generic [ref=e873]:
+          - generic [ref=e874]: Tu nombre
+          - textbox "Tu nombre" [ref=e875]:
+            - /placeholder: Dra. María López
+        - generic [ref=e876]:
+          - generic [ref=e877]: Tu WhatsApp
+          - textbox "Tu WhatsApp" [ref=e878]:
+            - /placeholder: 987 654 321
+        - generic [ref=e879]:
+          - text: Sitio web
+          - textbox [ref=e880]
+        - button "Quiero que me contacten" [ref=e881] [cursor=pointer]
+        - status [ref=e882]
+  - contentinfo [ref=e883]:
+    - generic [ref=e884]:
+      - generic [ref=e885]:
+        - generic [ref=e886]:
+          - paragraph [ref=e887]: clevun.
+          - paragraph [ref=e888]: Nada se te escapa.
+          - paragraph [ref=e889]:
+            - text: El sistema con IA que atiende tu WhatsApp, agenda, cobra y te ordena el negocio — junto a ti, 24/7. Hecho en Perú
+            - img "Bandera del Perú" [ref=e890]
+          - link "Prueba gratis 7 días" [ref=e892] [cursor=pointer]:
+            - /url: https://app.clevun.com/registro?src=footer
+        - navigation "Clevun por rubro" [ref=e896]:
+          - paragraph [ref=e897]: Clevun para
+          - list [ref=e898]:
+            - listitem [ref=e899]:
+              - link "Clínicas dentales" [ref=e900] [cursor=pointer]:
+                - /url: /para/clinicas-dentales
+            - listitem [ref=e901]:
+              - link "Centros médicos" [ref=e902] [cursor=pointer]:
+                - /url: /para/centros-medicos
+            - listitem [ref=e903]:
+              - link "Veterinarias" [ref=e904] [cursor=pointer]:
+                - /url: /para/veterinarias
+            - listitem [ref=e905]:
+              - link "Estética y belleza" [ref=e906] [cursor=pointer]:
+                - /url: /para/centros-de-estetica
+            - listitem [ref=e907]:
+              - link "Barberías y peluquerías" [ref=e908] [cursor=pointer]:
+                - /url: /para/barberias
+            - listitem [ref=e909]:
+              - link "Fisioterapia" [ref=e910] [cursor=pointer]:
+                - /url: /para/fisioterapia
+            - listitem [ref=e911]:
+              - link "Psicología" [ref=e912] [cursor=pointer]:
+                - /url: /para/psicologia
+            - listitem [ref=e913]:
+              - link "Gimnasios" [ref=e914] [cursor=pointer]:
+                - /url: /para/gimnasios
+            - listitem [ref=e915]:
+              - link "Estudios de abogados" [ref=e916] [cursor=pointer]:
+                - /url: /para/abogados
+            - listitem [ref=e917]:
+              - link "Academias" [ref=e918] [cursor=pointer]:
+                - /url: /para/academias
+            - listitem [ref=e919]:
+              - link "Tiendas online" [ref=e920] [cursor=pointer]:
+                - /url: /para/tiendas-online
+            - listitem [ref=e921]:
+              - link "Talleres mecánicos" [ref=e922] [cursor=pointer]:
+                - /url: /para/talleres-mecanicos
+            - listitem [ref=e923]:
+              - link "Negocios de servicios" [ref=e924] [cursor=pointer]:
+                - /url: /para/negocios
+        - navigation "Recursos y legal" [ref=e925]:
+          - paragraph [ref=e926]: Recursos
+          - list [ref=e927]:
+            - listitem [ref=e928]:
+              - link "Cómo funciona" [ref=e929] [cursor=pointer]:
+                - /url: /#como-funciona
+            - listitem [ref=e930]:
+              - link "Precios" [ref=e931] [cursor=pointer]:
+                - /url: /#pricing
+            - listitem [ref=e932]:
+              - link "Preguntas frecuentes" [ref=e933] [cursor=pointer]:
+                - /url: /#faq
+            - listitem [ref=e934]:
+              - link "Blog" [ref=e935] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e936]:
+              - link "Iniciar sesión" [ref=e937] [cursor=pointer]:
+                - /url: https://app.clevun.com
+          - paragraph [ref=e938]: Legal
+          - list [ref=e939]:
+            - listitem [ref=e940]:
+              - link "Privacidad" [ref=e941] [cursor=pointer]:
+                - /url: /privacidad
+            - listitem [ref=e942]:
+              - link "Términos" [ref=e943] [cursor=pointer]:
+                - /url: /terminos
+        - generic [ref=e944]:
+          - paragraph [ref=e945]: Contacto
+          - list [ref=e946]:
+            - listitem [ref=e947]:
+              - link "WhatsApp directo" [ref=e948] [cursor=pointer]:
+                - /url: https://wa.me/51950730710
+            - listitem [ref=e949]:
+              - link "hola@clevun.com" [ref=e950] [cursor=pointer]:
+                - /url: mailto:hola@clevun.com
+      - generic [ref=e951]:
+        - paragraph [ref=e952]: © 2026 Clevun. Todos los derechos reservados.
+        - paragraph [ref=e953]: "Tus datos son tuyos: expórtalos cuando quieras."
+  - link "Escríbenos por WhatsApp" [ref=e954] [cursor=pointer]:
+    - /url: https://wa.me/51950730710?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Clevun
+    - generic: Escríbenos
