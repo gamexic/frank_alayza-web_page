@@ -1,42 +1,39 @@
 ---
-// PROVISIONAL — placeholder para que el build pase.
-// F3 reemplaza esta pagina por completo (hero premium, secciones, animaciones).
+/**
+ * index.astro — Portada premium de frankalayza.me.
+ * Posicionamiento: builder de negocios de tecnologia con IA.
+ * Secciones como componentes en sections/home/, importadas en orden.
+ */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import JsonLd, { personSchema, organizationSchemas } from '~/components/seo/JsonLd.astro';
 import { site } from '~/data/site';
+
+import Hero from '~/components/sections/home/Hero.astro';
+import Enfoque from '~/components/sections/home/Enfoque.astro';
+import QueHago from '~/components/sections/home/QueHago.astro';
+import NegociosYCasos from '~/components/sections/home/NegociosYCasos.astro';
+import Stack from '~/components/sections/home/Stack.astro';
+import PruebaSocial from '~/components/sections/home/PruebaSocial.astro';
+import ParteHumana from '~/components/sections/home/ParteHumana.astro';
+import UltimosPosts from '~/components/sections/home/UltimosPosts.astro';
+import CtaFinal from '~/components/sections/home/CtaFinal.astro';
 ---
 
-<BaseLayout pageClass="page-home">
-  <main id="main" class="home-hero">
-    <div class="container">
-      <p class="eyebrow reveal">{site.role}</p>
-      <h1 class="reveal">
-        <span class="text-gradient-gold">{site.tagline}</span>
-      </h1>
-      <p class="home-hero__lead reveal">{site.description}</p>
-    </div>
-  </main>
+<BaseLayout
+  title="Frank Alayza — Builder de negocios de tecnología con IA"
+  description={site.description}
+  pageClass="page-home"
+>
+  <JsonLd slot="head" data={personSchema()} />
+  <JsonLd slot="head" data={organizationSchemas()} />
+
+  <Hero />
+  <Enfoque />
+  <QueHago />
+  <NegociosYCasos />
+  <Stack />
+  <PruebaSocial />
+  <ParteHumana />
+  <UltimosPosts />
+  <CtaFinal />
 </BaseLayout>
-
-<style>
-  .home-hero {
-    display: flex;
-    align-items: center;
-    min-height: calc(100svh - var(--header-h));
-    padding-block: var(--space-step-5);
-  }
-
-  .home-hero .eyebrow {
-    margin-bottom: var(--space-step-1);
-  }
-
-  .home-hero h1 {
-    max-width: 16ch;
-  }
-
-  .home-hero__lead {
-    margin-top: var(--space-step-2);
-    max-width: 54ch;
-    color: var(--text-muted);
-    font-size: clamp(1.05rem, 1.5vw + 0.5rem, 1.3rem);
-  }
-</style>

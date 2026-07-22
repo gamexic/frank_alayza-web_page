@@ -1,0 +1,298 @@
+---
+/**
+ * NegociosYCasos.astro — Lo nuevo del posicionamiento builder.
+ *  1) "Negocios que construyo": 2 tarjetas grandes premium (Clevun / Iceguin)
+ *     con icono tematico, tagline, descripcion y enlace externo.
+ *  2) "Casos de trabajo": 3 casos anonimos compactos (Problema / Enfoque /
+ *     Resultado). La metrica +120% usa la animacion de contador ([data-counter]).
+ *  Cierra con CTA a la pagina de proyectos.
+ */
+import Card from '~/components/ui/Card.astro';
+import Icon from '~/components/ui/Icon.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Button from '~/components/ui/Button.astro';
+import { businesses, cases } from '~/data/projects';
+
+// Card/Icon aceptan gold|cyan|purple; los negocios pueden traer 'magenta'.
+type Accent = 'gold' | 'cyan' | 'purple';
+const toAccent = (a: string): Accent => (a === 'magenta' ? 'purple' : (a as Accent));
+
+// Badge para el tipo de trabajo del caso (acento cian discreto).
+const caseAccents: Array<'cyan' | 'purple' | 'gold'> = ['cyan', 'purple', 'gold'];
+---
+
+<section class="ny">
+  <div class="container">
+    <!-- ===================== Negocios propios ===================== -->
+    <header class="ny__head">
+      <p class="eyebrow reveal">Negocios que construyo</p>
+      <h2 class="ny__title reveal" data-delay="60">Productos propios, en producción</h2>
+      <p class="ny__intro reveal" data-delay="120">
+        No solo asesoro: lanzo y opero mis propios negocios de tecnología. Dos que
+        hoy dan servicio a clientes reales.
+      </p>
+    </header>
+
+    <ul class="ny-biz stagger">
+      {businesses.map((b) => (
+        <li class="ny-biz__item">
+          <Card accent={toAccent(b.accent)} interactive class="biz">
+            <div class="biz__top">
+              <Icon name={b.icon} accent={toAccent(b.accent)} size={38} chip />
+              <Badge tone="gold">{b.badge}</Badge>
+            </div>
+            <h3 class="biz__name">{b.name}</h3>
+            <p class="biz__tagline">{b.tagline}</p>
+            <p class="biz__desc">{b.description}</p>
+            <a
+              class="biz__link"
+              href={b.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visitar ${b.name} (se abre en una pestaña nueva)`}
+            >
+              <span>Visitar {b.name}</span>
+              <Icon name="enlace-externo" accent={toAccent(b.accent)} size={18} />
+            </a>
+          </Card>
+        </li>
+      ))}
+    </ul>
+
+    <!-- ===================== Casos de trabajo ===================== -->
+    <header class="ny__head ny__head--sub">
+      <p class="eyebrow reveal">Casos de trabajo</p>
+      <h2 class="ny__title reveal" data-delay="60">Resultados para otros negocios</h2>
+    </header>
+
+    <ul class="ny-cases stagger">
+      {cases.map((c, i) => (
+        <li class="ny-cases__item">
+          <Card accent={c.metric ? 'gold' : 'cyan'} interactive class="case">
+            <Badge tone={caseAccents[i] ?? 'cyan'}>{c.badge}</Badge>
+            <h3 class="case__title">{c.title}</h3>
+
+            <dl class="case__pae">
+              <div class="case__row">
+                <dt>Problema</dt>
+                <dd>{c.problem}</dd>
+              </div>
+              <div class="case__row">
+                <dt>Enfoque</dt>
+                <dd>{c.approach}</dd>
+              </div>
+              <div class="case__row">
+                <dt>Resultado</dt>
+                <dd>{c.result}</dd>
+              </div>
+            </dl>
+
+            {c.metric && (
+              <div class="case__metric" aria-label={`${c.metric} ${c.metricLabel ?? ''}`.trim()}>
+                {/* data-counter con el string completo: la capa de motion anima
+                    0 -> valor conservando prefijo (+) y sufijo (%). */}
+                <span class="case__metric-num" data-counter={c.metric}>{c.metric}</span>
+                {c.metricLabel && <span class="case__metric-label">{c.metricLabel}</span>}
+              </div>
+            )}
+          </Card>
+        </li>
+      ))}
+    </ul>
+
+    <div class="ny-cta reveal">
+      <Button href="/proyectos" variant="secondary" iconName="flecha">Ver todos los proyectos</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ny {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .ny__head {
+    max-width: 60ch;
+    margin-bottom: clamp(1.8rem, 4vw, 2.6rem);
+  }
+
+  .ny__head--sub {
+    margin-top: clamp(3.5rem, 8vw, 5.5rem);
+  }
+
+  .ny__title {
+    margin-top: 0.6rem;
+  }
+
+  .ny__intro {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.2vw + 0.5rem, 1.2rem);
+  }
+
+  /* ---------- Tarjetas de negocio ---------- */
+  .ny-biz {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+
+  .ny-biz__item {
+    display: flex;
+  }
+
+  .biz {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+  }
+
+  .biz__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .biz__name {
+    font-size: clamp(1.7rem, 2.4vw + 0.6rem, 2.3rem);
+    line-height: 1.05;
+  }
+
+  .biz__tagline {
+    font-family: var(--font-tech);
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    color: var(--cyan-bright);
+  }
+
+  .biz__desc {
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .biz__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    align-self: flex-start;
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text);
+    transition: color var(--dur) var(--ease-out-expo), gap var(--dur) var(--ease-out-expo);
+  }
+
+  .biz__link :global(svg) {
+    transition: transform var(--dur) var(--ease-out-expo);
+  }
+
+  .biz:hover .biz__link,
+  .biz__link:hover,
+  .biz__link:focus-visible {
+    color: var(--gold-bright);
+  }
+
+  .biz:hover .biz__link :global(svg),
+  .biz__link:hover :global(svg),
+  .biz__link:focus-visible :global(svg) {
+    transform: translate(2px, -2px);
+  }
+
+  @media (min-width: 760px) {
+    .ny-biz {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ---------- Casos ---------- */
+  .ny-cases {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+
+  .ny-cases__item {
+    display: flex;
+  }
+
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .case__title {
+    font-size: clamp(1.15rem, 1vw + 0.85rem, 1.35rem);
+    line-height: 1.22;
+  }
+
+  .case__pae {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .case__row dt {
+    font-family: var(--font-tech);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+  }
+
+  .case__row dd {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .case__metric {
+    margin-top: 0.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .case__metric-num {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw + 0.4rem, 2.8rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    background: var(--grad-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .case__metric-label {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 820px) {
+    .ny-cases {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ---------- CTA ---------- */
+  .ny-cta {
+    margin-top: clamp(2rem, 4vw, 2.8rem);
+    display: flex;
+    justify-content: center;
+  }
+</style>

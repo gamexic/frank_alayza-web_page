@@ -1,0 +1,57 @@
+---
+/**
+ * Hero.astro (Servicios) — Cabecera compacta: H1 "Servicios" + frase-marca
+ * (site.tagline). Glow dorado sutil de fondo.
+ */
+import { site } from '~/data/site';
+---
+
+<section class="serv-hero" aria-labelledby="serv-hero-title">
+  <span class="serv-hero__glow" aria-hidden="true"></span>
+  <div class="container">
+    <p class="eyebrow reveal">Servicios</p>
+    <h1 id="serv-hero-title" class="serv-hero__title reveal" data-delay="60">
+      Construyo negocios de tecnología con IA
+    </h1>
+    <p class="serv-hero__tagline reveal" data-delay="120">{site.tagline}</p>
+  </div>
+</section>
+
+<style>
+  .serv-hero {
+    position: relative;
+    padding-block: clamp(3rem, 8vw, var(--space-step-5));
+    overflow: hidden;
+  }
+
+  .serv-hero__glow {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    width: min(720px, 90vw);
+    height: 520px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(251, 191, 36, 0.16) 0%,
+      rgba(251, 191, 36, 0.06) 38%,
+      transparent 68%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .serv-hero__title {
+    max-width: 18ch;
+    font-size: clamp(2.6rem, 7vw + 0.5rem, 4.5rem);
+  }
+
+  .serv-hero__tagline {
+    margin-top: var(--space-step-2);
+    max-width: 52ch;
+    color: var(--text-muted);
+    font-size: clamp(1.1rem, 1.6vw + 0.5rem, 1.4rem);
+    font-family: var(--font-display);
+    line-height: 1.4;
+  }
+</style>

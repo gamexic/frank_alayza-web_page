@@ -1,0 +1,108 @@
+---
+/**
+ * CtaFinal.astro — Banda de cierre. Fondo MediaSlot `fondo-neural` (imagen
+ * Higgsfield) con overlay; fallback propio = gradiente radial dorado/cian + una
+ * malla de nodos en CSS. Titular + boton primario magnetico a contacto.
+ */
+import MediaSlot from '~/components/ui/MediaSlot.astro';
+import Button from '~/components/ui/Button.astro';
+---
+
+<section class="cta">
+  <div class="cta__bg" aria-hidden="true">
+    <MediaSlot name="fondo-neural" type="image" class="cta__media" alt="">
+      <div slot="fallback" class="cta__fallback"></div>
+    </MediaSlot>
+    <div class="cta__overlay"></div>
+  </div>
+
+  <div class="container cta__inner">
+    <h2 class="cta__title reveal">¿Tienes un reto de negocio con datos o IA?</h2>
+    <p class="cta__lead reveal" data-delay="100">
+      Cuéntame qué quieres construir o mejorar. Te respondo con un enfoque claro y
+      los próximos pasos.
+    </p>
+    <div class="cta__action reveal" data-delay="180">
+      <Button href="/contacto" variant="primary" size="lg" magnetic iconName="flecha">
+        Conectar ahora
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    padding-block: clamp(4.5rem, 11vw, 7.5rem);
+    border-top: 1px solid var(--hairline);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .cta__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .cta__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fallback propio: glows radiales + malla de nodos en dos capas de puntos. */
+  .cta__fallback {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 80% at 78% 30%, rgba(0, 212, 255, 0.12), transparent 60%),
+      radial-gradient(70% 90% at 22% 80%, rgba(251, 191, 36, 0.14), transparent 60%),
+      radial-gradient(rgba(251, 191, 36, 0.16) 1px, transparent 1.4px),
+      radial-gradient(rgba(0, 212, 255, 0.12) 1px, transparent 1.4px);
+    background-size:
+      auto,
+      auto,
+      44px 44px,
+      44px 44px;
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      22px 22px;
+  }
+
+  .cta__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 6, 10, 0.72), rgba(6, 6, 10, 0.85));
+  }
+
+  .cta__inner {
+    max-width: 42rem;
+    text-align: center;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta__title {
+    font-size: clamp(1.9rem, 4.5vw + 0.4rem, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .cta__lead {
+    margin-top: 1.1rem;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.2vw + 0.5rem, 1.2rem);
+    max-width: 46ch;
+  }
+
+  .cta__action {
+    margin-top: clamp(1.8rem, 4vw, 2.6rem);
+  }
+</style>

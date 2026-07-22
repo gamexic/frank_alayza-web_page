@@ -1,0 +1,27 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import JsonLd, { personSchema } from '~/components/seo/JsonLd.astro';
+import AboutHero from '~/components/sections/about/AboutHero.astro';
+import Stats from '~/components/sections/about/Stats.astro';
+import Skills from '~/components/sections/about/Skills.astro';
+import Proceso from '~/components/sections/about/Proceso.astro';
+import MisionValores from '~/components/sections/about/MisionValores.astro';
+import Deporte from '~/components/sections/about/Deporte.astro';
+import Timeline from '~/components/sections/about/Timeline.astro';
+
+const title = 'Sobre mí – Frank Alayza';
+const description =
+  'Sobre Frank Alayza — administrador de negocios de tecnología y builder AI Native. Trayectoria, habilidades, formación universitaria y proceso de trabajo.';
+---
+
+<BaseLayout title={title} description={description} pageClass="page-about">
+  <JsonLd slot="head" data={personSchema()} />
+
+  <AboutHero />
+  <Stats />
+  <Skills />
+  <Proceso />
+  <MisionValores />
+  <Deporte />
+  <Timeline />
+</BaseLayout>

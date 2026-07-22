@@ -1,0 +1,198 @@
+---
+/**
+ * AboutHero.astro — Cabecera de "Sobre mí".
+ * Split: contenido (nombre, rol, intro builder, 3 bullets, CTAs, redes) + retrato
+ * con glow dorado radial detras. El retrato usa MediaSlot (enchufe Higgsfield):
+ * si Frank suelta `retrato-frank.*` en /src/assets/higgsfield/ se usa; si no,
+ * cae al retrato actual optimizado con astro:assets.
+ */
+import { Image } from 'astro:assets';
+import Button from '~/components/ui/Button.astro';
+import Icon from '~/components/ui/Icon.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
+import { site } from '~/data/site';
+import retrato from '~/assets/fotos/frank-alayza-evolucion-transparente-sin-nombre.png';
+
+// Intro reescrita al angulo "builder de negocios de tecnologia".
+// CONFIRMAR FRANK: redaccion definitiva de la intro y los bullets.
+const intro =
+  'Administrador de negocios de tecnología (Universidad de Lima) que construye y administra negocios con inteligencia artificial. Uno visión de negocio con ejecución técnica AI Native —agentes, automatizaciones y software— para convertir ideas en resultados medibles.';
+
+const points = [
+  'Construyo negocios de tecnología alineando estrategia, producto y ejecución.',
+  'Diseño soluciones AI Native con agentes, RAG y automatización de impacto real.',
+  'Convierto lo técnico en ventaja: entregas rápidas, medibles y mantenibles.',
+];
+---
+
+<section class="about-hero" aria-labelledby="about-hero-title">
+  <div class="container-wide about-hero__grid">
+    <div class="about-hero__content">
+      <p class="eyebrow reveal">{site.role}</p>
+      <h1 id="about-hero-title" class="about-hero__title reveal" data-delay="60">Frank Alayza</h1>
+      <p class="about-hero__intro reveal" data-delay="120">{intro}</p>
+
+      <ul class="about-hero__points">
+        {points.map((point, i) => (
+          <li class="about-hero__point reveal" data-delay={180 + i * 70}>
+            <span class="about-hero__check" aria-hidden="true">
+              <Icon name="check" accent="gold" size={18} />
+            </span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="about-hero__actions reveal" data-delay="400">
+        <Button href="#proceso" variant="primary" magnetic iconName="flecha">Conóceme</Button>
+        <Button href={site.cvPath} variant="secondary" iconName="descarga" download>Descargar CV</Button>
+      </div>
+
+      <div class="about-hero__social reveal" data-delay="470" aria-label="Redes sociales">
+        {site.socials.map((s) => (
+          <a
+            class="about-hero__social-link"
+            href={s.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+          >
+            <Icon name={s.id} accent="cyan" chip size={20} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="about-hero__visual reveal" data-delay="140">
+      <span class="about-hero__glow" aria-hidden="true"></span>
+      <div class="about-hero__portrait">
+        <MediaSlot name="retrato-frank" type="image" alt="Frank Alayza">
+          <Image
+            slot="fallback"
+            class="about-hero__img"
+            src={retrato}
+            alt="Frank Alayza"
+            widths={[420, 640, 840]}
+            sizes="(max-width: 900px) 72vw, 460px"
+            format="webp"
+            loading="eager"
+          />
+        </MediaSlot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-hero {
+    padding-block: clamp(2.5rem, 6vw, var(--space-step-5));
+  }
+
+  .about-hero__grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .about-hero__grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+  }
+
+  .about-hero__title {
+    margin-top: var(--space-step-1);
+    font-size: clamp(2.8rem, 8vw + 0.5rem, 5rem);
+  }
+
+  .about-hero__intro {
+    margin-top: var(--space-step-2);
+    max-width: 56ch;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.2vw + 0.5rem, 1.2rem);
+  }
+
+  .about-hero__points {
+    margin-top: var(--space-step-2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .about-hero__point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .about-hero__check {
+    display: inline-flex;
+    flex: none;
+    margin-top: 0.15rem;
+  }
+
+  .about-hero__actions {
+    margin-top: var(--space-step-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .about-hero__social {
+    margin-top: var(--space-step-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .about-hero__social-link {
+    display: inline-flex;
+    border-radius: 10px;
+  }
+
+  /* Visual */
+  .about-hero__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+  }
+
+  .about-hero__glow {
+    position: absolute;
+    inset: -10% -6%;
+    z-index: -1;
+    background: radial-gradient(
+      circle at 50% 42%,
+      rgba(251, 191, 36, 0.34) 0%,
+      rgba(251, 191, 36, 0.16) 34%,
+      rgba(217, 154, 0, 0.06) 55%,
+      transparent 72%
+    );
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  .about-hero__portrait {
+    width: min(100%, 460px);
+    position: relative;
+  }
+
+  .about-hero__img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55));
+  }
+
+  @media (max-width: 899px) {
+    .about-hero__visual {
+      order: -1;
+    }
+    .about-hero__portrait {
+      width: min(72%, 340px);
+    }
+  }
+</style>

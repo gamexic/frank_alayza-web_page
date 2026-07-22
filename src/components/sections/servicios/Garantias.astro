@@ -1,0 +1,59 @@
+---
+/**
+ * Garantias.astro — Los 4 compromisos (guarantees.ts) en cards con Icon (cian).
+ */
+import Section from '~/components/ui/Section.astro';
+import Card from '~/components/ui/Card.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { guarantees, guaranteesIntro } from '~/data/guarantees';
+---
+
+<Section
+  eyebrow="Garantías"
+  title="Compromisos con tu proyecto"
+  intro={guaranteesIntro}
+  tone="base"
+  width="wide"
+>
+  <div class="gtee-grid stagger">
+    {guarantees.map((item) => (
+      <Card class="gtee-card" accent="cyan" interactive>
+        <Icon name={item.icon} accent="cyan" chip size={26} />
+        <h3 class="gtee-card__title">{item.title}</h3>
+        <p class="gtee-card__text">{item.description}</p>
+      </Card>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .gtee-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  @media (min-width: 560px) {
+    .gtee-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .gtee-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .gtee-card__title {
+    margin-top: 0.9rem;
+    font-size: 1.15rem;
+  }
+
+  .gtee-card__text {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

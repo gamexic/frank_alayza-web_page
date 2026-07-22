@@ -1,0 +1,99 @@
+---
+/**
+ * CertGrid.astro — FilterBar + grid de las 12 certificaciones destacadas.
+ * Cada tarjeta: Badge de categoría, título, issuer + año (font-tech) y
+ * Button ghost "Ver PDF" (abre el PDF en pestaña nueva). Fuente: data/certificates.ts.
+ */
+import Section from '~/components/ui/Section.astro';
+import Card from '~/components/ui/Card.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Button from '~/components/ui/Button.astro';
+import FilterBar from '~/components/ui/FilterBar.astro';
+import { certificates, certFilters, type CertCategory } from '~/data/certificates';
+
+// FilterBar antepone "Todos" solo → excluimos 'all' y adaptamos la forma.
+const filterOptions = certFilters
+  .filter((f) => f.id !== 'all')
+  .map((f) => ({ value: f.id, label: f.label }));
+
+// Etiqueta legible por categoría (reutiliza los labels de los filtros).
+const catLabel = (cat: CertCategory): string =>
+  certFilters.find((f) => f.id === cat)?.label ?? cat;
+
+// Tono del badge: cian (tech) por defecto; idiomas en neutral.
+const badgeTone = (cat: CertCategory): 'cyan' | 'neutral' =>
+  cat === 'idiomas' ? 'neutral' : 'cyan';
+---
+
+<Section
+  id="destacadas"
+  eyebrow="Selección"
+  title="Certificaciones destacadas"
+  intro="Una muestra de mi formación en IA, datos, cloud, desarrollo e idiomas. Cada una enlaza a su acreditación en PDF."
+  tone="base"
+>
+  <div class="cert-filter reveal">
+    <FilterBar filters={filterOptions} targetSelector=".cert-card" />
+  </div>
+
+  <div class="cert-grid reveal">
+    {certificates.map((cert) => (
+      <Card class="cert-card" data-category={cert.category} accent="cyan" interactive>
+        <div class="cert-card__top">
+          <Badge tone={badgeTone(cert.category)}>{catLabel(cert.category)}</Badge>
+        </div>
+        <h3 class="cert-card__title">{cert.title}</h3>
+        <p class="cert-card__meta">{cert.issuer} · {cert.year}</p>
+        <div class="cert-card__cta">
+          <Button
+            href={cert.pdf}
+            variant="ghost"
+            iconName="enlace-externo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver PDF
+          </Button>
+        </div>
+      </Card>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+    align-items: stretch;
+  }
+
+  .cert-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+  }
+
+  .cert-card__top {
+    display: flex;
+  }
+
+  .cert-card__title {
+    font-size: clamp(1.05rem, 1vw + 0.7rem, 1.2rem);
+    line-height: 1.3;
+  }
+
+  .cert-card__meta {
+    font-family: var(--font-tech);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+  }
+
+  .cert-card__cta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    margin-inline: -0.9rem -0.9rem;
+  }
+</style>

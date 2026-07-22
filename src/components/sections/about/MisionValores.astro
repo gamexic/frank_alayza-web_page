@@ -1,0 +1,106 @@
+---
+/**
+ * MisionValores.astro — Mision y Vision (2 cards destacadas, acento cian) + los
+ * 4 valores que guian el trabajo (cards con Icon, acento morado = humano).
+ */
+import Section from '~/components/ui/Section.astro';
+import Card from '~/components/ui/Card.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { missionVision, values } from '~/data/values';
+---
+
+<Section
+  eyebrow="Propósito"
+  title="Misión, visión y valores"
+  tone="base"
+>
+  <div class="mv__top stagger">
+    {missionVision.map((item) => (
+      <Card class="mv-card" accent="cyan" interactive>
+        <div class="mv-card__head">
+          <Icon name={item.icon} accent="cyan" chip size={28} />
+          <h3 class="mv-card__title">{item.title}</h3>
+        </div>
+        <p class="mv-card__text">{item.description}</p>
+      </Card>
+    ))}
+  </div>
+
+  <h3 class="mv__subtitle reveal">Valores que guían mi trabajo</h3>
+
+  <div class="mv__values stagger">
+    {values.map((value) => (
+      <Card class="value-card" accent="purple" interactive>
+        <Icon name={value.icon} accent="purple" chip size={24} />
+        <h4 class="value-card__title">{value.title}</h4>
+        <p class="value-card__text">{value.description}</p>
+      </Card>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .mv__top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  @media (min-width: 720px) {
+    .mv__top {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .mv-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .mv-card__title {
+    font-size: clamp(1.3rem, 1.8vw + 0.5rem, 1.7rem);
+  }
+
+  .mv-card__text {
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .mv__subtitle {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+    font-size: clamp(1.25rem, 1.6vw + 0.5rem, 1.6rem);
+  }
+
+  .mv__values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  @media (min-width: 560px) {
+    .mv__values {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .mv__values {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .value-card__title {
+    margin-top: 0.9rem;
+    font-size: 1.15rem;
+  }
+
+  .value-card__text {
+    margin-top: 0.5rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

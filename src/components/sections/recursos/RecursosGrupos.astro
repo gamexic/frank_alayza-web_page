@@ -1,0 +1,183 @@
+---
+/**
+ * RecursosGrupos.astro — Grupos de recursos con tarjetas.
+ * - items available:false  → tarjeta "Próximamente" ELEGANTE: hairline, contenido
+ *   al 60% de opacidad, Badge neutral "Próximamente" y texto muted "En preparación"
+ *   (sin botón muerto).
+ * - item available:true (YouTube) → tarjeta destacada con Icon play (accent gold)
+ *   y Button secondary "Visitar canal".
+ * Fuente: data/resources.ts.
+ */
+import Section from '~/components/ui/Section.astro';
+import Button from '~/components/ui/Button.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { resources } from '~/data/resources';
+
+// Kicker corto por grupo (varía el eyebrow sin repetir el título).
+const eyebrows: Record<string, string> = {
+  checklists: 'Paso a paso',
+  plantillas: 'Listo para usar',
+  'repos-snippets': 'Open source',
+  video: 'En movimiento',
+};
+---
+
+{resources.map((group, gi) => (
+  <Section
+    id={group.id}
+    eyebrow={eyebrows[group.id] ?? 'Gratis'}
+    title={group.title}
+    intro={group.subtitle}
+    tone={gi % 2 === 1 ? 'raised' : 'base'}
+  >
+    <div class:list={['recursos-grid', 'stagger', { 'recursos-grid--single': group.items.length === 1 }]}>
+      {group.items.map((item) =>
+        item.available ? (
+          <article class="recurso recurso--featured">
+            <div class="recurso__head">
+              <Icon name={item.icon} size={24} accent="gold" chip />
+              <Badge tone="gold">{item.format}</Badge>
+            </div>
+            <h3 class="recurso__title">{item.title}</h3>
+            <p class="recurso__desc">{item.description}</p>
+            <div class="recurso__cta">
+              <Button
+                href={item.url}
+                variant="secondary"
+                iconName="enlace-externo"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.ctaLabel}
+              </Button>
+            </div>
+          </article>
+        ) : (
+          <article class="recurso recurso--soon">
+            <div class="recurso__dim">
+              <div class="recurso__head">
+                <Icon name={item.icon} size={24} accent="cyan" chip />
+                <Badge tone="neutral">{item.format}</Badge>
+              </div>
+              <h3 class="recurso__title">{item.title}</h3>
+              <p class="recurso__desc">{item.description}</p>
+            </div>
+            <div class="recurso__foot">
+              <Badge tone="neutral">Próximamente</Badge>
+              <span class="recurso__prep">
+                <Icon name="reloj" size={14} accent="cyan" />
+                En preparación
+              </span>
+            </div>
+          </article>
+        ),
+      )}
+    </div>
+  </Section>
+))}
+
+<style>
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: clamp(1.1rem, 2.5vw, 1.6rem);
+    align-items: stretch;
+  }
+
+  .recursos-grid--single {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+  }
+
+  .recurso {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    height: 100%;
+    padding: clamp(1.25rem, 3vw, 1.6rem);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+  }
+
+  .recurso__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .recurso__title {
+    font-size: clamp(1.1rem, 1.2vw + 0.6rem, 1.3rem);
+    line-height: 1.25;
+  }
+
+  .recurso__desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* --- Featured (YouTube) --- */
+  .recurso--featured {
+    border-color: color-mix(in srgb, var(--gold) 24%, var(--hairline));
+    background:
+      radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.08) 0%, transparent 55%),
+      var(--surface);
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .recurso--featured:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--gold) 45%, transparent);
+    box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.85), var(--glow-gold);
+  }
+
+  .recurso__cta {
+    margin-top: auto;
+    padding-top: 0.6rem;
+  }
+
+  /* --- Próximamente (elegante) --- */
+  .recurso--soon {
+    justify-content: space-between;
+  }
+
+  .recurso__dim {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    opacity: 0.6;
+  }
+
+  .recurso__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .recurso__prep {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-tech);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--text-faint);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .recurso--featured:hover {
+      transform: none;
+    }
+  }
+</style>

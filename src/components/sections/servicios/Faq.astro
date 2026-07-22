@@ -1,0 +1,27 @@
+---
+/**
+ * Faq.astro — Preguntas frecuentes (faq.ts) en Accordion accesible (single).
+ */
+import Section from '~/components/ui/Section.astro';
+import Accordion from '~/components/ui/Accordion.astro';
+import { faq, faqIntro } from '~/data/faq';
+
+const items = faq.map((item) => ({ q: item.question, a: item.answer }));
+---
+
+<Section
+  eyebrow="Preguntas frecuentes"
+  title="Resuelve tus dudas"
+  intro={faqIntro}
+  tone="raised"
+>
+  <div class="faq">
+    <Accordion items={items} single />
+  </div>
+</Section>
+
+<style>
+  .faq {
+    max-width: 820px;
+  }
+</style>

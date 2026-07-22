@@ -1,0 +1,458 @@
+---
+/**
+ * Hero.astro — Portada a viewport completo (100svh menos header).
+ *
+ * Fondo: MediaSlot `hero-loop` (video Higgsfield) con overlay degradado a negro.
+ * Si el video no existe, el fallback es un canvas PROPIO del hero: una red de
+ * nodos dorados/cian —mas densa que la ambiental— que arranca dispersa y se
+ * organiza lentamente insinuando el perfil de cabeza del logo hacia la derecha.
+ * En movil hay menos nodos; con reduced-motion se pinta estatica ya formada;
+ * pausa con visibilitychange / fuera de viewport; idempotente con astro:page-load.
+ *
+ * Titulo con revelado por lineas (CSS propio, overflow + translateY escalonado).
+ */
+import Button from '~/components/ui/Button.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
+import { site } from '~/data/site';
+---
+
+<section class="hero" aria-label="Presentación">
+  <div class="hero__bg" aria-hidden="true">
+    <MediaSlot name="hero-loop" type="video" class="hero__media" alt="">
+      <div slot="fallback" class="hero__canvas-holder">
+        <canvas class="hero__canvas" data-hero-neural></canvas>
+      </div>
+    </MediaSlot>
+    <div class="hero__overlay"></div>
+    <div class="hero__grain"></div>
+  </div>
+
+  <div class="container hero__inner">
+    <p class="eyebrow hero__eyebrow reveal">Frank Alayza · Lima, Perú</p>
+
+    {/* CONFIRMAR FRANK: tagline / posicionamiento del hero */}
+    <h1 class="hero__title">
+      <span class="hero__line"><span class="hero__line-inner">Construyo</span></span>
+      <span class="hero__line"><span class="hero__line-inner text-gradient-gold">negocios de tecnología</span></span>
+      <span class="hero__line"><span class="hero__line-inner">con inteligencia artificial</span></span>
+    </h1>
+
+    <p class="hero__subtitle reveal" data-delay="480">{site.description}</p>
+
+    <div class="hero__ctas reveal" data-delay="600">
+      <Button href="/contacto" variant="primary" size="lg" magnetic iconName="flecha">Conectar</Button>
+      <Button href="/proyectos" variant="secondary" size="lg">Ver proyectos</Button>
+    </div>
+  </div>
+
+  <div class="hero__scroll-wrap">
+    <a class="hero__scroll reveal" data-delay="760" href="#enfoque" aria-label="Ir a la siguiente sección">
+      <span class="hero__scroll-label">Desliza</span>
+      <span class="hero__scroll-rail"><span class="hero__scroll-dot"></span></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    /* Sube bajo el header fijo para un fondo a sangre completa. */
+    margin-top: calc(var(--header-h) * -1);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ---------- Fondo ---------- */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero__media,
+  .hero__canvas-holder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Oscurecido: radial que abre luz a la derecha (donde se forma el perfil) +
+     degradado inferior a negro para asentar el texto. */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 78% 42%, rgba(251, 191, 36, 0.06), transparent 55%),
+      radial-gradient(90% 80% at 20% 30%, rgba(6, 6, 10, 0.55), transparent 60%),
+      linear-gradient(180deg, rgba(6, 6, 10, 0.7) 0%, rgba(6, 6, 10, 0.25) 32%, rgba(6, 6, 10, 0.72) 78%, var(--bg-abyss) 100%);
+  }
+
+  .hero__grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  /* ---------- Contenido ---------- */
+  .hero__inner {
+    padding-top: calc(var(--header-h) + clamp(1rem, 4vh, 2.5rem));
+    padding-bottom: clamp(4.5rem, 12vh, 7rem);
+    max-width: var(--max-width);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: clamp(1rem, 2.5vh, 1.6rem);
+    color: var(--gold);
+  }
+
+  .hero__title {
+    font-size: clamp(2.7rem, 8vw + 0.4rem, 5.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+  }
+
+  .hero__line {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.06em;
+  }
+
+  .hero__line-inner {
+    display: block;
+    transform: translateY(115%);
+    animation: heroLineUp 0.95s var(--ease-out-expo) forwards;
+    /* padding evita el recorte del gradiente en descendentes (g, í) */
+    padding-right: 0.04em;
+  }
+
+  .hero__line:nth-child(1) .hero__line-inner { animation-delay: 0.14s; }
+  .hero__line:nth-child(2) .hero__line-inner { animation-delay: 0.28s; }
+  .hero__line:nth-child(3) .hero__line-inner { animation-delay: 0.42s; }
+
+  @keyframes heroLineUp {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .hero__subtitle {
+    margin-top: clamp(1.4rem, 3vh, 2rem);
+    max-width: 52ch;
+    color: var(--text-muted);
+    font-size: clamp(1.05rem, 1.2vw + 0.6rem, 1.3rem);
+    line-height: 1.6;
+  }
+
+  .hero__ctas {
+    margin-top: clamp(1.8rem, 4vh, 2.6rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  /* ---------- Indicador de scroll ---------- */
+  /* El wrapper centra (transform: translateX); el ancla usa .reveal (transform:
+     translateY) sin pisar el centrado. */
+  .hero__scroll-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(1.1rem, 3.2vh, 2rem);
+    transform: translateX(-50%);
+  }
+
+  .hero__scroll {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-faint);
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .hero__scroll:hover,
+  .hero__scroll:focus-visible {
+    color: var(--gold);
+  }
+
+  .hero__scroll-label {
+    font-family: var(--font-tech);
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .hero__scroll-rail {
+    position: relative;
+    width: 1px;
+    height: 42px;
+    background: linear-gradient(180deg, currentColor, transparent);
+    overflow: hidden;
+  }
+
+  .hero__scroll-dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+    animation: heroScrollDot 1.9s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes heroScrollDot {
+    0% { transform: translateY(-6px); opacity: 0; }
+    30% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { transform: translateY(40px); opacity: 0; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 560px) {
+    .hero__title { max-width: 12ch; }
+    .hero__ctas :global(.btn) { flex: 1 1 auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__line-inner { transform: none; animation: none; }
+    .hero__scroll-dot { animation: none; opacity: 0.8; top: 8px; }
+  }
+</style>
+
+<script>
+  // Canvas propio del hero: red que se organiza insinuando el perfil del logo.
+  // Estado a nivel de modulo para persistir entre navegaciones (ClientRouter).
+  let heroCleanup: (() => void) | null = null;
+
+  function startHeroNeural() {
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-neural]');
+    if (!canvas) return; // no existe si hay video Higgsfield enchufado
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = () => window.matchMedia('(max-width: 640px)').matches;
+
+    const GOLD = '251, 191, 36';
+    const CYAN = '0, 212, 255';
+
+    // Puntos objetivo en el espacio del logo (viewBox 0-100): nodos, conexiones
+    // y perfil humano. Al agruparse, la nube insinua la cabeza del logo.
+    const SIL: [number, number][] = [
+      [46, 20], [73, 30], [31, 37], [48, 47], [66, 52], [35, 59], [57, 67],
+      [47.3, 37], [46.3, 24], [39.4, 41.9], [36.6, 40.3], [56.3, 41.4],
+      [67.2, 33.9], [57.6, 49.7], [61.2, 50.7], [40.7, 53.8], [37.9, 56.3],
+      [52.1, 56.1], [54.3, 61.1], [63.4, 56.3], [60.3, 61.4], [70.9, 36.7],
+      [67.5, 47.2], [49.8, 21.4], [66.4, 27.6], [57, 30], [66, 30], [50.5, 67],
+      [78, 36], [80, 44], [85, 48], [79.5, 49.5], [82.5, 51.5], [79.5, 53],
+      [82, 55.5], [81, 58.5], [73, 62.5], [63.5, 64],
+    ];
+
+    interface P {
+      x: number; y: number; vx: number; vy: number;
+      tx: number; ty: number; cyan: boolean; ph: number;
+    }
+
+    let dpr = 1;
+    let W = 0;
+    let H = 0;
+    let parts: P[] = [];
+    let raf = 0;
+    let running = false;
+    let inView = true;
+    let t0 = 0;
+
+    const layout = () => {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      W = Math.max(1, rect.width);
+      H = Math.max(1, rect.height);
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const targetFor = (i: number) => {
+      const p = SIL[i % SIL.length];
+      const mobile = isMobile();
+      const region = Math.min(W * (mobile ? 0.78 : 0.5), H * 0.9, 560);
+      const ox = mobile ? (W - region) / 2 : W - region - W * 0.03;
+      const oy = (H - region) / 2 + (mobile ? -H * 0.05 : 0);
+      // bbox del contenido del logo aprox: x[24,85], y[18,68]
+      const nx = (p[0] - 24) / (85 - 24);
+      const ny = (p[1] - 18) / (68 - 18);
+      return { x: ox + nx * region, y: oy + ny * region };
+    };
+
+    const build = () => {
+      const count = isMobile() ? 42 : 94;
+      parts = Array.from({ length: count }, (_, i) => {
+        const t = targetFor(i);
+        return {
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: 0,
+          vy: 0,
+          tx: t.x + (Math.random() - 0.5) * 12,
+          ty: t.y + (Math.random() - 0.5) * 12,
+          cyan: i % 4 === 0,
+          ph: Math.random() * Math.PI * 2,
+        };
+      });
+    };
+
+    const maxDist = () => (isMobile() ? 60 : 84);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      const md = maxDist();
+      for (let i = 0; i < parts.length; i++) {
+        const a = parts[i];
+        for (let j = i + 1; j < parts.length; j++) {
+          const b = parts[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < md) {
+            const al = (1 - d / md) * 0.22;
+            ctx.strokeStyle = `rgba(${a.cyan || b.cyan ? CYAN : GOLD}, ${al.toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (const p of parts) {
+        ctx.fillStyle = `rgba(${p.cyan ? CYAN : GOLD}, 0.78)`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.cyan ? 1.7 : 1.3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const step = (now: number) => {
+      if (!t0) t0 = now;
+      const elapsed = (now - t0) / 1000;
+      const ramp = Math.min(1, elapsed / 6); // se organiza en ~6s
+      const spring = 0.006 + ramp * 0.02;
+      const wander = 0.02 * (1 - ramp * 0.6);
+      for (const p of parts) {
+        p.vx += (p.tx - p.x) * spring;
+        p.vy += (p.ty - p.y) * spring;
+        p.ph += 0.02;
+        p.vx += Math.cos(p.ph) * wander;
+        p.vy += Math.sin(p.ph * 1.1) * wander;
+        p.vx *= 0.86;
+        p.vy *= 0.86;
+        p.x += p.vx;
+        p.y += p.vy;
+      }
+      draw();
+    };
+
+    const loop = (now: number) => {
+      step(now);
+      raf = requestAnimationFrame(loop);
+    };
+
+    const play = () => {
+      if (running || reduce) return;
+      if (document.hidden || !inView) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    };
+
+    const pause = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
+    const settleStatic = () => {
+      for (const p of parts) {
+        p.x = p.tx;
+        p.y = p.ty;
+      }
+    };
+
+    // --- Init ---
+    layout();
+    build();
+    if (reduce) settleStatic();
+    draw();
+
+    // --- Listeners ---
+    let rt = 0;
+    const onResize = () => {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(() => {
+        layout();
+        build();
+        t0 = 0;
+        if (reduce) settleStatic();
+        draw();
+      }, 160);
+    };
+    window.addEventListener('resize', onResize);
+
+    const onVis = () => {
+      if (document.hidden) pause();
+      else play();
+    };
+    document.addEventListener('visibilitychange', onVis);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        inView = entries[0]?.isIntersecting ?? true;
+        if (inView) play();
+        else pause();
+      },
+      { threshold: 0 },
+    );
+    io.observe(canvas);
+
+    if (!reduce) play();
+
+    heroCleanup = () => {
+      pause();
+      window.removeEventListener('resize', onResize);
+      window.clearTimeout(rt);
+      document.removeEventListener('visibilitychange', onVis);
+      io.disconnect();
+    };
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    if (heroCleanup) {
+      heroCleanup();
+      heroCleanup = null;
+    }
+    startHeroNeural();
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    if (heroCleanup) {
+      heroCleanup();
+      heroCleanup = null;
+    }
+  });
+</script>

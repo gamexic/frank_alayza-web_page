@@ -1,0 +1,113 @@
+---
+/**
+ * Proceso.astro (Servicios) — Los 4 pasos (process.ts) en formato stepper
+ * horizontal con conectores entre nodos (desktop). Version compacta y distinta a
+ * la vertical de "Sobre mi". Movil: lista vertical con nodo + texto. Acento cian.
+ */
+import Section from '~/components/ui/Section.astro';
+import { process, processIntro } from '~/data/process';
+---
+
+<Section
+  eyebrow="Metodología"
+  title="Mi proceso de trabajo"
+  intro={processIntro}
+  tone="raised"
+  width="wide"
+>
+  <ol class="proc-h stagger">
+    {process.map((step) => (
+      <li class="proc-h-step">
+        <span class="proc-h-step__node" aria-hidden="true">{step.step}</span>
+        <div class="proc-h-step__body">
+          <h3 class="proc-h-step__title">{step.title}</h3>
+          <p class="proc-h-step__text">{step.description}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</Section>
+
+<style>
+  /* Movil: lista vertical (nodo + texto) */
+  .proc-h {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .proc-h-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .proc-h-step__node {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-family: var(--font-tech);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--cyan-bright);
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--cyan) 40%, var(--hairline));
+    box-shadow: 0 0 20px -8px rgba(0, 212, 255, 0.55);
+    z-index: 1;
+  }
+
+  .proc-h-step__title {
+    font-size: clamp(1.15rem, 1.4vw + 0.5rem, 1.35rem);
+  }
+
+  .proc-h-step__text {
+    margin-top: 0.45rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Desktop: stepper horizontal con conectores */
+  @media (min-width: 760px) {
+    .proc-h {
+      flex-direction: row;
+      gap: 0;
+    }
+
+    .proc-h-step {
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-inline: 0.75rem;
+    }
+
+    .proc-h-step__node {
+      margin-bottom: 1.1rem;
+    }
+
+    .proc-h-step:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(-50% + 30px);
+      right: calc(50% + 30px);
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--cyan) 12%, var(--surface-2)),
+        color-mix(in srgb, var(--cyan) 45%, transparent)
+      );
+      z-index: 0;
+    }
+
+    .proc-h-step__text {
+      max-width: 28ch;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+/**
+ * [post].astro — Ruta dinámica de artículos del blog.
+ *
+ * getStaticPaths recorre la colección 'blog'. entry.id = nombre del archivo sin
+ * .md (p. ej. 'contenido-mvp-4-semanas'); con build.format 'file' se genera
+ * /contenido-mvp-4-semanas.html, preservando 1:1 las URLs actuales.
+ *
+ * prev/next: vecinos en orden ALFABÉTICO de entry.id (estable y determinista,
+ * sin wrap: el primero no tiene "anterior" y el último no tiene "siguiente").
+ */
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '~/layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).sort((a, b) => a.id.localeCompare(b.id));
+
+  return posts.map((entry, i) => {
+    const prevEntry = posts[i - 1];
+    const nextEntry = posts[i + 1];
+    return {
+      params: { post: entry.id },
+      props: {
+        entry,
+        prev: prevEntry
+          ? { title: prevEntry.data.title, href: `/${prevEntry.id}` }
+          : undefined,
+        next: nextEntry
+          ? { title: nextEntry.data.title, href: `/${nextEntry.id}` }
+          : undefined,
+      },
+    };
+  });
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ArticleLayout entry={entry} prev={prev} next={next}>
+  <Content />
+</ArticleLayout>

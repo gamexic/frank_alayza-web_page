@@ -1,0 +1,55 @@
+---
+/**
+ * Stats.astro — Banda de cifras (Counter) sobre "Sobre mí".
+ * 3 cifras reales de timeline.ts; la de "años programando" muestra su nota honesta.
+ */
+import Counter from '~/components/ui/Counter.astro';
+import { stats } from '~/data/timeline';
+---
+
+<section class="stats section--raised" aria-label="Cifras">
+  <div class="container">
+    <div class="stats__grid stagger">
+      {stats.map((stat) => (
+        <div class="stats__item">
+          <Counter value={stat.value} suffix={stat.suffix} label={stat.label} />
+          {stat.note && <p class="stats__note">{stat.note}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding-block: clamp(2.5rem, 6vw, var(--space-step-4));
+    background: var(--bg-raised);
+    border-block: 1px solid var(--hairline);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 640px) {
+    .stats__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .stats__item {
+    position: relative;
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    border-left: 2px solid color-mix(in srgb, var(--gold) 32%, transparent);
+  }
+
+  .stats__note {
+    margin-top: 0.5rem;
+    max-width: 30ch;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-faint);
+  }
+</style>

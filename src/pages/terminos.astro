@@ -1,0 +1,86 @@
+---
+/**
+ * terminos.astro — Términos y condiciones. Contenido real migrado del sitio
+ * antiguo (8 secciones, última actualización 2 de febrero de 2026), redactado
+ * sobre LegalLayout. Sustancia legal conservada tal cual.
+ */
+import LegalLayout from '~/layouts/LegalLayout.astro';
+import type { LegalSection } from '~/layouts/LegalLayout.astro';
+
+const summary = [
+  'Al navegar este sitio aceptas estos términos.',
+  'El contenido es informativo y puede actualizarse.',
+  'La marca y los materiales son propiedad de Frank Alayza.',
+  'El uso indebido del sitio no está permitido.',
+];
+
+const sections: LegalSection[] = [
+  {
+    id: 'aceptacion',
+    title: 'Aceptación de los términos',
+    html: `
+      <p>Al acceder y usar este sitio, aceptas cumplir estos términos. Si no estás de acuerdo, por favor no utilices el sitio.</p>
+      <p>El sitio está dirigido a una audiencia internacional, por lo que estos términos se presentan de forma general para usuarios de distintos países.</p>
+    `,
+  },
+  {
+    id: 'uso-permitido',
+    title: 'Uso permitido',
+    html: `
+      <p>Puedes navegar, compartir y descargar materiales públicos para fines informativos. Queda prohibido utilizar el sitio para actividades ilegales, automatizaciones abusivas o intentos de vulnerar su seguridad.</p>
+    `,
+  },
+  {
+    id: 'propiedad-intelectual',
+    title: 'Propiedad intelectual',
+    html: `
+      <p>Los textos, diseños, gráficos, logotipos y demás elementos son propiedad de Frank Alayza o de sus respectivos titulares. No se permite su reproducción sin autorización expresa.</p>
+    `,
+  },
+  {
+    id: 'enlaces-externos',
+    title: 'Contenido y enlaces externos',
+    html: `
+      <p>Este sitio puede incluir enlaces a terceros. No tengo control sobre su contenido ni asumo responsabilidad por sus políticas o prácticas.</p>
+    `,
+  },
+  {
+    id: 'servicios-propuestas',
+    title: 'Servicios y propuestas',
+    html: `
+      <p>Cualquier propuesta, presupuesto o acuerdo comercial se confirma por escrito. La información pública del sitio no constituye una oferta vinculante.</p>
+    `,
+  },
+  {
+    id: 'responsabilidad',
+    title: 'Limitación de responsabilidad',
+    html: `
+      <p>El uso del sitio es bajo tu propia responsabilidad. No garantizo resultados específicos derivados de la aplicación de la información presentada.</p>
+    `,
+  },
+  {
+    id: 'disponibilidad',
+    title: 'Disponibilidad',
+    html: `
+      <p>Me esfuerzo por mantener el sitio actualizado y disponible, pero pueden existir interrupciones por mantenimiento o causas externas.</p>
+    `,
+  },
+  {
+    id: 'modificaciones',
+    title: 'Modificaciones',
+    html: `
+      <p>Puedo actualizar estos términos en cualquier momento. La fecha de «última actualización» indicará el cambio.</p>
+    `,
+  },
+];
+---
+
+<LegalLayout
+  title="Términos y condiciones"
+  description="Términos y condiciones de uso del sitio de Frank Alayza."
+  kicker="Legal · Términos"
+  updated="2 de febrero de 2026"
+  lead="Estos términos regulan el uso de este sitio y establecen el marco de relación profesional con Frank Alayza."
+  summary={summary}
+  sections={sections}
+/>

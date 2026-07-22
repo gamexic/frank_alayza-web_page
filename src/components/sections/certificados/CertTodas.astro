@@ -1,0 +1,134 @@
+---
+/**
+ * CertTodas.astro — Tarjeta colapsable "Ver todas las certificaciones (+98 más)".
+ * Usa un <details>/<summary> nativo (accesible por teclado, sin JS ni diálogos
+ * del navegador). Dentro: texto breve + Button "Descargar CV completo" (download)
+ * + Button ghost "Ver en LinkedIn". Fuente: data/site.ts.
+ */
+import Section from '~/components/ui/Section.astro';
+import Button from '~/components/ui/Button.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { site } from '~/data/site';
+
+const linkedin = site.socials.find((s) => s.id === 'linkedin');
+---
+
+<Section tone="raised">
+  <details class="cert-todas reveal">
+    <summary class="cert-todas__summary">
+      <span class="cert-todas__label">
+        Ver todas las certificaciones
+        <span class="cert-todas__count">+98 más</span>
+      </span>
+      <span class="cert-todas__chevron" aria-hidden="true">
+        <Icon name="flecha" size={18} accent="gold" />
+      </span>
+    </summary>
+
+    <div class="cert-todas__body">
+      <p class="cert-todas__text">
+        La lista completa de mis certificaciones está disponible en mi CV o en mi
+        perfil de LinkedIn.
+      </p>
+      <div class="cert-todas__actions">
+        <Button href={site.cvPath} variant="secondary" iconName="descarga" download>
+          Descargar CV completo
+        </Button>
+        {linkedin && (
+          <Button
+            href={linkedin.url}
+            variant="ghost"
+            iconName="enlace-externo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver en LinkedIn
+          </Button>
+        )}
+      </div>
+    </div>
+  </details>
+</Section>
+
+<style>
+  .cert-todas {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .cert-todas__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: clamp(1.1rem, 3vw, 1.5rem) clamp(1.25rem, 3vw, 1.75rem);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.1rem, 1.4vw + 0.5rem, 1.35rem);
+    color: var(--text);
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .cert-todas__summary::-webkit-details-marker {
+    display: none;
+  }
+  .cert-todas__summary:hover {
+    color: var(--gold);
+  }
+
+  .cert-todas__label {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .cert-todas__count {
+    font-family: var(--font-tech);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    border-radius: var(--radius-pill);
+    padding: 0.3rem 0.6rem;
+  }
+
+  .cert-todas__chevron {
+    display: inline-flex;
+    flex: none;
+    color: var(--gold);
+    transition: transform var(--dur) var(--ease-out-expo);
+  }
+  .cert-todas[open] .cert-todas__chevron {
+    transform: rotate(90deg);
+  }
+
+  .cert-todas__body {
+    padding: 0 clamp(1.25rem, 3vw, 1.75rem) clamp(1.4rem, 3vw, 1.75rem);
+  }
+
+  .cert-todas__text {
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 56ch;
+    margin-bottom: 1.2rem;
+  }
+
+  .cert-todas__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cert-todas__chevron {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+/**
+ * ServiciosGrid.astro — Los 7 servicios (services.ts). Cards con Icon chip (cian),
+ * descripcion y features con Icon check. Grid 2 columnas en desktop; la 7a ocupa
+ * el ancho completo con layout asimetrico. Entrada escalonada (.stagger).
+ */
+import Section from '~/components/ui/Section.astro';
+import Card from '~/components/ui/Card.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { services, servicesIntro } from '~/data/services';
+---
+
+<Section
+  eyebrow="Qué hago"
+  title="Servicios"
+  intro={servicesIntro}
+  tone="raised"
+  width="wide"
+>
+  <div class="serv-grid stagger">
+    {services.map((service, i) => (
+      <Card
+        class:list={['serv-card', { 'serv-card--wide': i === services.length - 1 }]}
+        accent="cyan"
+        interactive
+      >
+        <div class="serv-card__main">
+          <div class="serv-card__head">
+            <Icon name={service.icon} accent="cyan" chip size={28} />
+            <h3 class="serv-card__title">{service.title}</h3>
+          </div>
+          <p class="serv-card__desc">{service.description}</p>
+        </div>
+        <ul class="serv-card__features">
+          {service.features.map((feature) => (
+            <li class="serv-card__feature">
+              <span class="serv-card__check" aria-hidden="true">
+                <Icon name="check" accent="cyan" size={17} />
+              </span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .serv-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  @media (min-width: 760px) {
+    .serv-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .serv-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .serv-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .serv-card__title {
+    font-size: clamp(1.15rem, 1.4vw + 0.5rem, 1.4rem);
+  }
+
+  .serv-card__desc {
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .serv-card__features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .serv-card__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  .serv-card__check {
+    display: inline-flex;
+    flex: none;
+    margin-top: 0.12rem;
+  }
+
+  /* 7a card: ancho completo, layout asimetrico en desktop */
+  @media (min-width: 760px) {
+    .serv-card--wide {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      column-gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: center;
+    }
+
+    .serv-card--wide .serv-card__features {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem 1.25rem;
+    }
+  }
+</style>

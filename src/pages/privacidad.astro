@@ -1,0 +1,89 @@
+---
+/**
+ * privacidad.astro — Política de privacidad. Contenido real migrado del sitio
+ * antiguo (7 secciones, última actualización 2 de febrero de 2026), redactado
+ * sobre LegalLayout. Se ajustó la mención de preferencias locales para reflejar
+ * el sitio actual (tema oscuro único, sin toggle).
+ */
+import LegalLayout from '~/layouts/LegalLayout.astro';
+import type { LegalSection } from '~/layouts/LegalLayout.astro';
+import { site } from '~/data/site';
+
+const mail = `<a href="mailto:${site.email}">${site.email}</a>`;
+
+const summary = [
+  'Solo recolecto datos si me escribes, solicitas un servicio o te suscribes.',
+  'No vendo ni comparto tu información con terceros para marketing.',
+  'Tus preferencias de visualización se guardan localmente en tu navegador.',
+  'Puedes solicitar acceso, corrección o eliminación de tus datos cuando quieras.',
+];
+
+const sections: LegalSection[] = [
+  {
+    id: 'responsable',
+    title: 'Responsable del tratamiento',
+    html: `
+      <p>El responsable del tratamiento de los datos es Frank Alayza. Puedes contactarme en ${mail} para cualquier consulta relacionada con privacidad.</p>
+      <p>Este sitio tiene alcance internacional y esta política está redactada en términos generales de buenas prácticas de privacidad y transparencia.</p>
+    `,
+  },
+  {
+    id: 'datos',
+    title: 'Datos que recopilo',
+    html: `
+      <p>Recolecto únicamente la información que proporcionas de forma voluntaria al contactarme:</p>
+      <ul>
+        <li>Nombre y correo electrónico.</li>
+        <li>Mensaje o detalle del proyecto que compartes.</li>
+        <li>Correo electrónico de suscripción al newsletter (si decides suscribirte).</li>
+      </ul>
+      <div class="legal-note"><strong>Preferencias locales:</strong> tus preferencias de visualización se guardan en tu navegador mediante almacenamiento local y no se envían a servidores.</div>
+    `,
+  },
+  {
+    id: 'finalidad',
+    title: 'Finalidad del uso',
+    html: `
+      <p>Utilizo tus datos para responder consultas, preparar propuestas, coordinar reuniones, gestionar comunicaciones relacionadas con los servicios que ofrezco y enviar contenido cuando te suscribes voluntariamente.</p>
+    `,
+  },
+  {
+    id: 'comparticion',
+    title: 'Compartición de datos',
+    html: `
+      <p>No vendo ni alquilo tus datos. Solo se compartirán con proveedores que sean necesarios para operar el sitio o responderte (por ejemplo, servicios de email u hosting), bajo obligaciones de confidencialidad.</p>
+    `,
+  },
+  {
+    id: 'conservacion',
+    title: 'Conservación',
+    html: `
+      <p>Conservo la información únicamente el tiempo necesario para gestionar la relación y cumplir obligaciones legales o contractuales. Luego se elimina o anonimiza.</p>
+    `,
+  },
+  {
+    id: 'derechos',
+    title: 'Derechos del titular',
+    html: `
+      <p>Puedes solicitar acceso, rectificación, eliminación o limitación del tratamiento escribiendo a ${mail}. Respondo en un plazo razonable y con transparencia.</p>
+    `,
+  },
+  {
+    id: 'cambios',
+    title: 'Cambios en esta política',
+    html: `
+      <p>Si actualizo esta política, la fecha de «última actualización» reflejará el cambio. Las modificaciones relevantes se comunicarán de forma visible en este sitio.</p>
+    `,
+  },
+];
+---
+
+<LegalLayout
+  title="Política de privacidad"
+  description="Política de privacidad de Frank Alayza. Conoce cómo se maneja tu información y cuáles son tus derechos."
+  kicker="Legal · Privacidad"
+  updated="2 de febrero de 2026"
+  lead="Tu información se maneja con transparencia, responsabilidad y el mínimo necesario para darte respuesta o entregar un servicio."
+  summary={summary}
+  sections={sections}
+/>

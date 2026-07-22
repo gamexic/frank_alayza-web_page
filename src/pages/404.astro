@@ -1,0 +1,88 @@
+---
+/**
+ * 404.astro — Página no encontrada. Composición centrada a viewport completo:
+ * logo dorado animado, "404" enorme con font-tech y gradiente dorado, mensaje
+ * y dos acciones. El fondo neural global ya lo aporta BaseLayout.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Logo from '~/components/ui/Logo.astro';
+import Button from '~/components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada – Frank Alayza"
+  description="La página que buscas no existe o se movió. Vuelve al inicio o explora el contenido de Frank Alayza."
+  pageClass="page-404"
+>
+  <section class="nf">
+    <div class="container nf__inner">
+      <a href="/" class="nf__logo reveal" aria-label="Frank Alayza — Inicio">
+        <Logo variant="gold" mode="icon" size={76} animated />
+      </a>
+
+      <p class="nf__code reveal"><span class="text-gradient-gold">404</span></p>
+
+      <h1 class="nf__title reveal">Esta página no existe o se movió</h1>
+      <p class="nf__lead reveal">
+        Puede que el enlace esté roto o que la dirección haya cambiado.
+        Retomemos el camino desde aquí.
+      </p>
+
+      <div class="nf__actions reveal">
+        <Button href="/" variant="primary" size="lg" iconName="flecha">Ir al inicio</Button>
+        <Button href="/contenido" variant="ghost" size="lg">Ver contenido</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100svh - var(--header-h));
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .nf__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40ch;
+  }
+
+  .nf__logo {
+    display: inline-flex;
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .nf__code {
+    font-family: var(--font-tech);
+    font-weight: 700;
+    line-height: 0.9;
+    font-size: clamp(5.5rem, 22vw, 12rem);
+    letter-spacing: -0.02em;
+    filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.25));
+  }
+
+  .nf__title {
+    margin-top: clamp(0.75rem, 2vw, 1.25rem);
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+  }
+
+  .nf__lead {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.2vw + 0.5rem, 1.15rem);
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+</style>

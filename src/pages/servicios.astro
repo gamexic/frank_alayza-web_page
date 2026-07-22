@@ -1,0 +1,24 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/sections/servicios/Hero.astro';
+import ServiciosGrid from '~/components/sections/servicios/ServiciosGrid.astro';
+import Paquetes from '~/components/sections/servicios/Paquetes.astro';
+import Proceso from '~/components/sections/servicios/Proceso.astro';
+import Garantias from '~/components/sections/servicios/Garantias.astro';
+import Faq from '~/components/sections/servicios/Faq.astro';
+import CtaFinal from '~/components/sections/servicios/CtaFinal.astro';
+
+const title = 'Servicios – Frank Alayza';
+const description =
+  'Servicios de Frank Alayza — consultoría de IA, aplicaciones web, páginas web, ciencia de datos, automatización y soluciones con LLMs y agentes.';
+---
+
+<BaseLayout title={title} description={description} pageClass="page-servicios">
+  <Hero />
+  <ServiciosGrid />
+  <Paquetes />
+  <Proceso />
+  <Garantias />
+  <Faq />
+  <CtaFinal />
+</BaseLayout>

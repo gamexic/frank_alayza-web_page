@@ -1,0 +1,77 @@
+---
+/**
+ * NewsletterTeaser.astro — Banda que invita a suscribirse a la newsletter.
+ * El formulario real vive en /contenido#newsletter (otra página); aquí sólo el CTA.
+ */
+import Button from '~/components/ui/Button.astro';
+import Icon from '~/components/ui/Icon.astro';
+---
+
+<section class="nl-teaser">
+  <div class="container">
+    <div class="nl-teaser__inner reveal">
+      <span class="nl-teaser__glow" aria-hidden="true"></span>
+      <span class="nl-teaser__icon" aria-hidden="true">
+        <Icon name="mail" size={26} accent="gold" chip />
+      </span>
+      <h2 class="nl-teaser__title">¿Quieres que te avise cuando estén listos?</h2>
+      <p class="nl-teaser__lead">
+        Te escribo cuando publique nuevos recursos, plantillas y guías. Sin spam,
+        cancelas cuando quieras.
+      </p>
+      <Button href="/contenido#newsletter" variant="primary" size="lg" magnetic iconName="flecha">
+        Avísame
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nl-teaser {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .nl-teaser__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
+    background: var(--bg-raised);
+    border: 1px solid color-mix(in srgb, var(--gold) 22%, var(--hairline));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .nl-teaser__glow {
+    position: absolute;
+    inset: -40% 20% auto;
+    height: 70%;
+    z-index: -1;
+    background: radial-gradient(ellipse at 50% 0%, rgba(251, 191, 36, 0.2) 0%, transparent 68%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .nl-teaser__icon {
+    display: inline-flex;
+  }
+
+  .nl-teaser__title {
+    font-size: clamp(1.6rem, 3vw + 0.5rem, 2.5rem);
+    max-width: 22ch;
+  }
+
+  .nl-teaser__lead {
+    max-width: 46ch;
+    color: var(--text-muted);
+    font-size: clamp(1rem, 1.2vw + 0.5rem, 1.15rem);
+  }
+
+  .nl-teaser__inner :global(.btn) {
+    margin-top: 0.6rem;
+  }
+</style>

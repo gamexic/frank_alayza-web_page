@@ -1,0 +1,273 @@
+---
+/**
+ * NegociosDestacados.astro — Negocios propios estrella (Clevun, Iceguin).
+ * Dos showcase cards GRANDES premium, una por fila en desktop con layout
+ * asimétrico alternado (media/texto). La imagen usa MediaSlot (enchufe Higgsfield):
+ * si Frank suelta `proyecto-clevun.*` / `proyecto-iceguin.*` en
+ * /src/assets/higgsfield/ se usa; si no, cae a un panel con gradiente del acento
+ * + icono temático grande con glow.
+ *
+ * Los chips "qué hace" se derivan fielmente de la descripción de cada negocio
+ * (data/projects.ts); no son datos nuevos. Se mantienen aquí como capa de
+ * presentación para no tocar la fuente de datos.
+ */
+import Section from '~/components/ui/Section.astro';
+import Button from '~/components/ui/Button.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Icon from '~/components/ui/Icon.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
+import { businesses } from '~/data/projects';
+
+// Chips derivados de la descripción de cada negocio (no son claims nuevos).
+const features: Record<string, string[]> = {
+  clevun: ['Atiende 24/7', 'Agenda citas', 'Cobra por WhatsApp', 'Agente de IA'],
+  iceguin: ['Alertas en tiempo real', 'Cadena de frío', 'Refrigeración comercial'],
+};
+
+// El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
+const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>
+  a === 'magenta' ? 'purple' : (a as 'gold' | 'cyan' | 'purple');
+
+// Variable CSS de color por acento de negocio (para glow/borde de la tarjeta).
+const accentVar = (a: string): string =>
+  a === 'cyan' ? 'var(--cyan)' : a === 'magenta' ? 'var(--magenta)' : 'var(--gold)';
+---
+
+<Section
+  id="negocios"
+  eyebrow="Negocios propios"
+  title="Lo que estoy construyendo"
+  intro="Productos que fundé y opero de punta a punta: estrategia, tecnología y ejecución con IA en un solo lugar."
+  tone="base"
+  width="wide"
+>
+  <div class="negocios">
+    {businesses.map((b, i) => (
+      <article
+        class:list={['showcase', 'reveal', { 'showcase--reverse': i % 2 === 1 }]}
+        data-accent={b.accent}
+        data-delay={i * 120}
+        style={`--acc:${accentVar(b.accent)};`}
+      >
+        <div class="showcase__media">
+          <MediaSlot name={`proyecto-${b.id}`} type="image" alt={`${b.name} — ${b.tagline}`}>
+            <div slot="fallback" class="showcase__fallback">
+              <span class="showcase__glow" aria-hidden="true"></span>
+              <span class="showcase__grid-lines" aria-hidden="true"></span>
+              <Icon name={b.icon} size={104} accent={toIconAccent(b.accent)} />
+            </div>
+          </MediaSlot>
+        </div>
+
+        <div class="showcase__body">
+          <Badge tone="gold">{b.badge}</Badge>
+          <h3 class="showcase__name">{b.name}</h3>
+          <p class="showcase__tagline">{b.tagline}</p>
+          <p class="showcase__desc">{b.description}</p>
+
+          <ul class="showcase__chips">
+            {(features[b.id] ?? []).map((f) => (
+              <li class="showcase__chip">
+                <Icon name="check" size={14} accent={toIconAccent(b.accent)} />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="showcase__cta">
+            <Button
+              href={b.url}
+              variant="secondary"
+              iconName="enlace-externo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visitar {b.name}
+            </Button>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .negocios {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .showcase {
+    position: relative;
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    padding: clamp(1.4rem, 3.5vw, 2.4rem);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .showcase:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--acc) 42%, transparent);
+    box-shadow:
+      0 22px 50px -26px rgba(0, 0, 0, 0.85),
+      0 0 30px -8px color-mix(in srgb, var(--acc) 34%, transparent);
+  }
+
+  @media (min-width: 860px) {
+    .showcase {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    .showcase--reverse .showcase__media {
+      order: 2;
+    }
+  }
+
+  /* --- Media --- */
+  .showcase__media {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-abyss);
+  }
+
+  .showcase__media :global(.media-slot),
+  .showcase__media :global(.media-slot__img),
+  .showcase__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .showcase__fallback {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    isolation: isolate;
+    background:
+      radial-gradient(
+        circle at 50% 42%,
+        color-mix(in srgb, var(--acc) 16%, transparent) 0%,
+        transparent 62%
+      ),
+      linear-gradient(160deg, var(--surface-2) 0%, var(--bg-abyss) 100%);
+    color: var(--acc);
+  }
+
+  .showcase__glow {
+    position: absolute;
+    inset: 12% 18%;
+    z-index: -1;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--acc) 40%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(26px);
+    animation: showcasePulse 5.5s var(--ease-out-expo) infinite;
+    pointer-events: none;
+  }
+
+  .showcase__grid-lines {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--hairline) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+    -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 72%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .showcase__fallback :global(.icon-svg) {
+    filter: drop-shadow(0 0 18px color-mix(in srgb, var(--acc) 55%, transparent));
+  }
+
+  @keyframes showcasePulse {
+    0%,
+    100% {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+  }
+
+  /* --- Body --- */
+  .showcase__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .showcase__name {
+    font-size: clamp(1.8rem, 3vw + 0.5rem, 2.6rem);
+    line-height: 1.05;
+  }
+
+  .showcase__tagline {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    color: var(--acc);
+  }
+
+  .showcase__desc {
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 52ch;
+  }
+
+  .showcase__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 0.2rem;
+  }
+
+  .showcase__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    font-family: var(--font-tech);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+  }
+
+  .showcase__cta {
+    margin-top: 0.6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase:hover {
+      transform: none;
+    }
+    .showcase__glow {
+      animation: none;
+    }
+  }
+</style>

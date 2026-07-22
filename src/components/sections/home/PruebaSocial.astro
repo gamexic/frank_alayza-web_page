@@ -1,0 +1,136 @@
+---
+/**
+ * PruebaSocial.astro — Testimonio de Byron Arriola O. (CEO, BR Advisory) con el
+ * logo de la empresa (astro:assets). Cita grande display, comillas doradas
+ * decorativas (SVG propio, sin caracteres emoji) y avatar de iniciales.
+ */
+import { Image } from 'astro:assets';
+import brLogo from '~/assets/fotos/logo-br-advisory.png';
+---
+
+<section class="proof">
+  <div class="container proof__inner">
+    <svg class="proof__quote-mark" viewBox="0 0 48 36" aria-hidden="true">
+      <path
+        fill="url(#proofGold)"
+        d="M0 36V22C0 9.85 8.06 1.6 20 0l2 6C15.2 8 11.5 12.2 11 18h9v18H0Zm26 0V22C26 9.85 34.06 1.6 46 0l2 6c-6.8 2-10.5 6.2-11 12h9v18H26Z"
+      />
+      <defs>
+        <linearGradient id="proofGold" x1="0" y1="0" x2="48" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffdf7e" />
+          <stop offset="0.5" stop-color="#fbbf24" />
+          <stop offset="1" stop-color="#d99a00" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <blockquote class="proof__quote reveal">
+      Frank destaca por su capacidad para transformar problemas complejos en
+      soluciones tecnológicas prácticas y efectivas.
+    </blockquote>
+
+    <div class="proof__author reveal" data-delay="100">
+      <span class="proof__avatar" aria-hidden="true">BA</span>
+      <div class="proof__id">
+        <span class="proof__name">Byron Arriola O.</span>
+        <span class="proof__role">CEO, BR Advisory</span>
+      </div>
+      <Image class="proof__logo" src={brLogo} alt="BR Advisory" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof {
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+  }
+
+  .proof__inner {
+    max-width: 60rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .proof__quote-mark {
+    width: clamp(40px, 6vw, 56px);
+    height: auto;
+    margin-bottom: clamp(1.2rem, 3vw, 1.8rem);
+    opacity: 0.95;
+    filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.25));
+  }
+
+  .proof__quote {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.2vw + 0.4rem, 2.6rem);
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-wrap: balance;
+    max-width: 26ch;
+  }
+
+  .proof__author {
+    margin-top: clamp(1.8rem, 4vw, 2.6rem);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .proof__avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    flex: none;
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--gold-bright);
+    background:
+      radial-gradient(circle at 30% 25%, rgba(251, 191, 36, 0.22), transparent 70%),
+      var(--surface);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+  }
+
+  .proof__id {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.3;
+  }
+
+  .proof__name {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .proof__role {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .proof__logo {
+    height: 34px;
+    width: auto;
+    margin-left: 0.4rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--hairline);
+    opacity: 0.85;
+  }
+
+  @media (max-width: 520px) {
+    .proof__logo {
+      margin-left: 0;
+      padding-left: 0;
+      border-left: none;
+      margin-top: 0.4rem;
+    }
+  }
+</style>

@@ -1,0 +1,740 @@
+---
+/**
+ * ArticleLayout.astro — Plantilla de artículo del blog.
+ *
+ * Envuelve BaseLayout (head SEO + Header/Footer) y compone la lectura:
+ *  hero → callout "Idea central" → cuerpo (prosa) → checklist → CTA → nav prev/next.
+ * El cuerpo renderizado del Markdown llega por el <slot /> por defecto.
+ *
+ * Props:
+ *  - entry : CollectionEntry<'blog'>  (frontmatter en entry.data)
+ *  - prev? : { title, href }          (artículo anterior; opcional)
+ *  - next? : { title, href }          (artículo siguiente; opcional)
+ */
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import JsonLd from '~/components/seo/JsonLd.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Button from '~/components/ui/Button.astro';
+import Icon from '~/components/ui/Icon.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
+import { site } from '~/data/site';
+import { categoryMeta } from '~/data/blog';
+
+export interface ArticleNavLink {
+  title: string;
+  href: string;
+}
+
+export interface Props {
+  entry: CollectionEntry<'blog'>;
+  prev?: ArticleNavLink;
+  next?: ArticleNavLink;
+}
+
+const { entry, prev, next } = Astro.props;
+const {
+  title,
+  subtitle,
+  description,
+  category,
+  readingTime,
+  idea,
+  checklist,
+  ctaTitle,
+  ctaText,
+} = entry.data;
+
+const { label: categoryLabel, accent } = categoryMeta(category);
+const canonical = `${site.url}/${entry.id}`;
+
+// JSON-LD BlogPosting. Sin fecha (los artículos no tienen pubDate real).
+const blogPosting = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  inLanguage: 'es',
+  articleSection: categoryLabel,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  author: {
+    '@type': 'Person',
+    name: site.name,
+    url: site.url,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: site.name,
+    url: site.url,
+  },
+};
+---
+
+<BaseLayout
+  title={`${title} – ${site.name}`}
+  description={description}
+  ogType="article"
+  pageClass="page-article"
+>
+  <JsonLd slot="head" data={blogPosting} />
+
+  <article class="article">
+    <!-- Hero -->
+    <header class="article-hero" data-accent={accent}>
+      <div class="article-hero__bg" aria-hidden="true">
+        <MediaSlot name={`article-cover-${category}`} type="image" alt="" class="article-hero__media">
+          <div slot="fallback" class="article-hero__fallback" data-accent={accent}>
+            <span class="article-hero__grid"></span>
+          </div>
+        </MediaSlot>
+      </div>
+      <div class="article-hero__scrim" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="article-hero__inner reveal">
+          <Badge tone={accent} size="md">{categoryLabel}</Badge>
+          <h1 class="article-hero__title">{title}</h1>
+          <p class="article-hero__subtitle">{subtitle}</p>
+          <p class="article-hero__meta">
+            <Icon name="reloj" size={18} accent={accent} />
+            <span>{readingTime} min de lectura</span>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cuerpo -->
+    <div class="article-body">
+      <div class="container">
+        <div class="article-col">
+          <!-- Idea central -->
+          <aside class="article-idea reveal" aria-label="Idea central">
+            <span class="article-idea__icon" aria-hidden="true">
+              <Icon name="nodo-red" size={24} accent="gold" />
+            </span>
+            <div class="article-idea__body">
+              <p class="article-idea__label">Idea central</p>
+              <p class="article-idea__text">{idea}</p>
+            </div>
+          </aside>
+
+          <!-- Prosa del Markdown -->
+          <div class="article-prose reveal">
+            <slot />
+          </div>
+
+          <!-- Checklist de implementación -->
+          {checklist.length > 0 && (
+            <section class="article-checklist reveal" aria-labelledby="checklist-title">
+              <h2 class="article-checklist__title" id="checklist-title">
+                Checklist de implementación
+              </h2>
+              <ul class="article-checklist__list">
+                {checklist.map((item) => (
+                  <li class="article-checklist__item">
+                    <span class="article-checklist__mark" aria-hidden="true">
+                      <Icon name="check" size={18} accent="gold" />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <!-- CTA final -->
+          <section class="article-cta reveal" aria-labelledby="article-cta-title">
+            <div class="article-cta__glow" aria-hidden="true"></div>
+            <h2 class="article-cta__title" id="article-cta-title">{ctaTitle}</h2>
+            <p class="article-cta__text">{ctaText}</p>
+            <Button href="/contacto" variant="primary" iconName="flecha">
+              Conversemos tu caso
+            </Button>
+          </section>
+
+          <!-- Navegación entre artículos -->
+          <nav class="article-nav" aria-label="Más artículos">
+            {(prev || next) && (
+              <div class="article-nav__pair">
+                {prev ? (
+                  <a class="article-nav__link article-nav__link--prev" href={prev.href}>
+                    <span class="article-nav__dir">
+                      <Icon name="flecha" size={16} accent="gold" class="article-nav__arrow--prev" />
+                      Anterior
+                    </span>
+                    <span class="article-nav__title">{prev.title}</span>
+                  </a>
+                ) : (
+                  <span class="article-nav__link article-nav__link--empty" aria-hidden="true"></span>
+                )}
+                {next ? (
+                  <a class="article-nav__link article-nav__link--next" href={next.href}>
+                    <span class="article-nav__dir">
+                      Siguiente
+                      <Icon name="flecha" size={16} accent="gold" />
+                    </span>
+                    <span class="article-nav__title">{next.title}</span>
+                  </a>
+                ) : (
+                  <span class="article-nav__link article-nav__link--empty" aria-hidden="true"></span>
+                )}
+              </div>
+            )}
+            <a class="article-nav__back" href="/contenido">
+              <Icon name="flecha" size={16} accent="gold" class="article-nav__arrow--prev" />
+              Volver a Contenido
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .article-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .article-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .article-hero__media,
+  .article-hero__fallback {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fallback: gradiente por acento + malla sutil (eco del logo). */
+  .article-hero__fallback {
+    position: relative;
+    background:
+      radial-gradient(120% 120% at 80% 0%, var(--acc-glow) 0%, transparent 55%),
+      radial-gradient(90% 90% at 0% 100%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+      linear-gradient(160deg, var(--bg-raised) 0%, var(--bg-abyss) 100%);
+  }
+
+  .article-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--acc-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--acc-line) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(120% 100% at 85% 0%, #000 0%, transparent 62%);
+    mask-image: radial-gradient(120% 100% at 85% 0%, #000 0%, transparent 62%);
+    opacity: 0.5;
+  }
+
+  /* Scrim para asegurar legibilidad del texto sobre cualquier portada. */
+  .article-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      rgba(6, 6, 10, 0.55) 0%,
+      rgba(6, 6, 10, 0.78) 55%,
+      var(--bg-abyss) 100%
+    );
+  }
+
+  .article-hero__inner {
+    max-width: 60ch;
+  }
+
+  .article-hero__title {
+    margin-top: 1.1rem;
+    font-size: clamp(2.1rem, 4.6vw + 0.5rem, 3.4rem);
+  }
+
+  .article-hero__subtitle {
+    margin-top: 1.15rem;
+    max-width: 56ch;
+    color: var(--text-muted);
+    font-size: clamp(1.05rem, 1.3vw + 0.5rem, 1.28rem);
+    line-height: 1.6;
+  }
+
+  .article-hero__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-family: var(--font-tech);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  /* Acentos por categoría del hero. */
+  .article-hero[data-accent='gold'] {
+    --acc-glow: rgba(251, 191, 36, 0.16);
+    --acc-line: rgba(251, 191, 36, 0.16);
+  }
+  .article-hero[data-accent='cyan'] {
+    --acc-glow: rgba(0, 212, 255, 0.16);
+    --acc-line: rgba(0, 212, 255, 0.16);
+  }
+  .article-hero[data-accent='purple'] {
+    --acc-glow: rgba(168, 85, 247, 0.18);
+    --acc-line: rgba(168, 85, 247, 0.16);
+  }
+  .article-hero__fallback[data-accent='gold'] {
+    --acc-glow: rgba(251, 191, 36, 0.16);
+    --acc-line: rgba(251, 191, 36, 0.16);
+  }
+  .article-hero__fallback[data-accent='cyan'] {
+    --acc-glow: rgba(0, 212, 255, 0.16);
+    --acc-line: rgba(0, 212, 255, 0.16);
+  }
+  .article-hero__fallback[data-accent='purple'] {
+    --acc-glow: rgba(168, 85, 247, 0.18);
+    --acc-line: rgba(168, 85, 247, 0.16);
+  }
+
+  /* ---------- Columna de lectura ---------- */
+  .article-body {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .article-col {
+    max-width: 72ch;
+    margin-inline: auto;
+  }
+
+  /* ---------- Idea central ---------- */
+  .article-idea {
+    display: flex;
+    gap: 1rem;
+    padding: 1.35rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+
+  .article-idea__icon {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    margin-top: 0.1rem;
+  }
+
+  .article-idea__label {
+    font-family: var(--font-tech);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .article-idea__text {
+    margin-top: 0.35rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* ---------- Checklist ---------- */
+  .article-checklist {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    padding: clamp(1.5rem, 4vw, 2.2rem);
+    background: var(--bg-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+  }
+
+  .article-checklist__title {
+    font-size: clamp(1.3rem, 2vw + 0.5rem, 1.7rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .article-checklist__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .article-checklist__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .article-checklist__mark {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 8px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.24);
+  }
+
+  /* ---------- CTA ---------- */
+  .article-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    padding: clamp(1.8rem, 5vw, 2.8rem);
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid rgba(251, 191, 36, 0.22);
+    border-radius: var(--radius-lg);
+  }
+
+  .article-cta__glow {
+    position: absolute;
+    inset: -40% 20% auto;
+    z-index: -1;
+    height: 220px;
+    background: radial-gradient(60% 100% at 50% 0%, rgba(251, 191, 36, 0.18), transparent 70%);
+    filter: blur(6px);
+  }
+
+  .article-cta__title {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.1rem);
+  }
+
+  .article-cta__text {
+    margin: 0.9rem auto 1.6rem;
+    max-width: 52ch;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ---------- Navegación entre artículos ---------- */
+  .article-nav {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    padding-top: var(--space-step-2);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .article-nav__pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .article-nav__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem 1.15rem;
+    min-height: 100%;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo);
+  }
+
+  a.article-nav__link:hover,
+  a.article-nav__link:focus-visible {
+    border-color: color-mix(in srgb, var(--gold) 40%, transparent);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .article-nav__link--empty {
+    background: transparent;
+    border-color: transparent;
+    pointer-events: none;
+  }
+
+  .article-nav__link--next {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .article-nav__dir {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-tech);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .article-nav__title {
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  a.article-nav__link:hover .article-nav__title,
+  a.article-nav__link:focus-visible .article-nav__title {
+    color: var(--gold-bright);
+  }
+
+  /* Flecha "anterior" apunta a la izquierda. */
+  .article-nav :global(.article-nav__arrow--prev) {
+    transform: rotate(180deg);
+  }
+
+  .article-nav__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .article-nav__back:hover,
+  .article-nav__back:focus-visible {
+    color: var(--gold-bright);
+  }
+
+  @media (max-width: 560px) {
+    .article-nav__pair {
+      grid-template-columns: 1fr;
+    }
+    .article-nav__link--empty {
+      display: none;
+    }
+    .article-nav__link--next {
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.article-nav__link:hover,
+    a.article-nav__link:focus-visible {
+      transform: none;
+    }
+  }
+</style>
+
+<!-- Estilos de la prosa del Markdown. Globales y prefijados por .article-prose
+     (el contenido del <slot> se inyecta sin el scope del componente). -->
+<style is:global>
+  .article-prose {
+    counter-reset: section;
+    color: var(--text);
+    font-size: 1.075rem;
+    line-height: 1.78;
+  }
+
+  .article-prose > * + * {
+    margin-top: 1.15rem;
+  }
+
+  .article-prose p {
+    color: var(--text-muted);
+  }
+
+  .article-prose a {
+    color: var(--gold-bright);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(251, 191, 36, 0.4);
+    transition: text-decoration-color var(--dur-fast) var(--ease-out-expo);
+  }
+  .article-prose a:hover {
+    text-decoration-color: var(--gold);
+  }
+
+  .article-prose strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .article-prose em {
+    color: var(--text);
+  }
+
+  /* H2 con numeración por contador CSS (no en el texto) + acento. */
+  .article-prose h2 {
+    counter-increment: section;
+    position: relative;
+    margin-top: clamp(2.4rem, 6vw, 3.2rem);
+    padding-top: 1.2rem;
+    padding-left: 3.4rem;
+    border-top: 1px solid var(--hairline);
+    font-size: clamp(1.5rem, 2.4vw + 0.5rem, 2rem);
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  .article-prose h2::before {
+    content: counter(section, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 1.2rem;
+    font-family: var(--font-tech);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--gold);
+  }
+
+  .article-prose h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(1.2rem + 1.9rem);
+    width: 2.2rem;
+    height: 2px;
+    background: var(--grad-gold);
+    border-radius: 2px;
+  }
+
+  .article-prose h3 {
+    margin-top: 2rem;
+    font-size: clamp(1.2rem, 1.6vw + 0.5rem, 1.45rem);
+  }
+
+  /* Listas con marcadores propios (sin emojis). */
+  .article-prose ul,
+  .article-prose ol {
+    margin-top: 1.1rem;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .article-prose li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .article-prose ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.72em;
+    width: 0.55rem;
+    height: 0.55rem;
+    transform: translateY(-50%) rotate(45deg);
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  .article-prose ol {
+    counter-reset: li;
+  }
+  .article-prose ol > li {
+    counter-increment: li;
+    padding-left: 2rem;
+  }
+  .article-prose ol > li::before {
+    content: counter(li);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-family: var(--font-tech);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .article-prose li strong {
+    color: var(--text);
+  }
+
+  /* Cita con borde dorado. */
+  .article-prose blockquote {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.4rem;
+    border-left: 3px solid var(--gold);
+    background: var(--surface);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--text);
+    font-style: italic;
+  }
+  .article-prose blockquote p {
+    color: var(--text);
+  }
+
+  /* Código. */
+  .article-prose code {
+    font-family: 'Chakra Petch', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    color: var(--cyan-bright);
+  }
+
+  .article-prose pre {
+    margin-top: 1.4rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-abyss);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .article-prose pre code {
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .article-prose hr {
+    margin-block: clamp(2rem, 5vw, 2.8rem);
+    border: none;
+    height: 1px;
+    background: var(--hairline);
+  }
+
+  .article-prose img {
+    margin-top: 1.4rem;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--hairline);
+  }
+
+  .article-prose table {
+    margin-top: 1.4rem;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .article-prose th,
+  .article-prose td {
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--hairline);
+    text-align: left;
+  }
+  .article-prose th {
+    font-family: var(--font-tech);
+    color: var(--text);
+    background: var(--surface);
+  }
+  .article-prose td {
+    color: var(--text-muted);
+  }
+</style>

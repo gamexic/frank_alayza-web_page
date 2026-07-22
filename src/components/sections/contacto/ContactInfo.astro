@@ -1,0 +1,253 @@
+---
+/**
+ * ContactInfo.astro — Columna de informacion de la pagina de contacto.
+ *
+ * Bloques:
+ *  - Redes: cada red con Icon chip (eco del logo) + label + handle (de site.socials).
+ *  - Meta: ubicacion (pin), email directo (mail -> mailto) y tiempos de respuesta (reloj).
+ *
+ * Sin telefono ni mapa (no existen). Datos desde src/data/site (fuente unica).
+ */
+import Icon from '~/components/ui/Icon.astro';
+import { site } from '~/data/site';
+
+const responseTimes = [
+  { k: 'Emails', v: '24-48 h hábiles' },
+  { k: 'Propuestas', v: '3-5 días hábiles' },
+  { k: 'Urgente', v: 'pon “URGENTE” en el asunto' },
+];
+---
+
+<aside class="cinfo reveal" aria-label="Información de contacto">
+  <!-- Redes -->
+  <section class="cinfo__block">
+    <h2 class="cinfo__heading">Conecta conmigo</h2>
+    <ul class="cinfo__socials stagger">
+      {site.socials.map((social) => (
+        <li>
+          <a
+            class="csocial"
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name={social.id} size={20} accent="gold" chip />
+            <span class="csocial__text">
+              <span class="csocial__label">{social.label}</span>
+              <span class="csocial__handle">{social.handle}</span>
+            </span>
+            <span class="csocial__go" aria-hidden="true">
+              <Icon name="flecha-diagonal" size={16} accent="gold" />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="cinfo__divider" aria-hidden="true"></div>
+
+  <!-- Meta: ubicacion, email, tiempos -->
+  <section class="cinfo__block cinfo__meta">
+    <div class="cmeta">
+      <span class="cmeta__icon"><Icon name="pin" size={20} accent="gold" chip /></span>
+      <div class="cmeta__body">
+        <h3 class="cmeta__title">Ubicación</h3>
+        <p class="cmeta__value">{site.location.city}, {site.location.country} · {site.location.timezone}</p>
+      </div>
+    </div>
+
+    <div class="cmeta">
+      <span class="cmeta__icon"><Icon name="mail" size={20} accent="gold" chip /></span>
+      <div class="cmeta__body">
+        <h3 class="cmeta__title">Email directo</h3>
+        <a class="cmeta__link" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </div>
+
+    <div class="cmeta">
+      <span class="cmeta__icon"><Icon name="reloj" size={20} accent="gold" chip /></span>
+      <div class="cmeta__body">
+        <h3 class="cmeta__title">Tiempos de respuesta</h3>
+        <ul class="cmeta__times">
+          {responseTimes.map((t) => (
+            <li><span class="cmeta__times-k">{t.k}</span><span class="cmeta__times-v">{t.v}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</aside>
+
+<style>
+  .cinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .cinfo__heading,
+  .cmeta__title {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .cinfo__heading {
+    font-size: 0.82rem;
+    margin-bottom: 1.1rem;
+  }
+
+  /* --- Redes --- */
+  .cinfo__socials {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .csocial {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo),
+      background-color var(--dur) var(--ease-out-expo);
+  }
+
+  .csocial:hover,
+  .csocial:focus-visible {
+    border-color: color-mix(in srgb, var(--gold) 40%, transparent);
+    background: var(--surface-2);
+    transform: translateX(3px);
+  }
+
+  .csocial__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .csocial__label {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .csocial__handle {
+    font-family: var(--font-tech);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .csocial__go {
+    margin-left: auto;
+    display: inline-flex;
+    color: var(--text-faint);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition:
+      opacity var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .csocial:hover .csocial__go,
+  .csocial:focus-visible .csocial__go {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* --- Divisor --- */
+  .cinfo__divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--hairline) 0%,
+      rgba(251, 191, 36, 0.35) 50%,
+      var(--hairline) 100%
+    );
+  }
+
+  /* --- Meta --- */
+  .cinfo__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cmeta {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .cmeta__icon {
+    flex: none;
+    display: inline-flex;
+  }
+
+  .cmeta__body {
+    min-width: 0;
+  }
+
+  .cmeta__title {
+    font-size: 0.76rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cmeta__value {
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+
+  .cmeta__link {
+    color: var(--text);
+    font-size: 0.98rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+    transition: color var(--dur) var(--ease-out-expo);
+    word-break: break-word;
+  }
+
+  .cmeta__link:hover,
+  .cmeta__link:focus-visible {
+    color: var(--gold-bright);
+  }
+
+  .cmeta__times {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .cmeta__times li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .cmeta__times-k {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    color: var(--gold-bright);
+    min-width: 5.5rem;
+  }
+
+  .cmeta__times-v {
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+/**
+ * Deporte.astro — Escalada y calistenia como disciplina. Split: foto palestra
+ * (astro:assets, parallax sutil) + texto + sub-lista "Paralelos con mi trabajo"
+ * con Icon check. Acentos morados (dimension humana).
+ */
+import { Image } from 'astro:assets';
+import Icon from '~/components/ui/Icon.astro';
+import palestra from '~/assets/fotos/foto-palestra.jpeg';
+
+const lead =
+  'La escalada y la calistenia no son solo hobbies: son mi forma de entrenar la mente.';
+
+const paralelos = [
+  {
+    title: 'Paciencia',
+    text: 'Los mejores resultados requieren tiempo y constancia.',
+  },
+  {
+    title: 'Análisis',
+    text: 'Entender el problema completo antes de intentar resolverlo.',
+  },
+  {
+    title: 'Iteración',
+    text: 'Probar, ajustar y volver a probar hasta que funcione.',
+  },
+  {
+    title: 'Resiliencia',
+    text: 'Los fallos son parte del proceso, no el final.',
+  },
+];
+---
+
+<section class="deporte section--raised" aria-labelledby="deporte-title">
+  <div class="container deporte__grid">
+    <figure class="deporte__figure reveal">
+      <Image
+        class="deporte__img"
+        src={palestra}
+        alt="Frank Alayza entrenando en una palestra de escalada"
+        widths={[480, 720, 960]}
+        sizes="(max-width: 900px) 92vw, 480px"
+        format="webp"
+        loading="lazy"
+        data-parallax
+        data-speed="0.1"
+      />
+    </figure>
+
+    <div class="deporte__content">
+      <p class="eyebrow reveal">Disciplina</p>
+      <h2 id="deporte-title" class="reveal" data-delay="60">Deporte y disciplina</h2>
+      <p class="deporte__lead reveal" data-delay="120">{lead}</p>
+      <p class="deporte__text reveal" data-delay="160">
+        Cada ruta de escalada es un problema que resolver: analizar movimientos,
+        gestionar la energía, mantener la calma bajo presión y persistir hasta la
+        cima. Esa es exactamente la mentalidad que aplico a cada negocio que
+        construyo.
+      </p>
+      <p class="deporte__text reveal" data-delay="200">
+        La calistenia me enseña que <strong>los grandes logros se construyen con
+        pequeños avances diarios</strong>. No hay atajos: cada pull-up, cada línea
+        de código y cada decisión de negocio suma.
+      </p>
+
+      <div class="deporte__parallels reveal" data-delay="240">
+        <h3 class="deporte__parallels-title">Paralelos con mi trabajo</h3>
+        <ul class="deporte__parallels-list">
+          {paralelos.map((item) => (
+            <li class="deporte__parallel">
+              <span class="deporte__check" aria-hidden="true">
+                <Icon name="check" accent="purple" size={18} />
+              </span>
+              <span>
+                <strong>{item.title}:</strong> {item.text}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .deporte {
+    padding-block: clamp(3.5rem, 8vw, var(--space-step-5));
+    background: var(--bg-raised);
+    border-block: 1px solid var(--hairline);
+  }
+
+  .deporte__grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .deporte__grid {
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+  }
+
+  .deporte__figure {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--purple) 24%, var(--hairline));
+    aspect-ratio: 4 / 5;
+    box-shadow:
+      var(--shadow-card),
+      0 0 32px -14px rgba(168, 85, 247, 0.5);
+  }
+
+  .deporte__img {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 100%;
+    height: 130%;
+    object-fit: cover;
+  }
+
+  .deporte__lead {
+    margin-top: var(--space-step-2);
+    font-size: clamp(1.1rem, 1.6vw + 0.5rem, 1.4rem);
+    color: var(--text);
+    font-family: var(--font-display);
+    line-height: 1.35;
+  }
+
+  .deporte__text {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .deporte__text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .deporte__parallels {
+    margin-top: var(--space-step-2);
+    padding-top: var(--space-step-2);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .deporte__parallels-title {
+    font-size: 1.15rem;
+    color: color-mix(in srgb, var(--purple) 55%, var(--text));
+  }
+
+  .deporte__parallels-list {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 560px) {
+    .deporte__parallels-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .deporte__parallel {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .deporte__parallel strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .deporte__check {
+    display: inline-flex;
+    flex: none;
+    margin-top: 0.12rem;
+  }
+</style>

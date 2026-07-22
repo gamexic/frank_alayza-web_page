@@ -1,0 +1,102 @@
+---
+/**
+ * Stack.astro — Herramientas y competencias (skills.ts) como grupos de tags.
+ * Discreta a proposito: cierra el bloque tecnico sin robar protagonismo.
+ * Los tags "advanced" llevan un punto dorado sutil; el resto, neutros.
+ */
+import Section from '~/components/ui/Section.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { skills } from '~/data/skills';
+---
+
+<Section
+  id="stack"
+  tone="raised"
+  eyebrow="Stack"
+  title="Con qué construyo"
+  intro="Las herramientas y competencias que uso día a día para llevar una idea a producción."
+>
+  <ul class="stack-grid stagger">
+    {skills.map((group) => (
+      <li class="stack-group">
+        <div class="stack-group__head">
+          <Icon name={group.icon} accent="cyan" size={18} />
+          <h3 class="stack-group__title">{group.title}</h3>
+        </div>
+        <ul class="stack-tags">
+          {group.tags.map((tag) => (
+            <li class:list={['stack-tag', { 'is-adv': tag.level === 'advanced' }]}>{tag.name}</li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+  }
+
+  .stack-group__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .stack-group__title {
+    font-family: var(--font-tech);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .stack-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.36rem 0.72rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1;
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      color var(--dur) var(--ease-out-expo);
+  }
+
+  .stack-tag:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  /* Tag de nivel avanzado: punto dorado discreto delante. */
+  .stack-tag.is-adv {
+    color: var(--text);
+  }
+
+  .stack-tag.is-adv::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+    flex: none;
+  }
+</style>

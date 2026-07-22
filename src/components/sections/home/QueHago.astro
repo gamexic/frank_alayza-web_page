@@ -1,0 +1,88 @@
+---
+/**
+ * QueHago.astro — "Qué hago": 5 servicios mas representativos (services.ts) en
+ * tarjetas con icono propio en chip (acento alternado gold/cyan) y hover interactivo.
+ * Cierra con enlace a la pagina de servicios.
+ */
+import Section from '~/components/ui/Section.astro';
+import Card from '~/components/ui/Card.astro';
+import Icon from '~/components/ui/Icon.astro';
+import Button from '~/components/ui/Button.astro';
+import { services } from '~/data/services';
+
+// 5 pilares del builder: consultoria, LLMs/agentes, apps web, datos, automatizacion.
+const featuredIds = ['consultoria-ia', 'llm-agentes', 'app-web-ai', 'ciencia-datos', 'automatizacion'];
+const picks = featuredIds
+  .map((id) => services.find((s) => s.id === id))
+  .filter((s): s is (typeof services)[number] => Boolean(s));
+
+const accents: Array<'gold' | 'cyan'> = ['gold', 'cyan', 'gold', 'cyan', 'gold'];
+---
+
+<Section
+  id="que-hago"
+  eyebrow="Qué hago"
+  title="Del negocio al producto, con IA de por medio"
+  intro="Estas son las áreas donde convierto una necesidad de negocio en una solución técnica que genera impacto."
+>
+  <ul class="qh-grid stagger">
+    {picks.map((service, i) => (
+      <li class="qh-item">
+        <Card accent={accents[i]} interactive class="qh-card">
+          <Icon name={service.icon} accent={accents[i]} size={30} chip />
+          <h3 class="qh-card__title">{service.title}</h3>
+          <p class="qh-card__desc">{service.description}</p>
+        </Card>
+      </li>
+    ))}
+  </ul>
+
+  <div class="qh-cta reveal">
+    <Button href="/servicios" variant="ghost" iconName="flecha">Ver todos los servicios</Button>
+  </div>
+</Section>
+
+<style>
+  .qh-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+
+  .qh-item {
+    display: flex;
+  }
+
+  .qh-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .qh-card__title {
+    font-size: clamp(1.2rem, 1vw + 0.9rem, 1.4rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .qh-card__desc {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+
+  .qh-cta {
+    margin-top: clamp(1.6rem, 3vw, 2.2rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* En pantallas anchas fijamos 3 columnas para un 3 + 2 equilibrado. */
+  @media (min-width: 900px) {
+    .qh-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

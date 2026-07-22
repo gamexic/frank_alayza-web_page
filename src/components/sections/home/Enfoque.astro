@@ -1,0 +1,67 @@
+---
+/**
+ * Enfoque.astro — Statement tipo manifiesto (reescritura del "Mi enfoque" viejo
+ * al angulo builder: administracion + IA + datos + software). Tono raised para
+ * marcar ritmo tras el hero. Palabras clave con acentos de color (dorado = negocio,
+ * cian = tecnologia).
+ */
+---
+
+<section id="enfoque" class="enfoque">
+  <div class="container enfoque__inner">
+    <p class="eyebrow reveal">Mi enfoque</p>
+    <p class="enfoque__statement reveal" data-delay="80">
+      No solo escribo <span class="kw kw--cyan">código</span>: construyo y administro
+      <span class="kw kw--gold">negocios de tecnología</span>. Combino
+      <span class="kw kw--gold">administración</span>,
+      <span class="kw kw--cyan">inteligencia artificial</span>,
+      <span class="kw kw--cyan">datos</span> y
+      <span class="kw kw--cyan">software</span> para convertir una idea en un
+      producto que funciona y en un resultado que se puede medir.
+    </p>
+  </div>
+</section>
+
+<style>
+  .enfoque {
+    background: var(--bg-raised);
+    border-block: 1px solid var(--hairline);
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+
+  .enfoque__inner {
+    max-width: 60rem;
+  }
+
+  .enfoque .eyebrow {
+    margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+  }
+
+  .enfoque__statement {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.55rem, 3.4vw + 0.4rem, 2.9rem);
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .kw {
+    position: relative;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .kw--gold {
+    background: var(--grad-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .kw--cyan {
+    color: var(--cyan-bright);
+  }
+</style>

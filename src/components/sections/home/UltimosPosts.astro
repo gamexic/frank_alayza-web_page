@@ -1,0 +1,152 @@
+---
+/**
+ * UltimosPosts.astro — Ultimas 3 entradas de la coleccion `blog` (astro:content).
+ * La coleccion y `~/data/blog` los crea otro agente en paralelo; este componente
+ * codea contra ese contrato y es defensivo: si esta vacia, no rompe el layout.
+ *
+ * Contrato de datos:
+ *   getCollection('blog')  -> entries con id 'contenido-<tema>' y
+ *     data { title, subtitle, description, category, readingTime, pubDate? }
+ *   blogCategories (~/data/blog) -> objeto  value -> { label, accent }
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Card from '~/components/ui/Card.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Icon from '~/components/ui/Icon.astro';
+import Button from '~/components/ui/Button.astro';
+import Section from '~/components/ui/Section.astro';
+import { blogCategories } from '~/data/blog';
+
+type BadgeTone = 'gold' | 'cyan' | 'purple' | 'neutral';
+
+let posts: CollectionEntry<'blog'>[] = [];
+try {
+  posts = await getCollection('blog');
+} catch {
+  posts = [];
+}
+
+// "Ultimas": por pubDate desc si existe; slice(0,3) defensivo.
+const latest = posts
+  .slice()
+  .sort((a, b) => {
+    const da = (a.data as any).pubDate ? new Date((a.data as any).pubDate).getTime() : 0;
+    const db = (b.data as any).pubDate ? new Date((b.data as any).pubDate).getTime() : 0;
+    return db - da;
+  })
+  .slice(0, 3);
+
+const readingLabel = (rt: unknown): string =>
+  typeof rt === 'number' ? `${rt} min de lectura` : String(rt ?? '');
+
+const categoryOf = (value: string): { label: string; accent: BadgeTone } => {
+  const map = (blogCategories as Record<string, { label: string; accent: string }>) ?? {};
+  const found = map[value];
+  const accent = (found?.accent ?? 'neutral') as BadgeTone;
+  return { label: found?.label ?? value, accent };
+};
+---
+
+{latest.length > 0 && (
+  <Section
+    id="ultimos-posts"
+    tone="raised"
+    eyebrow="Contenido"
+    title="Ideas sobre IA, datos y negocio"
+    intro="Tutoriales y reflexiones prácticas para construir con tecnología."
+  >
+    <ul class="posts-grid stagger">
+      {latest.map((post) => {
+        const cat = categoryOf(post.data.category);
+        return (
+          <li class="posts-item">
+            <Card interactive accent="cyan" class="post-card">
+              <a class="post-card__link" href={`/${post.id}`} aria-label={post.data.title}>
+                <span class="post-card__top">
+                  <Badge tone={cat.accent}>{cat.label}</Badge>
+                </span>
+                <h3 class="post-card__title">{post.data.title}</h3>
+                {post.data.description && (
+                  <p class="post-card__excerpt">{post.data.description}</p>
+                )}
+                <span class="post-card__meta">
+                  <Icon name="reloj" accent="cyan" size={15} />
+                  <span>{readingLabel(post.data.readingTime)}</span>
+                </span>
+              </a>
+            </Card>
+          </li>
+        );
+      })}
+    </ul>
+
+    <div class="posts-cta reveal">
+      <Button href="/contenido" variant="ghost" iconName="flecha">Ver todo el contenido</Button>
+    </div>
+  </Section>
+)}
+
+<style>
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+
+  .posts-item {
+    display: flex;
+  }
+
+  .post-card {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .post-card__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 100%;
+    padding: clamp(1.25rem, 3vw, 1.7rem);
+  }
+
+  .post-card__top {
+    display: flex;
+  }
+
+  .post-card__title {
+    font-size: clamp(1.1rem, 1vw + 0.85rem, 1.3rem);
+    line-height: 1.25;
+    color: var(--text);
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .post-card:hover .post-card__title,
+  .post-card__link:focus-visible .post-card__title {
+    color: var(--cyan-bright);
+  }
+
+  .post-card__excerpt {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .post-card__meta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-tech);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+  }
+
+  .posts-cta {
+    margin-top: clamp(1.6rem, 3vw, 2.2rem);
+    display: flex;
+    justify-content: center;
+  }
+</style>
