@@ -286,6 +286,11 @@ const isActive = (href: string) => (href.replace(/\/+$/, '') || '/') === current
   .mobile-backdrop {
     position: absolute;
     inset: 0;
+    /* El header (backdrop-filter) es el bloque contenedor del menú fixed, así que
+       inset:0 colapsaría el backdrop a la altura del header. Se fuerza a viewport
+       completo, igual que hace .mobile-panel con height:100dvh. */
+    height: 100vh;
+    height: 100dvh;
     background: rgba(6, 6, 10, 0.72);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
