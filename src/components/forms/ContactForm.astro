@@ -1,0 +1,341 @@
+---
+/**
+ * ContactForm.astro — Formulario de contacto (FormSubmit AJAX + fallback no-JS).
+ *
+ * Sin mailto, sin alert/confirm/prompt. Validacion inline (blur + submit) con
+ * aria-invalid y mensajes de error bajo cada campo. Envio via fetch a
+ * formsubmit.co/ajax/...; feedback con toasts (window.faToast / evento fa:toast).
+ * Honeypot `_honey`. Si no hay JS, el <form> hace POST clasico a FormSubmit.
+ */
+import Button from '~/components/ui/Button.astro';
+
+const EMAIL = 'frankalayzah@gmail.com';
+const asuntos = [
+  'Tengo un proyecto',
+  'Consultoria / Asesoria',
+  'Colaboracion / Partnership',
+  'Otro',
+];
+---
+
+{/* CONFIRMAR FRANK: sustituir "frankalayzah@gmail.com" por el token aleatorio de FormSubmit tras activar el email (no exponer el correo en el codigo). */}
+<form
+  class="cform"
+  data-contact-form
+  method="POST"
+  action={`https://formsubmit.co/${EMAIL}`}
+  novalidate
+>
+  {/* Campos ocultos para el fallback clasico (no-JS) */}
+  <input type="hidden" name="_subject" value="Contacto web - Frank Alayza" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+
+  {/* Honeypot anti-spam (oculto para humanos, atractivo para bots) */}
+  <div class="cform__honey" aria-hidden="true">
+    <label for="cf-honey">No rellenar</label>
+    <input id="cf-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="cform__grid">
+    <div class="field">
+      <label class="field__label" for="cf-name">Nombre</label>
+      <input
+        class="field__input"
+        id="cf-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        aria-describedby="cf-name-err"
+      />
+      <span class="field__error" id="cf-name-err" role="alert"></span>
+    </div>
+
+    <div class="field">
+      <label class="field__label" for="cf-email">Email</label>
+      <input
+        class="field__input"
+        id="cf-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        aria-describedby="cf-email-err"
+      />
+      <span class="field__error" id="cf-email-err" role="alert"></span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="cf-asunto">Asunto</label>
+    <div class="field__select">
+      <select
+        class="field__input"
+        id="cf-asunto"
+        name="asunto"
+        required
+        aria-describedby="cf-asunto-err"
+      >
+        <option value="" selected disabled>Elige una opcion</option>
+        {asuntos.map((a) => (
+          <option value={a}>{a}</option>
+        ))}
+      </select>
+    </div>
+    <span class="field__error" id="cf-asunto-err" role="alert"></span>
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="cf-message">Mensaje</label>
+    <textarea
+      class="field__input field__textarea"
+      id="cf-message"
+      name="message"
+      rows="5"
+      required
+      aria-describedby="cf-message-err"
+    ></textarea>
+    <span class="field__error" id="cf-message-err" role="alert"></span>
+  </div>
+
+  <div class="cform__actions">
+    <Button type="submit" variant="primary" size="lg" iconName="flecha">Enviar mensaje</Button>
+  </div>
+</form>
+
+<style>
+  .cform {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .cform__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .cform__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field__label {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .field__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-expo),
+      box-shadow var(--dur-fast) var(--ease-out-expo);
+  }
+  .field__input::placeholder {
+    color: var(--text-faint);
+  }
+  .field__input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18);
+  }
+  .field__input[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+  .field__input[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+  }
+
+  .field__textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  /* Chevron propio del select (sin apariencia nativa) */
+  .field__select {
+    position: relative;
+  }
+  .field__select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.6rem;
+    cursor: pointer;
+  }
+  .field__select::after {
+    content: '';
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: translateY(-65%) rotate(45deg);
+    pointer-events: none;
+  }
+  .field__select option {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .field__error {
+    min-height: 1.1em;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: var(--danger);
+  }
+  .field__error:empty {
+    display: none;
+  }
+
+  .cform__actions {
+    margin-top: 0.25rem;
+  }
+
+  /* Honeypot: fuera de pantalla, invisible, sin foco */
+  .cform__honey {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  function initContactForm() {
+    const forms = document.querySelectorAll<HTMLFormElement>('[data-contact-form]');
+    forms.forEach((form) => {
+      if (form.dataset.cfInit === 'true') return;
+      form.dataset.cfInit = 'true';
+
+      const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const fields = {
+        name: form.querySelector<HTMLInputElement>('#cf-name'),
+        email: form.querySelector<HTMLInputElement>('#cf-email'),
+        asunto: form.querySelector<HTMLSelectElement>('#cf-asunto'),
+        message: form.querySelector<HTMLTextAreaElement>('#cf-message'),
+      };
+
+      const setError = (el: HTMLElement | null, msg: string) => {
+        if (!el) return;
+        const errId = el.getAttribute('aria-describedby');
+        const errEl = errId ? document.getElementById(errId) : null;
+        if (msg) {
+          el.setAttribute('aria-invalid', 'true');
+          if (errEl) errEl.textContent = msg;
+        } else {
+          el.removeAttribute('aria-invalid');
+          if (errEl) errEl.textContent = '';
+        }
+      };
+
+      const validate = (key: keyof typeof fields): boolean => {
+        const el = fields[key];
+        if (!el) return true;
+        const v = el.value.trim();
+        let msg = '';
+        if (key === 'name') {
+          if (v.length < 2) msg = 'Escribe tu nombre.';
+        } else if (key === 'email') {
+          if (!v) msg = 'Escribe tu email.';
+          else if (!EMAIL_RE.test(v)) msg = 'El email no parece valido.';
+        } else if (key === 'asunto') {
+          if (!v) msg = 'Elige un asunto.';
+        } else if (key === 'message') {
+          if (v.length < 10) msg = 'Cuentame un poco mas (minimo 10 caracteres).';
+        }
+        setError(el, msg);
+        return !msg;
+      };
+
+      (Object.keys(fields) as (keyof typeof fields)[]).forEach((key) => {
+        const el = fields[key];
+        if (!el) return;
+        el.addEventListener('blur', () => validate(key));
+        el.addEventListener('input', () => {
+          if (el.getAttribute('aria-invalid') === 'true') validate(key);
+        });
+        el.addEventListener('change', () => validate(key));
+      });
+
+      const notify = (type: 'success' | 'error', message: string) => {
+        const w = window as any;
+        if (typeof w.faToast === 'function') w.faToast(type, message);
+        else document.dispatchEvent(new CustomEvent('fa:toast', { detail: { type, message } }));
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const results = (Object.keys(fields) as (keyof typeof fields)[]).map((k) => validate(k));
+        if (results.includes(false)) {
+          const firstInvalid = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+          firstInvalid?.focus();
+          return;
+        }
+
+        const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        const label = submitBtn?.querySelector<HTMLElement>('.btn__label');
+        const original = label?.textContent || 'Enviar mensaje';
+        if (submitBtn) submitBtn.disabled = true;
+        if (label) label.textContent = 'Enviando...';
+
+        const honey = form.querySelector<HTMLInputElement>('#cf-honey')?.value || '';
+        const asunto = fields.asunto?.value || '';
+        const payload = {
+          name: fields.name?.value.trim() || '',
+          email: fields.email?.value.trim() || '',
+          _subject: 'Contacto web - ' + asunto,
+          message: fields.message?.value.trim() || '',
+          _template: 'table',
+          _captcha: 'false',
+          _honey: honey,
+        };
+
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/frankalayzah@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error('bad status');
+          notify('success', 'Mensaje enviado. Te respondo en 24-48 horas.');
+          form.reset();
+          (Object.keys(fields) as (keyof typeof fields)[]).forEach((k) => setError(fields[k], ''));
+        } catch {
+          notify('error', 'No se pudo enviar. Escribeme directo a frankalayzah@gmail.com');
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+          if (label) label.textContent = original;
+        }
+      });
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

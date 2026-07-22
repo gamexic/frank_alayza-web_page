@@ -1,0 +1,261 @@
+---
+// Footer premium de 4 columnas. Contenido derivado del footer "enhanced"
+// antiguo pero rediseñado: marca + bio, dos columnas de navegación y contacto.
+// Datos desde src/data (fuente única de verdad).
+import Logo from '~/components/ui/Logo.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { navItems } from '~/data/nav';
+import { site } from '~/data/site';
+
+// Reutiliza la navegación canónica para no duplicar rutas ni labels.
+const navPrincipal = navItems.slice(0, 4); // Inicio, Sobre mí, Servicios, Proyectos
+const navExplora = navItems.slice(4, 8); // Contenido, Recursos, Certificados, Contacto
+
+const year = new Date().getFullYear();
+const bio =
+  'Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real.';
+---
+
+<footer class="site-footer">
+  <div class="footer-divider" aria-hidden="true"></div>
+
+  <div class="container-wide footer-grid">
+    <div class="footer-col footer-brand-col">
+      <a href="/" class="footer-logo" aria-label="Frank Alayza — Inicio">
+        <Logo variant="gold" mode="full" size={40} />
+      </a>
+      <p class="footer-bio">{bio}</p>
+      <div class="footer-social" aria-label="Redes sociales">
+        {site.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+          >
+            <Icon name={social.id} size={18} accent="gold" chip />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Navegación">
+      <h2 class="footer-heading">Navegación</h2>
+      <ul class="footer-links">
+        {navPrincipal.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Explora">
+      <h2 class="footer-heading">Explora</h2>
+      <ul class="footer-links">
+        {navExplora.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2 class="footer-heading">Contacto</h2>
+      <ul class="footer-contact">
+        <li>
+          <a href={`mailto:${site.email}`} class="footer-contact-item">
+            <Icon name="mail" size={18} accent="gold" />
+            <span>{site.email}</span>
+          </a>
+        </li>
+        <li>
+          <span class="footer-contact-item footer-contact-static">
+            <Icon name="pin" size={18} accent="gold" />
+            <span>{site.location.city}, {site.location.country} · {site.location.timezone}</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-wide footer-bottom">
+    <p class="footer-copy">© {year} Frank Alayza. Todos los derechos reservados.</p>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="/privacidad">Privacidad</a>
+      <span class="footer-legal-sep" aria-hidden="true">·</span>
+      <a href="/terminos">Términos</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    margin-top: var(--space-step-5);
+    padding-block: var(--space-step-4) var(--space-step-3);
+    background: var(--bg-abyss);
+  }
+
+  /* Línea divisoria hairline con acento dorado sutil en el centro */
+  .footer-divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--hairline) 22%,
+      rgba(251, 191, 36, 0.55) 50%,
+      var(--hairline) 78%,
+      transparent 100%
+    );
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+    gap: var(--space-step-3) var(--space-step-2);
+  }
+
+  .footer-col {
+    min-width: 0;
+  }
+
+  /* Columna de marca */
+  .footer-logo {
+    display: inline-flex;
+    margin-bottom: 1.1rem;
+  }
+
+  .footer-bio {
+    max-width: 34ch;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+  }
+
+  /* Encabezados de columna */
+  .footer-heading {
+    font-family: var(--font-tech);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .footer-links a {
+    position: relative;
+    display: inline-block;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition:
+      color var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .footer-links a:hover,
+  .footer-links a:focus-visible {
+    color: var(--gold-bright);
+    transform: translateX(3px);
+  }
+
+  /* Contacto */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .footer-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  a.footer-contact-item:hover,
+  a.footer-contact-item:focus-visible {
+    color: var(--gold-bright);
+  }
+
+  .footer-contact-static {
+    cursor: default;
+  }
+
+  /* Barra inferior */
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: var(--space-step-3);
+    padding-top: var(--space-step-2);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .footer-copy {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+  }
+
+  .footer-legal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .footer-legal a {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .footer-legal a:hover,
+  .footer-legal a:focus-visible {
+    color: var(--gold-bright);
+  }
+
+  .footer-legal-sep {
+    color: var(--text-faint);
+  }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-step-3) var(--space-step-2);
+    }
+    .footer-brand-col {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

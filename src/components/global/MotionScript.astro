@@ -1,0 +1,124 @@
+---
+// Capa de movimiento base con GSAP + ScrollTrigger.
+// Expone helpers globales en window.faMotion para que la coreografía por
+// página (F6b) los reutilice o los relance tras cambios dinámicos:
+//   window.faMotion.counters()   -> anima [data-counter] de 0 al valor final
+//   window.faMotion.magnetic()   -> botones .btn-magnetic siguen el puntero (±6px, solo desktop)
+//   window.faMotion.parallax()   -> elementos [data-parallax] con yPercent según data-speed
+// Los tres se auto-ejecutan en cada astro:page-load y los ScrollTriggers se
+// limpian en astro:before-swap. prefers-reduced-motion: los counters saltan al
+// valor final y se omiten magnetic/parallax.
+---
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = () =>
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Descompone "+120%", "110+", "15" en prefijo / número / sufijo.
+  function parseCounter(raw: string) {
+    const match = String(raw).match(/^(\D*?)([\d.,]+)(\D*)$/);
+    if (!match) return { prefix: '', value: 0, suffix: '', decimals: 0 };
+    const numStr = match[2].replace(/,/g, '');
+    const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+    return {
+      prefix: match[1] ?? '',
+      value: parseFloat(numStr) || 0,
+      suffix: match[3] ?? '',
+      decimals,
+    };
+  }
+
+  function counters() {
+    const els = document.querySelectorAll<HTMLElement>('[data-counter]');
+    els.forEach((el) => {
+      const raw = el.dataset.counter || el.textContent || '0';
+      const { prefix, value, suffix, decimals } = parseCounter(raw);
+      const render = (v: number) => {
+        el.textContent = prefix + v.toFixed(decimals) + suffix;
+      };
+
+      if (prefersReduced()) {
+        render(value);
+        return;
+      }
+
+      const state = { v: 0 };
+      render(0);
+      gsap.to(state, {
+        v: value,
+        duration: 1.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+        onUpdate: () => render(state.v),
+      });
+    });
+  }
+
+  function magnetic() {
+    if (prefersReduced() || !canHover()) return;
+    const btns = document.querySelectorAll<HTMLElement>('.btn-magnetic');
+    btns.forEach((btn) => {
+      if (btn.dataset.magneticBound === '1') return;
+      btn.dataset.magneticBound = '1';
+      const strength = 6;
+      const onMove = (e: PointerEvent) => {
+        const r = btn.getBoundingClientRect();
+        const relX = (e.clientX - r.left) / r.width - 0.5;
+        const relY = (e.clientY - r.top) / r.height - 0.5;
+        gsap.to(btn, {
+          x: relX * strength * 2,
+          y: relY * strength * 2,
+          duration: 0.4,
+          ease: 'power3.out',
+        });
+      };
+      const onLeave = () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+      };
+      btn.addEventListener('pointermove', onMove);
+      btn.addEventListener('pointerleave', onLeave);
+    });
+  }
+
+  function parallax() {
+    if (prefersReduced()) return;
+    const els = document.querySelectorAll<HTMLElement>('[data-parallax]');
+    els.forEach((el) => {
+      const speed = parseFloat(el.dataset.speed || '0.2');
+      gsap.to(el, {
+        yPercent: speed * -100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    });
+  }
+
+  const faMotion = { counters, magnetic, parallax };
+  (window as unknown as { faMotion: typeof faMotion }).faMotion = faMotion;
+
+  function runAll() {
+    // Evita triggers duplicados entre navegaciones.
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+    counters();
+    magnetic();
+    parallax();
+    ScrollTrigger.refresh();
+  }
+
+  document.addEventListener('astro:page-load', runAll);
+  document.addEventListener('astro:before-swap', () => {
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  });
+</script>

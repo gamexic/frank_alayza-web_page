@@ -1,0 +1,89 @@
+---
+/**
+ * Section.astro — Bloque de pagina con contenedor, cabecera opcional y slot.
+ *
+ * Props:
+ *   id     : ancla de la seccion.
+ *   eyebrow: kicker corto en font-tech (dorado).
+ *   title  : titulo display (h2).
+ *   intro  : parrafo introductorio (muted).
+ *   width  : normal | wide (max-width del contenedor).
+ *   tone   : base (transparente) | raised (fondo --bg-raised con hairlines arriba/abajo).
+ *   align  : start | center (alineacion de la cabecera).
+ *   class  : clases extra en <section>.
+ * La cabecera y sus elementos llevan .reveal (aparecen al entrar en viewport).
+ */
+export interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  width?: 'normal' | 'wide';
+  tone?: 'base' | 'raised';
+  align?: 'start' | 'center';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  intro,
+  width = 'normal',
+  tone = 'base',
+  align = 'start',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const hasHeader = Boolean(eyebrow || title || intro);
+const sectionClasses = ['section', `section--${tone}`, `section--${align}`, className]
+  .filter(Boolean)
+  .join(' ');
+const containerClass = width === 'wide' ? 'container-wide' : 'container';
+---
+
+<section id={id} class={sectionClasses} {...rest}>
+  <div class={containerClass}>
+    {hasHeader && (
+      <header class="section__head">
+        {eyebrow && <p class="eyebrow reveal">{eyebrow}</p>}
+        {title && <h2 class="section__title reveal">{title}</h2>}
+        {intro && <p class="section__intro reveal">{intro}</p>}
+      </header>
+    )}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .section--raised {
+    background: var(--bg-raised);
+    border-block: 1px solid var(--hairline);
+  }
+
+  .section__head {
+    max-width: 60ch;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  .section--center .section__head {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section__title {
+    margin-top: 0.6rem;
+  }
+
+  .section__intro {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.2vw + 0.5rem, 1.2rem);
+  }
+</style>

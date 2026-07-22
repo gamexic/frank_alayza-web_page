@@ -1,0 +1,229 @@
+---
+/**
+ * Accordion.astro — Acordeon accesible (FAQ / detalles).
+ *
+ * Props:
+ *   items  : [{ q: string, a: string }]  (en `a` se permite HTML).
+ *   single : true (default) = solo un panel abierto a la vez.
+ *
+ * A11y: cada cabecera es un <button aria-expanded aria-controls>; el panel es
+ * role="region" aria-labelledby. Apertura animada con grid-template-rows (CSS
+ * moderno, sin medir alturas en JS). Teclado: Enter/Espacio (nativo del button),
+ * flechas arriba/abajo, Home/End entre cabeceras. Chevron = Icon "flecha" que gira.
+ * Script idempotente, se rearma en astro:page-load (View Transitions).
+ */
+import Icon from '~/components/ui/Icon.astro';
+
+export interface Props {
+  items: { q: string; a: string }[];
+  single?: boolean;
+  class?: string;
+}
+
+const { items, single = true, class: className } = Astro.props;
+
+// Id unico y estable por instancia (para aria-controls / aria-labelledby).
+const uid = 'acc-' + Math.random().toString(36).slice(2, 9);
+const classes = ['accordion', className].filter(Boolean).join(' ');
+---
+
+<div class={classes} data-accordion data-single={single ? 'true' : 'false'}>
+  {items.map((item, i) => {
+    const btnId = `${uid}-h${i}`;
+    const panelId = `${uid}-p${i}`;
+    return (
+      <div class="accordion__item">
+        <h3 class="accordion__heading">
+          <button
+            type="button"
+            class="accordion__trigger"
+            id={btnId}
+            aria-expanded="false"
+            aria-controls={panelId}
+          >
+            <span class="accordion__q" set:html={item.q} />
+            <span class="accordion__chevron" aria-hidden="true">
+              <Icon name="flecha" size={18} />
+            </span>
+          </button>
+        </h3>
+        <div
+          class="accordion__panel"
+          id={panelId}
+          role="region"
+          aria-labelledby={btnId}
+          hidden
+        >
+          <div class="accordion__panel-inner">
+            <div class="accordion__a" set:html={item.a} />
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .accordion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accordion__item {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .accordion__item:first-child {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .accordion__heading {
+    margin: 0;
+    font: inherit;
+    letter-spacing: normal;
+  }
+
+  .accordion__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.25rem 0.25rem;
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.4vw + 0.5rem, 1.25rem);
+    font-weight: 600;
+    color: var(--text);
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .accordion__trigger:hover {
+    color: var(--gold);
+  }
+  .accordion__trigger[aria-expanded='true'] {
+    color: var(--gold);
+  }
+
+  .accordion__q {
+    flex: 1;
+  }
+
+  .accordion__chevron {
+    display: inline-flex;
+    flex: none;
+    color: var(--gold);
+    transform: rotate(90deg);
+    transition: transform var(--dur) var(--ease-out-expo);
+  }
+  .accordion__trigger[aria-expanded='true'] .accordion__chevron {
+    transform: rotate(-90deg);
+  }
+
+  /* Panel: animacion de altura con grid-template-rows (0fr -> 1fr).
+     Cuando esta [hidden] cae a display:none del UA (fuera del arbol a11y);
+     al abrir se quita hidden -> :not([hidden]) lo pone en grid y anima. */
+  .accordion__panel:not([hidden]) {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--dur) var(--ease-out-expo);
+  }
+  .accordion__panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .accordion__panel-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .accordion__a {
+    padding: 0 0.25rem 1.4rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .accordion__a :global(a) {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .accordion__a :global(p + p) {
+    margin-top: 0.8rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .accordion__chevron,
+    .accordion__panel {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initAccordions() {
+    const groups = document.querySelectorAll<HTMLElement>('[data-accordion]');
+    groups.forEach((group) => {
+      if (group.dataset.accInit === 'true') return;
+      group.dataset.accInit = 'true';
+
+      const single = group.dataset.single === 'true';
+      const triggers = Array.from(
+        group.querySelectorAll<HTMLButtonElement>('.accordion__trigger'),
+      );
+
+      const setOpen = (trigger: HTMLButtonElement, open: boolean) => {
+        const panelId = trigger.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+        trigger.setAttribute('aria-expanded', String(open));
+        if (!panel) return;
+        if (open) {
+          panel.hidden = false;
+          // dejar que el navegador registre hidden=false antes de animar
+          requestAnimationFrame(() => panel.classList.add('is-open'));
+        } else {
+          panel.classList.remove('is-open');
+          // respaldo: si no hay transicion (reduced-motion), ocultar del arbol a11y
+          window.setTimeout(() => {
+            if (!panel.classList.contains('is-open')) panel.hidden = true;
+          }, 400);
+        }
+      };
+
+      // Ocultar del arbol de accesibilidad cuando termina de cerrar.
+      triggers.forEach((trigger) => {
+        const panelId = trigger.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+        panel?.addEventListener('transitionend', (e) => {
+          if (e.propertyName !== 'grid-template-rows') return;
+          if (!panel.classList.contains('is-open')) panel.hidden = true;
+        });
+
+        trigger.addEventListener('click', () => {
+          const willOpen = trigger.getAttribute('aria-expanded') !== 'true';
+          if (single && willOpen) {
+            triggers.forEach((other) => {
+              if (other !== trigger && other.getAttribute('aria-expanded') === 'true') {
+                setOpen(other, false);
+              }
+            });
+          }
+          setOpen(trigger, willOpen);
+        });
+
+        trigger.addEventListener('keydown', (e) => {
+          const idx = triggers.indexOf(trigger);
+          let next = -1;
+          if (e.key === 'ArrowDown') next = (idx + 1) % triggers.length;
+          else if (e.key === 'ArrowUp') next = (idx - 1 + triggers.length) % triggers.length;
+          else if (e.key === 'Home') next = 0;
+          else if (e.key === 'End') next = triggers.length - 1;
+          if (next >= 0) {
+            e.preventDefault();
+            triggers[next].focus();
+          }
+        });
+      });
+    });
+  }
+
+  initAccordions();
+  document.addEventListener('astro:page-load', initAccordions);
+</script>

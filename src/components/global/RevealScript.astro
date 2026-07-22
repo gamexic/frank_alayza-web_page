@@ -1,0 +1,53 @@
+---
+// Observa .reveal y .stagger y les añade .is-visible una sola vez al entrar en
+// viewport. Respeta data-delay (ms). Las clases y transiciones viven en
+// global.css. Idempotente con View Transitions (astro:page-load).
+---
+
+<script>
+  let observer: IntersectionObserver | null = null;
+
+  function reveal(el: Element) {
+    const delay = (el as HTMLElement).dataset.delay;
+    if (delay) (el as HTMLElement).style.transitionDelay = `${parseInt(delay, 10)}ms`;
+    el.classList.add('is-visible');
+  }
+
+  function initReveal() {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+
+    const targets = document.querySelectorAll('.reveal, .stagger');
+    if (!targets.length) return;
+
+    // Movimiento reducido: muestra todo de inmediato, sin animación.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            reveal(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -80px 0px', threshold: 0.05 },
+    );
+
+    targets.forEach((el) => observer!.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', initReveal);
+  document.addEventListener('astro:before-swap', () => {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+  });
+</script>

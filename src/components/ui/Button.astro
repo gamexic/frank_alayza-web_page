@@ -1,0 +1,163 @@
+---
+/**
+ * Button.astro — Boton / enlace de marca.
+ *
+ * Renderiza <a> si recibe `href`, si no <button>. Tres variantes:
+ *   primary   : degradado dorado, texto casi negro, glow + leve lift al hover.
+ *   secondary : borde dorado, texto dorado, fondo dorado translucido al hover.
+ *   ghost     : texto muted, se aclara al hover.
+ *
+ * `magnetic` agrega la clase .btn-magnetic (la anima MotionScript, otro agente).
+ * `iconName` renderiza un Icon propio a la izquierda o derecha del texto.
+ */
+import Icon from '~/components/ui/Icon.astro';
+
+export interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  magnetic?: boolean;
+  iconName?: string;
+  iconPosition?: 'left' | 'right';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  magnetic = false,
+  iconName,
+  iconPosition = 'right',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const iconSize = size === 'lg' ? 20 : 18;
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  `btn--${size}`,
+  magnetic ? 'btn-magnetic' : '',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+// Solo <button> recibe `type`; <a> puede recibir href y rest (target/rel/download...).
+const tagProps = href ? { href, ...rest } : { type, ...rest };
+---
+
+<Tag class={classes} {...tagProps}>
+  {iconName && iconPosition === 'left' && (
+    <span class="btn__icon" aria-hidden="true"><Icon name={iconName} size={iconSize} /></span>
+  )}
+  <span class="btn__label"><slot /></span>
+  {iconName && iconPosition === 'right' && (
+    <span class="btn__icon" aria-hidden="true"><Icon name={iconName} size={iconSize} /></span>
+  )}
+</Tag>
+
+<style>
+  .btn {
+    --btn-lift: 0px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    font-family: var(--font-tech);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    text-decoration: none;
+    transform: translateY(var(--btn-lift));
+    transition:
+      transform var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      background-color var(--dur) var(--ease-out-expo),
+      color var(--dur) var(--ease-out-expo),
+      border-color var(--dur) var(--ease-out-expo);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Tamanos */
+  .btn--md {
+    padding: 0.72rem 1.35rem;
+    font-size: 0.95rem;
+  }
+  .btn--lg {
+    padding: 0.95rem 1.9rem;
+    font-size: 1.05rem;
+  }
+
+  /* Primary — degradado dorado */
+  .btn--primary {
+    background: var(--grad-gold);
+    color: #06060a;
+    box-shadow: 0 8px 24px -12px rgba(251, 191, 36, 0.55);
+  }
+  .btn--primary:hover {
+    --btn-lift: -3px;
+    box-shadow: var(--glow-gold), 0 14px 30px -14px rgba(251, 191, 36, 0.65);
+  }
+  .btn--primary:active {
+    --btn-lift: -1px;
+  }
+
+  /* Secondary — borde dorado */
+  .btn--secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  .btn--secondary:hover {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--gold-bright);
+    border-color: var(--gold-bright);
+    box-shadow: 0 0 20px -6px rgba(251, 191, 36, 0.4);
+  }
+
+  /* Ghost — texto muted */
+  .btn--ghost {
+    background: transparent;
+    color: var(--text-muted);
+    padding-inline: 0.9rem;
+  }
+  .btn--ghost:hover {
+    color: var(--text);
+  }
+
+  .btn__icon {
+    display: inline-flex;
+    flex: none;
+  }
+
+  .btn__label {
+    display: inline-flex;
+  }
+  .btn__label:empty {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      --btn-lift: 0px !important;
+    }
+  }
+</style>

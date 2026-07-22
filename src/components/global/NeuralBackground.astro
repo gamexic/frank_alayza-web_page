@@ -1,0 +1,253 @@
+---
+// Fondo neural ambiental: red de nodos muy sutil detrás de todo el contenido.
+// Rendimiento cuidado: rAF pausado con visibilitychange e IntersectionObserver,
+// devicePixelRatio limitado a 2, resize con debounce, atracción al puntero solo
+// en desktop y un único frame estático bajo prefers-reduced-motion.
+// Re-inicializa de forma segura con View Transitions (astro:page-load / before-swap).
+export interface Props {
+  density?: 'ambient' | 'off';
+}
+
+const { density = 'ambient' } = Astro.props;
+---
+
+<canvas class="neural-bg" data-neural data-density={density} aria-hidden="true"></canvas>
+
+<style>
+  .neural-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: block;
+  }
+</style>
+
+<script>
+  // Estado a nivel de módulo (persiste entre navegaciones con ClientRouter).
+  let cleanup: (() => void) | null = null;
+
+  function startNeural() {
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-neural]');
+    if (!canvas) return;
+    if (canvas.dataset.density === 'off') return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    const GOLD = '251, 191, 36';
+    const CYAN = '0, 212, 255';
+
+    let dpr = Math.min(2, window.devicePixelRatio || 1);
+    let width = 0;
+    let height = 0;
+    let maxDist = 150;
+
+    interface Node {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      cyan: boolean;
+    }
+    let nodes: Node[] = [];
+
+    let raf = 0;
+    let running = false;
+    let inView = true;
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    const nodeCount = () => {
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      if (isMobile) return 26;
+      const byArea = Math.round((window.innerWidth * window.innerHeight) / 40000);
+      return Math.max(35, Math.min(60, byArea));
+    };
+
+    const buildNodes = () => {
+      const count = nodeCount();
+      nodes = Array.from({ length: count }, (_, i) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: (Math.random() - 0.5) * 0.28,
+        cyan: i % 5 === 0,
+      }));
+    };
+
+    const resize = () => {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      maxDist = Math.min(170, Math.max(120, width / 9));
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Conexiones por distancia (alpha bajo, mezcla oro/cian).
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < maxDist) {
+            const alpha = (1 - dist / maxDist) * 0.12;
+            const color = a.cyan || b.cyan ? CYAN : GOLD;
+            ctx.strokeStyle = `rgba(${color}, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Nodos.
+      for (const n of nodes) {
+        ctx.fillStyle = `rgba(${n.cyan ? CYAN : GOLD}, 0.5)`;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.cyan ? 1.5 : 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const step = () => {
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // Rebote suave en los bordes.
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+        n.x = Math.max(0, Math.min(width, n.x));
+        n.y = Math.max(0, Math.min(height, n.y));
+
+        // Leve atracción al puntero (solo desktop).
+        if (mouse.active) {
+          const dx = mouse.x - n.x;
+          const dy = mouse.y - n.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 26000 && d2 > 1) {
+            const f = 0.00018;
+            n.vx += dx * f;
+            n.vy += dy * f;
+          }
+        }
+
+        // Limita la velocidad para mantener el drift lento.
+        n.vx = Math.max(-0.55, Math.min(0.55, n.vx * 0.996));
+        n.vy = Math.max(-0.55, Math.min(0.55, n.vy * 0.996));
+      }
+      draw();
+    };
+
+    const loop = () => {
+      step();
+      raf = requestAnimationFrame(loop);
+    };
+
+    const play = () => {
+      if (running || reduceMotion) return;
+      if (document.hidden || !inView) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    };
+
+    const pause = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
+    // --- Inicialización ---
+    resize();
+    buildNodes();
+    draw(); // primer frame siempre pintado (también cubre reduced-motion)
+
+    // --- Listeners ---
+    let resizeTimer = 0;
+    const onResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resize();
+        buildNodes();
+        if (reduceMotion || !running) draw();
+      }, 160);
+    };
+    window.addEventListener('resize', onResize);
+
+    const onVisibility = () => {
+      if (document.hidden) pause();
+      else play();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    let onPointerMove: ((e: PointerEvent) => void) | null = null;
+    let onPointerLeave: (() => void) | null = null;
+    if (canHover && !reduceMotion) {
+      onPointerMove = (e: PointerEvent) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+      };
+      onPointerLeave = () => {
+        mouse.active = false;
+        mouse.x = -9999;
+        mouse.y = -9999;
+      };
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      document.addEventListener('pointerleave', onPointerLeave);
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        inView = entries[0]?.isIntersecting ?? true;
+        if (inView) play();
+        else pause();
+      },
+      { threshold: 0 },
+    );
+    io.observe(canvas);
+
+    if (!reduceMotion) play();
+
+    // --- Limpieza para View Transitions ---
+    cleanup = () => {
+      pause();
+      window.removeEventListener('resize', onResize);
+      window.clearTimeout(resizeTimer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      if (onPointerMove) window.removeEventListener('pointermove', onPointerMove);
+      if (onPointerLeave) document.removeEventListener('pointerleave', onPointerLeave);
+      io.disconnect();
+    };
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    if (cleanup) {
+      cleanup();
+      cleanup = null;
+    }
+    startNeural();
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    if (cleanup) {
+      cleanup();
+      cleanup = null;
+    }
+  });
+</script>

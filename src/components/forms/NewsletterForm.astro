@@ -1,0 +1,208 @@
+---
+/**
+ * NewsletterForm.astro — Alta de newsletter (FormSubmit AJAX + fallback no-JS).
+ *
+ * Mismo patron que ContactForm: validacion inline, honeypot, toasts, sin
+ * alert/confirm/prompt. Input email + boton en linea.
+ */
+import Button from '~/components/ui/Button.astro';
+
+export interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const EMAIL = 'frankalayzah@gmail.com';
+const classes = ['nform', className].filter(Boolean).join(' ');
+---
+
+{/* CONFIRMAR FRANK: sustituir por el token aleatorio de FormSubmit tras activar el email. */}
+<form
+  class={classes}
+  data-newsletter-form
+  method="POST"
+  action={`https://formsubmit.co/${EMAIL}`}
+  novalidate
+>
+  <input type="hidden" name="_subject" value="Nueva suscripcion newsletter - Frank Alayza" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+
+  <div class="nform__honey" aria-hidden="true">
+    <label for="nf-honey">No rellenar</label>
+    <input id="nf-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="nform__row">
+    <div class="nform__field">
+      <label class="visually-hidden" for="nf-email">Tu email</label>
+      <input
+        class="nform__input"
+        id="nf-email"
+        name="email"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="tu@email.com"
+        required
+        aria-describedby="nf-email-err"
+      />
+    </div>
+    <Button type="submit" variant="primary" iconName="mail">Suscribirme</Button>
+  </div>
+  <span class="nform__error" id="nf-email-err" role="alert"></span>
+</form>
+
+<style>
+  .nform {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    width: 100%;
+  }
+
+  .nform__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .nform__field {
+    flex: 1 1 14rem;
+    min-width: 0;
+  }
+
+  .nform__input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+      border-color var(--dur-fast) var(--ease-out-expo),
+      box-shadow var(--dur-fast) var(--ease-out-expo);
+  }
+  .nform__input::placeholder {
+    color: var(--text-faint);
+  }
+  .nform__input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18);
+  }
+  .nform__input[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+
+  .nform__error {
+    min-height: 1.1em;
+    font-size: 0.82rem;
+    color: var(--danger);
+  }
+  .nform__error:empty {
+    display: none;
+  }
+
+  .nform__honey {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  function initNewsletterForm() {
+    const forms = document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]');
+    forms.forEach((form) => {
+      if (form.dataset.nfInit === 'true') return;
+      form.dataset.nfInit = 'true';
+
+      const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const input = form.querySelector<HTMLInputElement>('#nf-email');
+      const errEl = form.querySelector<HTMLElement>('#nf-email-err');
+
+      const setError = (msg: string) => {
+        if (!input) return;
+        if (msg) {
+          input.setAttribute('aria-invalid', 'true');
+          if (errEl) errEl.textContent = msg;
+        } else {
+          input.removeAttribute('aria-invalid');
+          if (errEl) errEl.textContent = '';
+        }
+      };
+
+      const validate = (): boolean => {
+        const v = input?.value.trim() || '';
+        if (!v) return setError('Escribe tu email.'), false;
+        if (!EMAIL_RE.test(v)) return setError('El email no parece valido.'), false;
+        setError('');
+        return true;
+      };
+
+      input?.addEventListener('blur', validate);
+      input?.addEventListener('input', () => {
+        if (input.getAttribute('aria-invalid') === 'true') validate();
+      });
+
+      const notify = (type: 'success' | 'error', message: string) => {
+        const w = window as any;
+        if (typeof w.faToast === 'function') w.faToast(type, message);
+        else document.dispatchEvent(new CustomEvent('fa:toast', { detail: { type, message } }));
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!validate()) {
+          input?.focus();
+          return;
+        }
+
+        const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        const label = submitBtn?.querySelector<HTMLElement>('.btn__label');
+        const original = label?.textContent || 'Suscribirme';
+        if (submitBtn) submitBtn.disabled = true;
+        if (label) label.textContent = 'Enviando...';
+
+        const honey = form.querySelector<HTMLInputElement>('#nf-honey')?.value || '';
+        const payload = {
+          email: input?.value.trim() || '',
+          _subject: 'Nueva suscripcion newsletter - Frank Alayza',
+          _template: 'table',
+          _captcha: 'false',
+          _honey: honey,
+        };
+
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/frankalayzah@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error('bad status');
+          notify('success', 'Listo, estas dentro. Contenido de IA y negocio, sin spam.');
+          form.reset();
+          setError('');
+        } catch {
+          notify('error', 'No se pudo completar la suscripcion. Intenta de nuevo en un momento.');
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+          if (label) label.textContent = original;
+        }
+      });
+    });
+  }
+
+  initNewsletterForm();
+  document.addEventListener('astro:page-load', initNewsletterForm);
+</script>

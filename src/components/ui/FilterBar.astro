@@ -1,0 +1,132 @@
+---
+/**
+ * FilterBar.astro — Barra de filtros por categoria (proyectos / blog / certs).
+ *
+ * Props:
+ *   filters        : [{ value, label }]  (NO incluir "Todos": se antepone solo).
+ *   targetSelector : selector CSS de los elementos filtrables. Cada elemento debe
+ *                    llevar data-category="<value>".
+ *
+ * Botones pill con aria-pressed. Al hacer click muestra/oculta con transicion de
+ * opacity/scale (clase .is-filtered-out). Sin estado en URL. Script idempotente
+ * que se rearma en astro:page-load.
+ */
+export interface Props {
+  filters: { value: string; label: string }[];
+  targetSelector: string;
+  class?: string;
+}
+
+const { filters, targetSelector, class: className } = Astro.props;
+const allFilters = [{ value: 'all', label: 'Todos' }, ...filters];
+const classes = ['filterbar', className].filter(Boolean).join(' ');
+---
+
+<div
+  class={classes}
+  role="group"
+  aria-label="Filtrar"
+  data-filterbar
+  data-target={targetSelector}
+>
+  {allFilters.map((f, i) => (
+    <button
+      type="button"
+      class="filterbar__pill"
+      data-filter={f.value}
+      aria-pressed={i === 0 ? 'true' : 'false'}
+    >
+      {f.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .filterbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .filterbar__pill {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    padding: 0.55rem 1.1rem;
+    transition:
+      color var(--dur-fast) var(--ease-out-expo),
+      background-color var(--dur-fast) var(--ease-out-expo),
+      border-color var(--dur-fast) var(--ease-out-expo);
+  }
+  .filterbar__pill:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .filterbar__pill[aria-pressed='true'] {
+    color: #06060a;
+    background: var(--grad-gold);
+    border-color: transparent;
+  }
+</style>
+
+<!-- Estilos de los elementos filtrables (viven fuera del componente) -->
+<style is:global>
+  [data-category] {
+    transition:
+      opacity var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+  [data-category].is-filtered-out {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  function initFilterBars() {
+    const bars = document.querySelectorAll<HTMLElement>('[data-filterbar]');
+    bars.forEach((bar) => {
+      if (bar.dataset.fbInit === 'true') return;
+      bar.dataset.fbInit = 'true';
+
+      const targetSelector = bar.dataset.target || '';
+      const pills = Array.from(bar.querySelectorAll<HTMLButtonElement>('.filterbar__pill'));
+
+      const apply = (value: string) => {
+        const targets = document.querySelectorAll<HTMLElement>(targetSelector);
+        targets.forEach((el) => {
+          const cat = el.dataset.category || '';
+          const show = value === 'all' || cat === value;
+          if (show) {
+            el.style.display = '';
+            // rehabilitar en el siguiente frame para que anime la entrada
+            requestAnimationFrame(() => el.classList.remove('is-filtered-out'));
+          } else {
+            el.classList.add('is-filtered-out');
+            window.setTimeout(() => {
+              if (el.classList.contains('is-filtered-out')) el.style.display = 'none';
+            }, 340);
+          }
+        });
+      };
+
+      pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          pills.forEach((p) => p.setAttribute('aria-pressed', 'false'));
+          pill.setAttribute('aria-pressed', 'true');
+          apply(pill.dataset.filter || 'all');
+        });
+      });
+    });
+  }
+
+  initFilterBars();
+  document.addEventListener('astro:page-load', initFilterBars);
+</script>

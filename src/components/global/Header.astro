@@ -1,0 +1,546 @@
+---
+// Header fijo premium (dark-only, sin toggle de tema).
+// Fondo translucido con blur; gana .header--scrolled tras scroll > 30.
+// Nav desktop con enlace activo (subrayado dorado animado) + boton CV.
+// Menu movil: panel deslizante accesible (aria-expanded, inert, Esc,
+// click en backdrop, focus-trap, bloqueo de scroll del body).
+import Logo from '~/components/ui/Logo.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { navItems, cvLink } from '~/data/nav';
+import { site } from '~/data/site';
+
+// Pagina activa: normaliza quitando barra final (trailingSlash 'never').
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => (href.replace(/\/+$/, '') || '/') === currentPath;
+---
+
+<header class="site-header" data-header>
+  <div class="header-inner container-wide">
+    <a href="/" class="brand" aria-label="Frank Alayza — Inicio">
+      <span class="brand-mark">
+        <Logo variant="gold" mode="icon" size={34} animated />
+      </span>
+      <span class="brand-word">FRANK ALAYZA</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navegación principal">
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['nav-link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href={cvLink.href} class="btn-cv" download aria-label="Descargar CV en PDF">
+        <Icon name="descarga" size={16} accent="gold" />
+        <span class="btn-cv-text">CV</span>
+      </a>
+
+      <button
+        type="button"
+        class="nav-burger"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-burger
+      >
+        <span class="burger-icon burger-icon--open"><Icon name="menu" size={24} /></span>
+        <span class="burger-icon burger-icon--close"><Icon name="cerrar" size={24} /></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Panel de navegación móvil -->
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu inert>
+    <div class="mobile-backdrop" data-backdrop></div>
+    <nav class="mobile-panel" data-panel aria-label="Navegación móvil">
+      <ul class="mobile-links">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['mobile-link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              <span>{item.label}</span>
+              <Icon name="flecha" size={16} accent="gold" />
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a href={cvLink.href} class="mobile-cv" download>
+        <Icon name="descarga" size={18} accent="gold" />
+        <span>Descargar CV</span>
+      </a>
+
+      <div class="mobile-social" aria-label="Redes sociales">
+        {site.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+          >
+            <Icon name={social.id} size={18} accent="gold" chip />
+          </a>
+        ))}
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    background: rgba(6, 6, 10, 0.85);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--hairline);
+    transition:
+      background var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      border-color var(--dur) var(--ease-out-expo);
+  }
+
+  .site-header.header--scrolled {
+    background: rgba(6, 6, 10, 0.95);
+    border-bottom-color: var(--border);
+    box-shadow: 0 12px 36px -18px rgba(0, 0, 0, 0.9);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-step-2);
+    width: 100%;
+  }
+
+  /* Marca */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    transition: transform var(--dur) var(--ease-out-expo);
+  }
+
+  .brand:hover .brand-mark {
+    transform: translateY(-1px) scale(1.03);
+  }
+
+  .brand-word {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: 0.2em;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* Nav desktop */
+  .nav-desktop {
+    margin-inline: auto;
+  }
+
+  .nav-desktop ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.4rem, 1.5vw, 1.4rem);
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 0.4rem 0.15rem;
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.1rem;
+    width: 100%;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: var(--grad-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease-out-expo);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--text);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link.is-active {
+    color: var(--gold-bright);
+  }
+
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  /* Acciones */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .btn-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gold-deep);
+    border-radius: var(--radius-pill);
+    color: var(--gold-bright);
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    background: rgba(251, 191, 36, 0.04);
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      background var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .btn-cv:hover,
+  .btn-cv:focus-visible {
+    border-color: var(--gold);
+    background: rgba(251, 191, 36, 0.1);
+    box-shadow: var(--glow-gold);
+    transform: translateY(-1px);
+  }
+
+  /* Hamburguesa (solo móvil) */
+  .nav-burger {
+    display: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    color: var(--text);
+    transition: background var(--dur) var(--ease-out-expo);
+  }
+
+  .nav-burger:hover {
+    background: var(--surface);
+  }
+
+  .burger-icon {
+    display: inline-flex;
+  }
+
+  .burger-icon--close {
+    display: none;
+  }
+
+  .nav-burger[aria-expanded='true'] .burger-icon--open {
+    display: none;
+  }
+
+  .nav-burger[aria-expanded='true'] .burger-icon--close {
+    display: inline-flex;
+  }
+
+  /* ---------- Menú móvil ---------- */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    pointer-events: none;
+  }
+
+  .mobile-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 6, 10, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out-expo);
+  }
+
+  .mobile-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    height: 100dvh;
+    width: min(86vw, 360px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    padding: calc(var(--header-h) + 1.4rem) 1.6rem 2rem;
+    background: var(--bg-base);
+    border-left: 1px solid var(--hairline);
+    box-shadow: -32px 0 64px -32px rgba(0, 0, 0, 0.9);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform var(--dur-slow) var(--ease-out-expo);
+  }
+
+  .mobile-menu.is-open {
+    pointer-events: auto;
+  }
+
+  .mobile-menu.is-open .mobile-backdrop {
+    opacity: 1;
+  }
+
+  .mobile-menu.is-open .mobile-panel {
+    transform: translateX(0);
+  }
+
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--hairline);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color var(--dur) var(--ease-out-expo);
+  }
+
+  .mobile-link :global(svg) {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .mobile-link:hover,
+  .mobile-link:focus-visible,
+  .mobile-link.is-active {
+    color: var(--gold-bright);
+  }
+
+  .mobile-link:hover :global(svg),
+  .mobile-link:focus-visible :global(svg),
+  .mobile-link.is-active :global(svg) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .mobile-cv {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding: 0.85rem 1.2rem;
+    border: 1px solid var(--gold-deep);
+    border-radius: var(--radius-pill);
+    color: var(--gold-bright);
+    font-family: var(--font-tech);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: rgba(251, 191, 36, 0.06);
+    transition:
+      background var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo);
+  }
+
+  .mobile-cv:hover,
+  .mobile-cv:focus-visible {
+    background: rgba(251, 191, 36, 0.12);
+    box-shadow: var(--glow-gold);
+  }
+
+  .mobile-social {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 879px) {
+    .nav-desktop {
+      display: none;
+    }
+    .btn-cv {
+      display: none;
+    }
+    .nav-burger {
+      display: grid;
+    }
+  }
+
+  @media (min-width: 880px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+
+  @media (max-width: 559px) {
+    .brand-word {
+      display: none;
+    }
+  }
+
+  /* Bloqueo de scroll cuando el menú está abierto (clase en <html>) */
+  :global(html.menu-open) {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-panel {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>
+
+<script>
+  // Idempotente con View Transitions: el modulo corre una vez y re-inicializa
+  // en cada astro:page-load. Los listeners globales se reemplazan (no se apilan).
+  let headerScroll: ((this: Window, ev: Event) => void) | null = null;
+  let headerKey: ((this: Document, ev: KeyboardEvent) => void) | null = null;
+  let headerResize: ((this: Window, ev: Event) => void) | null = null;
+
+  function initHeader() {
+    const header = document.querySelector<HTMLElement>('[data-header]');
+    if (!header) return;
+
+    const html = document.documentElement;
+    html.classList.remove('menu-open');
+
+    // --- Estado scrolled ---
+    const setScrolled = () => {
+      header.classList.toggle('header--scrolled', window.scrollY > 30);
+    };
+    if (headerScroll) window.removeEventListener('scroll', headerScroll);
+    headerScroll = setScrolled as (this: Window, ev: Event) => void;
+    window.addEventListener('scroll', headerScroll, { passive: true });
+    setScrolled();
+
+    // --- Menú móvil ---
+    const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+    const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+    const panel = menu?.querySelector<HTMLElement>('[data-panel]') ?? null;
+    const backdrop = menu?.querySelector<HTMLElement>('[data-backdrop]') ?? null;
+
+    if (!burger || !menu || !panel) return;
+
+    let lastFocused: HTMLElement | null = null;
+
+    const focusables = () =>
+      Array.from(
+        panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      ).filter((el) => el.offsetParent !== null);
+
+    const openMenu = () => {
+      lastFocused = document.activeElement as HTMLElement;
+      menu.classList.add('is-open');
+      menu.removeAttribute('inert');
+      burger.setAttribute('aria-expanded', 'true');
+      burger.setAttribute('aria-label', 'Cerrar menú');
+      html.classList.add('menu-open');
+      const f = focusables();
+      if (f.length) f[0].focus();
+    };
+
+    const closeMenu = () => {
+      menu.classList.remove('is-open');
+      menu.setAttribute('inert', '');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Abrir menú');
+      html.classList.remove('menu-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    burger.addEventListener('click', () => {
+      menu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+    // Cierra al pulsar cualquier enlace del panel (navegación).
+    panel.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) closeMenu();
+    });
+
+    // Esc + focus-trap globales.
+    if (headerKey) document.removeEventListener('keydown', headerKey);
+    headerKey = (e: KeyboardEvent) => {
+      if (!menu.classList.contains('is-open')) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const f = focusables();
+        if (!f.length) return;
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', headerKey);
+
+    // Cierra si se pasa a viewport de escritorio.
+    if (headerResize) window.removeEventListener('resize', headerResize);
+    headerResize = () => {
+      if (
+        window.matchMedia('(min-width: 880px)').matches &&
+        menu.classList.contains('is-open')
+      ) {
+        closeMenu();
+      }
+    };
+    window.addEventListener('resize', headerResize);
+  }
+
+  document.addEventListener('astro:page-load', initHeader);
+</script>

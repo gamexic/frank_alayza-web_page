@@ -1,0 +1,97 @@
+---
+/**
+ * MediaSlot.astro — Enchufe para assets de Higgsfield (sin tocar codigo).
+ *
+ * Convencion: Frank suelta el archivo en /src/assets/higgsfield/ con el nombre
+ * exacto (ej. `hero-loop.mp4`, `retrato-frank.png`). Si existe, se muestra; si no,
+ * se renderiza <slot name="fallback" /> (fallback propio animado). Para videos,
+ * un poster opcional se detecta como `<name>-poster.<ext>`.
+ *
+ * Nota: se restringe el glob a extensiones de media para no importar README/.gitkeep.
+ *
+ * Props: name, type ('video'|'image'), alt?, class?, imgAttrs? (extra para <Image>).
+ */
+import { Image } from 'astro:assets';
+
+export interface Props {
+  name: string;
+  type?: 'video' | 'image';
+  alt?: string;
+  class?: string;
+  imgAttrs?: Record<string, unknown>;
+}
+
+const { name, type = 'video', alt = '', class: className, imgAttrs = {} } = Astro.props;
+
+// Eager para poder decidir en build si el asset existe y pasar metadata a <Image>.
+const assets = import.meta.glob<{ default: unknown }>(
+  '/src/assets/higgsfield/*.{mp4,webm,mov,png,jpg,jpeg,webp,avif,gif}',
+  { eager: true },
+);
+
+const prefix = `/src/assets/higgsfield/${name}.`;
+const posterPrefix = `/src/assets/higgsfield/${name}-poster.`;
+
+const assetKey = Object.keys(assets).find((k) => k.startsWith(prefix));
+const posterKey = Object.keys(assets).find((k) => k.startsWith(posterPrefix));
+
+const toUrl = (mod: { default: unknown } | undefined): string | undefined => {
+  if (!mod) return undefined;
+  const d = mod.default as unknown;
+  if (typeof d === 'string') return d;
+  if (d && typeof d === 'object' && 'src' in d) return (d as { src: string }).src;
+  return undefined;
+};
+
+const asset = assetKey ? assets[assetKey] : undefined;
+const assetIsImageMeta =
+  asset && typeof asset.default === 'object' && asset.default !== null && 'src' in (asset.default as object);
+const posterUrl = toUrl(posterKey ? assets[posterKey] : undefined);
+const exists = Boolean(asset);
+const wrapperClass = ['media-slot', className].filter(Boolean).join(' ');
+---
+
+{exists ? (
+  <div class={wrapperClass}>
+    {type === 'video' ? (
+      <video
+        class="media-slot__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster={posterUrl}
+        src={toUrl(asset)}
+      ></video>
+    ) : assetIsImageMeta ? (
+      <Image
+        class="media-slot__img"
+        src={asset!.default as any}
+        alt={alt}
+        format="webp"
+        widths={[480, 800, 1200, 1600]}
+        sizes="(max-width: 800px) 100vw, 1200px"
+        {...imgAttrs}
+      />
+    ) : (
+      <img class="media-slot__img" src={toUrl(asset)} alt={alt} loading="lazy" decoding="async" />
+    )}
+  </div>
+) : (
+  <slot name="fallback" />
+)}
+
+<style>
+  .media-slot,
+  .media-slot__video,
+  .media-slot__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .media-slot__video,
+  .media-slot__img {
+    object-fit: cover;
+  }
+</style>

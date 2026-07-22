@@ -1,0 +1,252 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Icon from '~/components/ui/Icon.astro';
+import Logo from '~/components/ui/Logo.astro';
+
+// Pagina de verificacion visual (se elimina en QA). No debe indexarse.
+type Accent = 'gold' | 'cyan' | 'purple';
+
+const groups: { title: string; accent: Accent; names: string[] }[] = [
+  {
+    title: 'Servicios',
+    accent: 'gold',
+    names: [
+      'consultoria-ia',
+      'llm-agentes',
+      'app-web-ai',
+      'web-profesional',
+      'ciencia-datos',
+      'automatizacion',
+      'auditoria-kpis',
+    ],
+  },
+  { title: 'Valores', accent: 'cyan', names: ['disciplina', 'claridad', 'impacto', 'etica'] },
+  { title: 'Proceso', accent: 'purple', names: ['descubrimiento', 'propuesta', 'desarrollo', 'entrega'] },
+  { title: 'Social', accent: 'gold', names: ['linkedin', 'github', 'x', 'instagram', 'youtube'] },
+  {
+    title: 'UI',
+    accent: 'cyan',
+    names: [
+      'flecha',
+      'flecha-diagonal',
+      'descarga',
+      'menu',
+      'cerrar',
+      'play',
+      'filtro',
+      'check',
+      'mail',
+      'pin',
+      'reloj',
+      'enlace-externo',
+    ],
+  },
+  { title: 'Marca', accent: 'gold', names: ['nodo-red', 'builder', 'growth'] },
+  { title: 'Tematicos', accent: 'purple', names: ['whatsapp', 'termometro', 'escalada', 'musica'] },
+];
+
+const total = groups.reduce((n, g) => n + g.names.length, 0);
+const accents: Accent[] = ['gold', 'cyan', 'purple'];
+---
+
+<BaseLayout title="Dev — Iconografia de marca" description="Verificacion visual de iconos y logo (interno).">
+  <meta slot="head" name="robots" content="noindex" />
+
+  <main id="main" class="dev container-wide">
+    <header class="dev__head">
+      <p class="eyebrow">Verificacion interna</p>
+      <h1>Iconografia de marca</h1>
+      <p class="dev__sub">
+        {total} iconos propios (linea + acento nodo/circuito) y el logo cabeza-nodos.
+        Pasa el cursor por cada tarjeta para ver la micro-animacion del acento.
+      </p>
+    </header>
+
+    <!-- ============ LOGO ============ -->
+    <section class="dev__section">
+      <h2>Logo · variantes</h2>
+      <div class="dev__logos">
+        <div class="dev__logo card">
+          <Logo variant="gold" mode="icon" size={72} />
+          <span class="dev__cap">gold · icon</span>
+        </div>
+        <div class="dev__logo card">
+          <Logo variant="cyan" mode="icon" size={72} />
+          <span class="dev__cap">cyan · icon</span>
+        </div>
+        <div class="dev__logo card">
+          <Logo variant="mix" mode="icon" size={72} />
+          <span class="dev__cap">mix · icon</span>
+        </div>
+      </div>
+
+      <h2 class="dev__mt">Logo · wordmark (full)</h2>
+      <div class="dev__logos">
+        <div class="dev__logo card dev__logo--wide">
+          <Logo variant="gold" mode="full" size={48} />
+          <span class="dev__cap">gold · full</span>
+        </div>
+        <div class="dev__logo card dev__logo--wide">
+          <Logo variant="cyan" mode="full" size={48} />
+          <span class="dev__cap">cyan · full</span>
+        </div>
+        <div class="dev__logo card dev__logo--wide">
+          <Logo variant="mix" mode="full" size={48} />
+          <span class="dev__cap">mix · full</span>
+        </div>
+      </div>
+
+      <h2 class="dev__mt">Logo · animado (dibujado al entrar en viewport)</h2>
+      <div class="dev__logos">
+        <div class="dev__logo card">
+          <Logo variant="gold" mode="icon" size={96} animated />
+          <span class="dev__cap">gold · animated</span>
+        </div>
+        <div class="dev__logo card dev__logo--wide">
+          <Logo variant="mix" mode="full" size={56} animated />
+          <span class="dev__cap">mix · full · animated</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACENTOS ============ -->
+    <section class="dev__section">
+      <h2>Acentos por prop (chip + plano)</h2>
+      <div class="dev__accents">
+        {accents.map((acc) => (
+          <div class="dev__accent card">
+            <Icon name="nodo-red" accent={acc} chip size={30} label={`nodo-red ${acc}`} />
+            <Icon name="nodo-red" accent={acc} size={30} label={`nodo-red ${acc} plano`} />
+            <span class="dev__cap">accent="{acc}"</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ GRID 39 ============ -->
+    {groups.map((group) => (
+      <section class="dev__section">
+        <h2>{group.title} <span class="dev__count">({group.names.length})</span></h2>
+        <ul class="dev__grid">
+          {group.names.map((name) => (
+            <li class="dev__cell card">
+              <Icon name={name} accent={group.accent} chip size={30} label={name} />
+              <code class="dev__name">{name}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </main>
+</BaseLayout>
+
+<style>
+  .dev {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .dev__head {
+    margin-bottom: 3rem;
+  }
+
+  .dev__sub {
+    color: var(--text-muted);
+    max-width: 60ch;
+    margin-top: 0.75rem;
+  }
+
+  .dev__section {
+    margin-bottom: 3.5rem;
+  }
+
+  .dev__section h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .dev__mt {
+    margin-top: 2.5rem;
+  }
+
+  .dev__count {
+    color: var(--text-faint);
+    font-family: var(--font-tech);
+    font-size: 1rem;
+  }
+
+  /* Reutilizamos .card como contenedor para probar el hover del acento.
+     (El componente Card real llega en F2b; aqui definimos lo minimo.) */
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .card:hover {
+    border-color: color-mix(in srgb, var(--gold) 30%, var(--hairline));
+    transform: translateY(-2px);
+  }
+
+  .dev__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .dev__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.75rem 2rem;
+    min-width: 160px;
+  }
+
+  .dev__logo--wide {
+    min-width: 260px;
+  }
+
+  .dev__accents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .dev__accent {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.75rem;
+  }
+
+  .dev__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .dev__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.5rem 1rem 1.1rem;
+    text-align: center;
+  }
+
+  .dev__name {
+    font-family: var(--font-tech);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    word-break: break-word;
+  }
+
+  .dev__cap {
+    font-family: var(--font-tech);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+  }
+</style>

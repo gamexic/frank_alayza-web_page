@@ -1,0 +1,234 @@
+---
+/**
+ * Logo.astro — Marca de Frank Alayza (cabeza humana de perfil fusionada con red de nodos).
+ * Mismos trazos que src/assets/marca/logo-icon.svg, aqui con gradiente por variante.
+ *
+ * Props:
+ *  - variant : 'gold' | 'cyan' | 'mix'  (default 'gold')
+ *  - mode    : 'icon' | 'full'          ('full' = icono + wordmark FRANK ALAYZA)
+ *  - size    : number (px, alto del icono; default 40)
+ *  - animated: boolean (dibuja los trazos al entrar en viewport; default false)
+ *  - label   : string | null (accesible; null => aria-hidden)
+ */
+interface Props {
+  variant?: 'gold' | 'cyan' | 'mix';
+  mode?: 'icon' | 'full';
+  size?: number;
+  animated?: boolean;
+  label?: string | null;
+  class?: string;
+}
+
+const {
+  variant = 'gold',
+  mode = 'icon',
+  size = 40,
+  animated = false,
+  label = 'Frank Alayza',
+  class: className = '',
+} = Astro.props;
+
+// Gradientes por variante (mismos hex que el sistema de marca)
+const gradients: Record<string, { angle: string; stops: [string, string][] }> = {
+  gold: {
+    angle: '135',
+    stops: [
+      ['0', '#ffdf7e'],
+      ['0.5', '#fbbf24'],
+      ['1', '#d99a00'],
+    ],
+  },
+  cyan: {
+    angle: '135',
+    stops: [
+      ['0', '#5fe6ff'],
+      ['0.5', '#00d4ff'],
+      ['1', '#0090c0'],
+    ],
+  },
+  mix: {
+    angle: '135',
+    stops: [
+      ['0', '#a855f7'],
+      ['1', '#ec4899'],
+    ],
+  },
+};
+
+const grad = gradients[variant] ?? gradients.gold;
+
+// id unico por instancia (evita colisiones si hay varios logos en la pagina)
+const uid = 'logo-' + Math.random().toString(36).slice(2, 9);
+const gradId = `${uid}-grad`;
+
+const hasLabel = label !== null && label !== undefined && label !== '';
+const rootClasses = ['logo', `logo--${variant}`, animated ? 'logo--animated' : '', className]
+  .filter(Boolean)
+  .join(' ');
+
+// En modo full el texto ya nombra la marca -> el svg va aria-hidden.
+const svgLabelled = hasLabel && mode !== 'full';
+---
+
+<span
+  class={rootClasses}
+  data-mode={mode}
+  role={mode === 'full' && hasLabel ? 'img' : undefined}
+  aria-label={mode === 'full' && hasLabel ? label : undefined}
+>
+  <svg
+    class="logo__icon"
+    width={size}
+    height={size}
+    viewBox="0 0 100 100"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    role={svgLabelled ? 'img' : undefined}
+    aria-label={svgLabelled ? label : undefined}
+    aria-hidden={svgLabelled ? undefined : 'true'}
+  >
+    <defs>
+      <linearGradient id={gradId} gradientUnits="userSpaceOnUse" x1="18" y1="14" x2="86" y2="76">
+        {grad.stops.map(([offset, color]) => <stop offset={offset} stop-color={color} />)}
+      </linearGradient>
+    </defs>
+
+    <g stroke={`url(#${gradId})`} stroke-width="2.5">
+      <!-- Conexiones de la red -->
+      <line class="logo-stroke" pathLength="1" x1="47.26" y1="37.03" x2="46.30" y2="23.99" />
+      <line class="logo-stroke" pathLength="1" x1="39.38" y1="41.93" x2="36.60" y2="40.30" />
+      <line class="logo-stroke" pathLength="1" x1="56.27" y1="41.38" x2="67.21" y2="33.94" />
+      <line class="logo-stroke" pathLength="1" x1="57.64" y1="49.68" x2="61.18" y2="50.66" />
+      <line class="logo-stroke" pathLength="1" x1="40.65" y1="53.78" x2="37.94" y2="56.29" />
+      <line class="logo-stroke" pathLength="1" x1="52.10" y1="56.12" x2="54.33" y2="61.07" />
+      <line class="logo-stroke" pathLength="1" x1="63.43" y1="56.29" x2="60.34" y2="61.43" />
+      <line class="logo-stroke" pathLength="1" x1="70.88" y1="36.67" x2="67.52" y2="47.24" />
+      <!-- Arco superior -->
+      <path class="logo-stroke" pathLength="1" d="M49.75 21.39 Q59.84 19.79 66.44 27.57" />
+      <!-- Trazo de circuito -->
+      <line class="logo-stroke" pathLength="1" x1="57" y1="30" x2="66" y2="30" />
+      <!-- Linea de entrada inferior -->
+      <line class="logo-stroke" pathLength="1" x1="24" y1="67" x2="50.5" y2="67" />
+      <!-- Perfil humano -->
+      <path
+        class="logo-stroke logo-stroke--face"
+        pathLength="1"
+        d="M78 36 Q80 40 80 44 L85 48 L79.5 49.5 L82.5 51.5 L79.5 53 L82 55.5 L81 58.5 L73 62.5 L63.5 64"
+      />
+      <!-- Nodos -->
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="46" cy="20" r="4" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="73" cy="30" r="7" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="31" cy="37" r="6.5" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="48" cy="47" r="10" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="66" cy="52" r="5" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="35" cy="59" r="4" />
+      <circle class="logo-stroke logo-stroke--node" pathLength="1" cx="57" cy="67" r="6.5" />
+    </g>
+  </svg>
+
+  {mode === 'full' && (
+    <span class="logo__wordmark" aria-hidden="true">Frank Alayza</span>
+  )}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.62em;
+    line-height: 1;
+    color: var(--gold);
+  }
+
+  .logo__icon {
+    display: block;
+    flex: none;
+    height: auto;
+    overflow: visible;
+  }
+
+  .logo__wordmark {
+    font-family: var(--font-display, system-ui, sans-serif);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.92rem;
+    line-height: 1;
+    /* El wordmark hereda el color del gradiente por variante */
+    background: var(--wordmark-grad, var(--grad-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    white-space: nowrap;
+    padding-right: 0.06em; /* evita recorte del gradiente en la ultima letra */
+  }
+
+  .logo--gold .logo__wordmark { --wordmark-grad: linear-gradient(135deg, #ffdf7e, #fbbf24 45%, #d99a00); }
+  .logo--cyan .logo__wordmark { --wordmark-grad: linear-gradient(135deg, #5fe6ff, #00d4ff 50%, #0090c0); }
+  .logo--mix .logo__wordmark  { --wordmark-grad: linear-gradient(135deg, #a855f7, #ec4899); }
+
+  /* --- Animacion de dibujado (stroke-dasharray via pathLength=1) --- */
+  .logo--animated .logo-stroke {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .logo--animated.is-drawn .logo-stroke {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.6s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  /* Escalonado: red -> perfil -> nodos, para un trazado legible */
+  .logo--animated.is-drawn .logo-stroke { transition-delay: 0ms; }
+  .logo--animated.is-drawn .logo-stroke--face { transition-delay: 0.45s; }
+  .logo--animated.is-drawn .logo-stroke--node { transition-delay: 0.9s; }
+
+  /* Sin animacion bajo reduced-motion: trazos completos, sin transicion */
+  @media (prefers-reduced-motion: reduce) {
+    .logo--animated .logo-stroke {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Dibuja los logos animados una sola vez al entrar en viewport.
+  // Compatible con View Transitions (astro:page-load).
+  function initAnimatedLogos() {
+    const logos = document.querySelectorAll<HTMLElement>('.logo--animated:not([data-logo-init])');
+    if (!logos.length) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      logos.forEach((el) => {
+        el.setAttribute('data-logo-init', '');
+        el.classList.add('is-drawn');
+      });
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-drawn');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    logos.forEach((el) => {
+      el.setAttribute('data-logo-init', '');
+      io.observe(el);
+    });
+  }
+
+  initAnimatedLogos();
+  document.addEventListener('astro:page-load', initAnimatedLogos);
+</script>

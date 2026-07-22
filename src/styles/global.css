@@ -49,3 +49,7 @@
 .stagger.is-visible > *:nth-child(6) { transition-delay: 350ms; }
 .stagger.is-visible > *:nth-child(7) { transition-delay: 420ms; }
 .stagger.is-visible > *:nth-child(8) { transition-delay: 490ms; }
+.stagger.is-visible > *:nth-child(9) { transition-delay: 560ms; }
+.stagger.is-visible > *:nth-child(10) { transition-delay: 630ms; }
+.stagger.is-visible > *:nth-child(11) { transition-delay: 700ms; }
+.stagger.is-visible > *:nth-child(12) { transition-delay: 770ms; }

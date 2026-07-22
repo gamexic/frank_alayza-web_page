@@ -1,0 +1,252 @@
+---
+/**
+ * Modal.astro — Dialogo accesible (in-page, NUNCA window.alert/confirm/prompt).
+ *
+ * Props:
+ *   id    : identificador. Se abre con cualquier elemento [data-modal-open="<id>"].
+ *   title : titulo (aria-labelledby).
+ *   size  : md | lg.
+ *
+ * A11y: role="dialog" aria-modal="true"; focus-trap real (Tab ciclico), cierre con
+ * Esc / click en backdrop / boton cerrar; restaura el foco al opener; bloquea el
+ * scroll del body. Slots: contenido (default) + "footer" (opcional).
+ * Un unico controlador global e idempotente gobierna todos los modales.
+ */
+import Icon from '~/components/ui/Icon.astro';
+
+export interface Props {
+  id: string;
+  title: string;
+  size?: 'md' | 'lg';
+}
+
+const { id, title, size = 'md' } = Astro.props;
+const hasFooter = Astro.slots.has('footer');
+const titleId = `${id}-title`;
+---
+
+<div class="modal" id={id} data-modal hidden>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div
+    class={`modal__panel modal__panel--${size}`}
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={titleId}
+    tabindex="-1"
+  >
+    <header class="modal__head">
+      <h2 class="modal__title" id={titleId}>{title}</h2>
+      <button type="button" class="modal__close" data-modal-close aria-label="Cerrar">
+        <Icon name="cerrar" size={20} />
+      </button>
+    </header>
+    <div class="modal__body">
+      <slot />
+    </div>
+    {hasFooter && (
+      <footer class="modal__foot">
+        <slot name="footer" />
+      </footer>
+    )}
+  </div>
+</div>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 2rem);
+  }
+  .modal[hidden] {
+    display: none;
+  }
+
+  .modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 4, 8, 0.72);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out-expo);
+  }
+  .modal.is-open .modal__backdrop {
+    opacity: 1;
+  }
+
+  .modal__panel {
+    position: relative;
+    width: 100%;
+    max-height: min(85svh, 100%);
+    overflow-y: auto;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    transition:
+      opacity var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+  .modal.is-open .modal__panel {
+    opacity: 1;
+    transform: none;
+  }
+  .modal__panel--md {
+    max-width: 34rem;
+  }
+  .modal__panel--lg {
+    max-width: 52rem;
+  }
+
+  .modal__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem clamp(1.25rem, 3vw, 2rem) 0.75rem;
+  }
+  .modal__title {
+    font-size: clamp(1.35rem, 2vw + 0.5rem, 1.75rem);
+  }
+  .modal__close {
+    display: inline-flex;
+    flex: none;
+    padding: 0.5rem;
+    margin: -0.4rem -0.4rem 0 0;
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    transition:
+      color var(--dur-fast) var(--ease-out-expo),
+      background-color var(--dur-fast) var(--ease-out-expo);
+  }
+  .modal__close:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .modal__body {
+    padding: 0.5rem clamp(1.25rem, 3vw, 2rem) 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .modal__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem clamp(1.25rem, 3vw, 2rem) 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal__backdrop,
+    .modal__panel {
+      transition: none;
+    }
+  }
+</style>
+
+<style is:global>
+  body.fa-modal-open {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  function initModals() {
+    if ((window as any).__faModalInit) return;
+    (window as any).__faModalInit = true;
+
+    const FOCUSABLE =
+      'a[href],button:not([disabled]),textarea:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+    let openModal: HTMLElement | null = null;
+    let lastFocused: HTMLElement | null = null;
+
+    const focusables = (modal: HTMLElement) =>
+      Array.from(modal.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null || el === document.activeElement,
+      );
+
+    const open = (modal: HTMLElement, opener: HTMLElement | null) => {
+      if (openModal) close();
+      lastFocused = opener;
+      openModal = modal;
+      modal.hidden = false;
+      document.body.classList.add('fa-modal-open');
+      requestAnimationFrame(() => modal.classList.add('is-open'));
+      const f = focusables(modal);
+      (f[0] || modal.querySelector<HTMLElement>('.modal__panel'))?.focus();
+    };
+
+    const close = () => {
+      const modal = openModal;
+      if (!modal) return;
+      openModal = null;
+      modal.classList.remove('is-open');
+      const finish = () => {
+        modal.hidden = true;
+        modal.removeEventListener('transitionend', onEnd);
+      };
+      const onEnd = (e: TransitionEvent) => {
+        if (e.target === modal.querySelector('.modal__panel') && e.propertyName === 'opacity') {
+          finish();
+        }
+      };
+      modal.addEventListener('transitionend', onEnd);
+      window.setTimeout(finish, 400); // respaldo (reduced-motion / sin transitionend)
+      document.body.classList.remove('fa-modal-open');
+      lastFocused?.focus();
+      lastFocused = null;
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const opener = target.closest<HTMLElement>('[data-modal-open]');
+      if (opener) {
+        e.preventDefault();
+        const modal = document.getElementById(opener.dataset.modalOpen || '');
+        if (modal) open(modal, opener);
+        return;
+      }
+      if (target.closest('[data-modal-close]')) {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!openModal) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const f = focusables(openModal);
+        if (f.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        const first = f[0];
+        const last = f[f.length - 1];
+        const active = document.activeElement as HTMLElement;
+        if (e.shiftKey && (active === first || !openModal.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
+  initModals();
+  document.addEventListener('astro:page-load', initModals);
+</script>

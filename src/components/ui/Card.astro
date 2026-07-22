@@ -1,0 +1,78 @@
+---
+/**
+ * Card.astro — Superficie de contenido con hairline y glow opcional al hover.
+ *
+ * Props:
+ *   accent      : color de acento del borde/glow interactivo (gold|cyan|purple|none).
+ *   interactive : true = hover con borde de acento (~40%), glow sutil y leve elevacion.
+ *   class       : clases extra.
+ * Cualquier otro atributo (p.ej. data-category para FilterBar, id, style) se
+ * reenvia al elemento raiz.
+ */
+export interface Props {
+  accent?: 'gold' | 'cyan' | 'purple' | 'none';
+  interactive?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { accent = 'none', interactive = false, class: className, ...rest } = Astro.props;
+
+const accentVar =
+  accent === 'gold'
+    ? 'var(--gold)'
+    : accent === 'cyan'
+      ? 'var(--cyan)'
+      : accent === 'purple'
+        ? 'var(--purple)'
+        : '';
+
+const classes = ['card', interactive ? 'card--interactive' : '', className].filter(Boolean).join(' ');
+const style = accentVar ? `--card-accent:${accentVar};` : undefined;
+---
+
+<div class={classes} data-accent={accent} style={style} {...rest}>
+  <slot />
+</div>
+
+<style>
+  .card {
+    --card-accent: var(--gold);
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 3vw, 1.9rem);
+    transition:
+      transform var(--dur) var(--ease-out-expo),
+      border-color var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo);
+  }
+
+  .card--interactive {
+    cursor: pointer;
+  }
+
+  .card--interactive:hover,
+  .card--interactive:focus-within {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--card-accent) 40%, transparent);
+    box-shadow:
+      0 18px 40px -22px rgba(0, 0, 0, 0.85),
+      0 0 22px -6px color-mix(in srgb, var(--card-accent) 30%, transparent);
+  }
+
+  /* accent="none": sin cambio de color, solo elevacion neutra */
+  .card--interactive[data-accent='none']:hover,
+  .card--interactive[data-accent='none']:focus-within {
+    border-color: var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card--interactive:hover,
+    .card--interactive:focus-within {
+      transform: none;
+    }
+  }
+</style>

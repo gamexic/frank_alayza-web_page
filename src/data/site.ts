@@ -28,16 +28,16 @@ export interface SiteData {
 // "builder de negocios de tecnologia"). Ver plan, "Pendientes de confirmacion".
 export const site: SiteData = {
   name: 'Frank Alayza',
-  role: 'Builder de negocios de tecnologia con IA',
-  tagline: 'Transformo datos en decisiones y codigo en soluciones con impacto real.',
+  role: 'Builder de negocios de tecnología con IA',
+  tagline: 'Transformo datos en decisiones y código en soluciones con impacto real.',
   description:
-    'Administrador de negocios de tecnologia y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real.',
+    'Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real.',
   email: 'frankalayzah@gmail.com',
   domain: 'frankalayza.me',
   url: 'https://frankalayza.me',
   location: {
     city: 'Lima',
-    country: 'Peru',
+    country: 'Perú',
     timezone: 'GMT-5',
   },
   cvPath: '/assets/cv/cv-frank-alayza.pdf',

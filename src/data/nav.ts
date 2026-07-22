@@ -8,7 +8,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Sobre mi', href: '/sobre-mi' },
+  { label: 'Sobre mí', href: '/sobre-mi' },
   { label: 'Servicios', href: '/servicios' },
   { label: 'Proyectos', href: '/proyectos' },
   { label: 'Contenido', href: '/contenido' },

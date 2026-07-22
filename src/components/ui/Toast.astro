@@ -1,0 +1,116 @@
+---
+/**
+ * Toast.astro — Unidad visual de una notificacion in-page.
+ *
+ * Se usa de dos formas:
+ *   1) Como prototipo dentro de ToastHost (uno por tipo) que el JS clona en runtime.
+ *   2) Suelto, para un toast estatico/inline si hiciera falta.
+ *
+ * Estilos en `is:global` para que apliquen tambien a los clones que crea ToastHost.
+ * Icono por tipo: success -> check, error -> cerrar, info -> nodo-red.
+ */
+import Icon from '~/components/ui/Icon.astro';
+
+export interface Props {
+  type?: 'success' | 'error' | 'info';
+  message?: string;
+}
+
+const { type = 'info', message = '' } = Astro.props;
+const iconName = type === 'success' ? 'check' : type === 'error' ? 'cerrar' : 'nodo-red';
+const iconAccent = type === 'info' ? 'cyan' : 'gold';
+---
+
+<div class="fa-toast" data-type={type} role="listitem">
+  <span class="fa-toast__icon" aria-hidden="true">
+    <Icon name={iconName} size={20} accent={iconAccent} />
+  </span>
+  <p class="fa-toast__msg">{message}</p>
+  <button type="button" class="fa-toast__close" aria-label="Cerrar notificacion">
+    <Icon name="cerrar" size={16} />
+  </button>
+  <span class="fa-toast__bar" aria-hidden="true"></span>
+</div>
+
+<style is:global>
+  .fa-toast {
+    --toast-color: var(--cyan);
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--toast-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition:
+      opacity var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+  .fa-toast.is-shown {
+    opacity: 1;
+    transform: none;
+  }
+  .fa-toast.is-leaving {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  .fa-toast[data-type='success'] {
+    --toast-color: var(--success);
+  }
+  .fa-toast[data-type='error'] {
+    --toast-color: var(--danger);
+  }
+  .fa-toast[data-type='info'] {
+    --toast-color: var(--cyan);
+  }
+
+  .fa-toast__icon {
+    display: inline-flex;
+    color: var(--toast-color);
+  }
+
+  .fa-toast__msg {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .fa-toast__close {
+    display: inline-flex;
+    color: var(--text-faint);
+    padding: 0.2rem;
+    border-radius: var(--radius);
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .fa-toast__close:hover {
+    color: var(--text);
+  }
+
+  .fa-toast__bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(1);
+    background: var(--toast-color);
+    opacity: 0.65;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fa-toast {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

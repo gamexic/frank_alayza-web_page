@@ -1,0 +1,156 @@
+---
+/**
+ * ToastHost.astro — Contenedor global de notificaciones in-page.
+ *
+ * Colocar UNA vez en BaseLayout. Region aria-live="polite" role="status" fija
+ * (abajo en movil, abajo-derecha en desktop, z-index maximo).
+ *
+ * API:
+ *   · CustomEvent en document:  document.dispatchEvent(new CustomEvent('fa:toast',
+ *       { detail: { type:'success'|'error'|'info', message:string, duration?:5000 } }))
+ *   · Global JS:                window.faToast(type, message, duration?)
+ *
+ * Auto-descarte con barra de progreso (rAF, seguro con reduced-motion), pausa al
+ * pasar el cursor o al enfocar dentro, cierre manual, animacion de entrada/salida.
+ * Reutiliza Toast.astro como prototipo por tipo (clonado en runtime).
+ */
+import Toast from '~/components/ui/Toast.astro';
+---
+
+<div
+  class="fa-toast-host"
+  id="fa-toast-host"
+  role="status"
+  aria-live="polite"
+  aria-atomic="false"
+>
+</div>
+
+<!-- Prototipos por tipo (ocultos): el controlador clona el que corresponda -->
+<div class="fa-toast-proto" hidden aria-hidden="true">
+  <Toast type="success" />
+  <Toast type="error" />
+  <Toast type="info" />
+</div>
+
+<style is:global>
+  .fa-toast-host {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    pointer-events: none;
+    inset: auto 0 0 0;
+    padding: 1rem;
+  }
+
+  .fa-toast-host > * {
+    pointer-events: auto;
+  }
+
+  @media (min-width: 560px) {
+    .fa-toast-host {
+      inset: auto 0 0 auto;
+      max-width: 24rem;
+      padding: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  interface ToastDetail {
+    type?: 'success' | 'error' | 'info';
+    message: string;
+    duration?: number;
+  }
+
+  function initToastHost() {
+    if ((window as any).__faToastInit) return;
+    (window as any).__faToastInit = true;
+
+    const getHost = () => document.getElementById('fa-toast-host');
+    const getProto = (type: string): HTMLElement | null => {
+      const proto = document.querySelector(`.fa-toast-proto .fa-toast[data-type="${type}"]`);
+      return proto ? (proto.cloneNode(true) as HTMLElement) : null;
+    };
+
+    function showToast(detail: ToastDetail) {
+      const host = getHost();
+      if (!host) return;
+      const type = detail.type || 'info';
+      const duration = typeof detail.duration === 'number' ? detail.duration : 5000;
+      const toast = getProto(type);
+      if (!toast) return;
+
+      const msgEl = toast.querySelector<HTMLElement>('.fa-toast__msg');
+      if (msgEl) msgEl.textContent = detail.message;
+      const bar = toast.querySelector<HTMLElement>('.fa-toast__bar');
+
+      host.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('is-shown'));
+
+      let elapsed = 0;
+      let last = performance.now();
+      let paused = false;
+      let raf = 0;
+      let closed = false;
+
+      const dismiss = () => {
+        if (closed) return;
+        closed = true;
+        cancelAnimationFrame(raf);
+        toast.classList.add('is-leaving');
+        let removed = false;
+        const remove = () => {
+          if (removed) return;
+          removed = true;
+          toast.remove();
+        };
+        toast.addEventListener('transitionend', remove, { once: true });
+        window.setTimeout(remove, 400); // respaldo reduced-motion
+      };
+
+      const frame = (now: number) => {
+        if (!paused) elapsed += now - last;
+        last = now;
+        const p = Math.min(elapsed / duration, 1);
+        if (bar) bar.style.transform = `scaleX(${1 - p})`;
+        if (p >= 1) {
+          dismiss();
+          return;
+        }
+        raf = requestAnimationFrame(frame);
+      };
+      raf = requestAnimationFrame(frame);
+
+      const pause = () => {
+        paused = true;
+      };
+      const resume = () => {
+        paused = false;
+        last = performance.now();
+      };
+      toast.addEventListener('mouseenter', pause);
+      toast.addEventListener('mouseleave', resume);
+      toast.addEventListener('focusin', pause);
+      toast.addEventListener('focusout', resume);
+
+      toast.querySelector('.fa-toast__close')?.addEventListener('click', dismiss);
+    }
+
+    (window as any).faToast = (
+      type: 'success' | 'error' | 'info',
+      message: string,
+      duration?: number,
+    ) => showToast({ type, message, duration });
+
+    document.addEventListener('fa:toast', (e) => {
+      const detail = (e as CustomEvent<ToastDetail>).detail;
+      if (detail && detail.message) showToast(detail);
+    });
+  }
+
+  initToastHost();
+  document.addEventListener('astro:page-load', initToastHost);
+</script>

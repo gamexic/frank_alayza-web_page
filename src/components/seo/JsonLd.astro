@@ -1,0 +1,81 @@
+---
+/**
+ * JsonLd.astro — Inserta datos estructurados schema.org (JSON-LD).
+ *
+ * Uso (normalmente en el <head> via slot):
+ *   import JsonLd, { personSchema, organizationSchemas } from '~/components/seo/JsonLd.astro';
+ *   <JsonLd slot="head" data={personSchema()} />
+ *   <JsonLd slot="head" data={organizationSchemas()} />   // acepta objeto o array
+ *
+ * Exporta ademas builders reutilizables (se usaran en F3/F4).
+ */
+import { site } from '~/data/site';
+
+export interface Props {
+  data: Record<string, unknown> | Record<string, unknown>[];
+}
+
+/** Person — Frank Alayza. sameAs = las 5 redes de site.ts. */
+export function personSchema(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    jobTitle: 'Builder de negocios de tecnologia',
+    description: site.description,
+    url: site.url,
+    email: `mailto:${site.email}`,
+    image: `${site.url}/assets/og/share.jpg`,
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Universidad de Lima',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: site.location.city,
+      addressCountry: 'PE',
+    },
+    knowsAbout: [
+      'Inteligencia Artificial',
+      'Analisis de datos',
+      'Negocios de tecnologia',
+      'Automatizacion',
+      'Desarrollo de software',
+      'Agentes de IA',
+    ],
+    sameAs: site.socials.map((s) => s.url),
+  };
+}
+
+/** Organizations — negocios propios de Frank (Clevun, Iceguin) con founder ref. */
+export function organizationSchemas(): Record<string, unknown>[] {
+  const founder = {
+    '@type': 'Person',
+    name: site.name,
+    url: site.url,
+  };
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Clevun',
+      url: 'https://clevun.com',
+      description:
+        'CRM con agente de IA por WhatsApp para gestionar clientes, citas y ventas.',
+      founder,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Iceguin',
+      url: 'https://iceguin.com',
+      description: 'Monitoreo de temperatura en tiempo real con alertas para negocios.',
+      founder,
+    },
+  ];
+}
+
+const { data } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />
