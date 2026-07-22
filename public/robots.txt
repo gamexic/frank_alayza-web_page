@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://frankalayza.me/sitemap-index.xml

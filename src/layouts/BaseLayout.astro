@@ -1,0 +1,79 @@
+---
+import '~/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  ogType?: 'website' | 'article';
+  pageClass?: string;
+}
+
+const siteUrl = 'https://frankalayza.me';
+
+const {
+  title = 'Frank Alayza — Builder de negocios de tecnologia con IA',
+  description = 'Administrador de negocios de tecnologia y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real.',
+  image = '/assets/og/share.jpg',
+  canonical = new URL(Astro.url.pathname, siteUrl).href.replace(/\/$/, '') || siteUrl,
+  ogType = 'website',
+  pageClass = '',
+} = Astro.props;
+
+const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+---
+
+<!doctype html>
+<html lang="es" class={pageClass}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#06060a" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Frank Alayza" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_PE" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Extras por pagina (ej. JSON-LD Person / BlogPosting) -->
+    <slot name="head" />
+
+    <!-- Navegacion SPA con View Transitions -->
+    <ClientRouter />
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <!-- F2: NeuralBackground -->
+    <!-- F2: Header -->
+
+    <slot />
+
+    <!-- F2: Footer -->
+    <!-- F2: ToastHost -->
+  </body>
+</html>

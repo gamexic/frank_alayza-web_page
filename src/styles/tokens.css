@@ -1,0 +1,77 @@
+/* Design tokens — Frank Alayza (dark-only, sin toggle).
+   Negro profundo base + dorado de firma + acentos cian/morado neon. */
+
+:root {
+  color-scheme: dark;
+
+  /* Superficies */
+  --bg-abyss: #06060a;
+  --bg-base: #0a0a0f;
+  --bg-raised: #12121a;
+  --surface: #16161f;
+  --surface-2: #1e1e2a;
+  --border: #2a2a3a;
+  --hairline: rgba(255, 255, 255, 0.08);
+
+  /* Dorado — color de firma */
+  --gold: #fbbf24;
+  --gold-bright: #ffdf7e;
+  --gold-deep: #d99a00;
+  --grad-gold: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+
+  /* Cian — acento tecnologico */
+  --cyan: #00d4ff;
+  --cyan-bright: #7fe9ff;
+  --cyan-deep: #0090b3;
+
+  /* Morado -> magenta — acento humano (variante Mix) */
+  --purple: #a855f7;
+  --magenta: #ec4899;
+  --grad-mix: linear-gradient(135deg, var(--purple) 0%, var(--magenta) 100%);
+
+  /* Texto */
+  --text: #f0f0f5;
+  --text-muted: #a0a0b0;
+  --text-faint: #6b6b7b;
+
+  /* Roles semanticos */
+  --accent: var(--gold);
+  --accent-tech: var(--cyan);
+  --accent-human: var(--purple);
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  /* Glows y sombras */
+  --glow-gold: 0 0 24px rgba(251, 191, 36, 0.35);
+  --glow-cyan: 0 0 24px rgba(0, 212, 255, 0.35);
+  --shadow-card: 0 18px 48px -24px rgba(0, 0, 0, 0.8);
+
+  /* Tipografias (self-hosted via @fontsource) */
+  --font-display: 'Space Grotesk Variable', system-ui, -apple-system, sans-serif;
+  --font-tech: 'Chakra Petch', 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
+
+  /* Escala de espacios */
+  --space-step-0: 0.5rem;
+  --space-step-1: 1rem;
+  --space-step-2: 1.5rem;
+  --space-step-3: 2.5rem;
+  --space-step-4: 4rem;
+  --space-step-5: 6rem;
+
+  /* Layout */
+  --max-width: 1100px;
+  --max-width-wide: 1200px;
+  --header-h: 76px;
+
+  /* Radios */
+  --radius: 10px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Movimiento */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 640ms;
+}

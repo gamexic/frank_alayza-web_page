@@ -1,0 +1,42 @@
+---
+// PROVISIONAL — placeholder para que el build pase.
+// F3 reemplaza esta pagina por completo (hero premium, secciones, animaciones).
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { site } from '~/data/site';
+---
+
+<BaseLayout pageClass="page-home">
+  <main id="main" class="home-hero">
+    <div class="container">
+      <p class="eyebrow reveal">{site.role}</p>
+      <h1 class="reveal">
+        <span class="text-gradient-gold">{site.tagline}</span>
+      </h1>
+      <p class="home-hero__lead reveal">{site.description}</p>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .home-hero {
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - var(--header-h));
+    padding-block: var(--space-step-5);
+  }
+
+  .home-hero .eyebrow {
+    margin-bottom: var(--space-step-1);
+  }
+
+  .home-hero h1 {
+    max-width: 16ch;
+  }
+
+  .home-hero__lead {
+    margin-top: var(--space-step-2);
+    max-width: 54ch;
+    color: var(--text-muted);
+    font-size: clamp(1.05rem, 1.5vw + 0.5rem, 1.3rem);
+  }
+</style>
