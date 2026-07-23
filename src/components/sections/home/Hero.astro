@@ -358,7 +358,7 @@ import { site } from '~/data/site';
       // clave rígida, y una deriva que NUNCA muere (piso 0.009): tras armar el
       // perfil del logo los nodos siguen flotando —el fallback queda vivo—.
       const spring = 0.004 + ramp * 0.012;
-      const wander = 0.009 + 0.018 * (1 - ramp);
+      const wander = 0.004 + 0.01 * (1 - ramp);
       for (const p of parts) {
         p.vx += (p.tx - p.x) * spring;
         p.vy += (p.ty - p.y) * spring;

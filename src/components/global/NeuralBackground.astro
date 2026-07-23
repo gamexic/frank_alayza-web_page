@@ -46,9 +46,9 @@ const { density = 'ambient' } = Astro.props;
     // Física del enjambre autónomo: cada nodo mantiene SIEMPRE una velocidad
     // propia dentro de esta banda (nunca se congela) y una deriva browniana que
     // curva su trayectoria. Así el fondo "respira" solo, sin puntero ni scroll.
-    const MIN_SPEED = 0.16; // px/frame — piso perceptible (~9.6 px/s a 60fps)
-    const MAX_SPEED = 0.5; // px/frame — techo elegante (~30 px/s a 60fps)
-    const WANDER = 0.015; // magnitud de la perturbación browniana por frame
+    const MIN_SPEED = 0.06; // px/frame — piso perceptible pero sereno (~3.6 px/s a 60fps)
+    const MAX_SPEED = 0.2; // px/frame — techo calmado (~12 px/s a 60fps)
+    const WANDER = 0.006; // magnitud de la perturbación browniana por frame
     const TAU = Math.PI * 2;
 
     let dpr = Math.min(2, window.devicePixelRatio || 1);
