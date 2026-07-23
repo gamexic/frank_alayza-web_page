@@ -1,0 +1,366 @@
+- generic [active] [ref=f1e1]:
+  - link "Saltar al contenido" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Frank Alayza — Inicio" [ref=f1e5] [cursor=pointer]:
+        - /url: /
+        - img "Frank Alayza" [ref=f1e8]
+        - generic [ref=f1e10]: FRANK ALAYZA
+      - navigation "Navegación principal" [ref=f1e11]:
+        - list [ref=f1e12]:
+          - listitem [ref=f1e13]:
+            - link "Inicio" [ref=f1e14] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f1e15]:
+            - link "Sobre mí" [ref=f1e16] [cursor=pointer]:
+              - /url: /sobre-mi
+          - listitem [ref=f1e17]:
+            - link "Servicios" [ref=f1e18] [cursor=pointer]:
+              - /url: /servicios
+          - listitem [ref=f1e19]:
+            - link "Proyectos" [ref=f1e20] [cursor=pointer]:
+              - /url: /proyectos
+          - listitem [ref=f1e21]:
+            - link "Contenido" [ref=f1e22] [cursor=pointer]:
+              - /url: /contenido
+          - listitem [ref=f1e23]:
+            - link "Recursos" [ref=f1e24] [cursor=pointer]:
+              - /url: /recursos
+          - listitem [ref=f1e25]:
+            - link "Certificados" [ref=f1e26] [cursor=pointer]:
+              - /url: /certificados
+          - listitem [ref=f1e27]:
+            - link "Contacto" [ref=f1e28] [cursor=pointer]:
+              - /url: /contacto
+      - link "Descargar CV en PDF" [ref=f1e30] [cursor=pointer]:
+        - /url: /assets/cv/cv-frank-alayza.pdf
+        - generic [ref=f1e34]: CV
+  - main [ref=f1e35]:
+    - region [ref=f1e36]:
+      - generic [ref=f1e37]:
+        - paragraph [ref=f1e38]: Servicios
+        - heading "Construyo negocios de tecnología con IA" [level=1] [ref=f1e39]
+        - paragraph [ref=f1e40]: Transformo datos en decisiones y código en soluciones con impacto real.
+    - generic [ref=f1e42]:
+      - generic [ref=f1e43]:
+        - paragraph [ref=f1e44]: Qué hago
+        - heading "Servicios" [level=2] [ref=f1e45]
+        - paragraph [ref=f1e46]: Construyo y hago crecer negocios de tecnología con IA. Estas son las áreas en las que puedo ayudarte a convertir una idea en un resultado medible.
+      - generic [ref=f1e47]:
+        - generic [ref=f1e48] [cursor=pointer]:
+          - generic [ref=f1e49]:
+            - heading "Consultoría de IA aplicada a negocio" [level=3] [ref=f1e56]
+            - paragraph [ref=f1e57]: Te ayudo a identificar dónde la IA puede generar impacto real en tu negocio. Evaluamos casos de uso, viabilidad técnica y retorno esperado antes de invertir en desarrollo.
+          - list [ref=f1e58]:
+            - listitem [ref=f1e59]:
+              - generic [ref=f1e64]: Auditoría de procesos automatizables
+            - listitem [ref=f1e65]:
+              - generic [ref=f1e70]: Evaluación de madurez de datos
+            - listitem [ref=f1e71]:
+              - generic [ref=f1e76]: Roadmap de implementación de IA
+            - listitem [ref=f1e77]:
+              - generic [ref=f1e82]: Selección de tecnologías y proveedores
+        - generic [ref=f1e83] [cursor=pointer]:
+          - generic [ref=f1e84]:
+            - heading "Soluciones con LLMs y agentes" [level=3] [ref=f1e93]
+            - paragraph [ref=f1e94]: "Diseño y construyo soluciones basadas en modelos de lenguaje y agentes inteligentes: chatbots, asistentes, automatización de documentos y flujos que trabajan solos."
+          - list [ref=f1e95]:
+            - listitem [ref=f1e96]:
+              - generic [ref=f1e101]: Chatbots y asistentes con LLMs
+            - listitem [ref=f1e102]:
+              - generic [ref=f1e107]: Agentes autónomos para tareas específicas
+            - listitem [ref=f1e108]:
+              - generic [ref=f1e113]: RAG (Retrieval Augmented Generation)
+            - listitem [ref=f1e114]:
+              - generic [ref=f1e119]: Integración con APIs y sistemas existentes
+        - generic [ref=f1e120] [cursor=pointer]:
+          - generic [ref=f1e121]:
+            - heading "Aplicaciones web a medida" [level=3] [ref=f1e129]
+            - paragraph [ref=f1e130]: Construyo aplicaciones web que conectan lógica de negocio, datos e IA para digitalizar procesos y escalar operaciones sobre una base técnica sólida.
+          - list [ref=f1e131]:
+            - listitem [ref=f1e132]:
+              - generic [ref=f1e137]: Aplicaciones web personalizadas (frontend + backend)
+            - listitem [ref=f1e138]:
+              - generic [ref=f1e143]: Integración con APIs, bases de datos y servicios cloud
+            - listitem [ref=f1e144]:
+              - generic [ref=f1e149]: Módulos de autenticación, paneles y flujos internos
+            - listitem [ref=f1e150]:
+              - generic [ref=f1e155]: Arquitectura limpia, mantenible y orientada a crecimiento
+        - generic [ref=f1e156] [cursor=pointer]:
+          - generic [ref=f1e157]:
+            - heading "Páginas web profesionales" [level=3] [ref=f1e165]
+            - paragraph [ref=f1e166]: Diseño páginas web enfocadas en posicionar tu marca, comunicar con claridad tu propuesta de valor y convertir visitas en oportunidades reales.
+          - list [ref=f1e167]:
+            - listitem [ref=f1e168]:
+              - generic [ref=f1e173]: Landing pages y sitios corporativos de alto impacto
+            - listitem [ref=f1e174]:
+              - generic [ref=f1e179]: Portafolios personales con enfoque en marca profesional
+            - listitem [ref=f1e180]:
+              - generic [ref=f1e185]: Diseño responsive y optimización de rendimiento
+            - listitem [ref=f1e186]:
+              - generic [ref=f1e191]: Estructura SEO base y analítica para mejora continua
+        - generic [ref=f1e192] [cursor=pointer]:
+          - generic [ref=f1e193]:
+            - heading "Ciencia de datos para decisiones" [level=3] [ref=f1e200]
+            - paragraph [ref=f1e201]: Convierto tus datos en información accionable. Desde análisis exploratorio hasta modelos predictivos que informan decisiones estratégicas.
+          - list [ref=f1e202]:
+            - listitem [ref=f1e203]:
+              - generic [ref=f1e208]: Análisis exploratorio y estadístico
+            - listitem [ref=f1e209]:
+              - generic [ref=f1e214]: Modelos de predicción y clasificación
+            - listitem [ref=f1e215]:
+              - generic [ref=f1e220]: Segmentación y clustering
+            - listitem [ref=f1e221]:
+              - generic [ref=f1e226]: Dashboards y visualización de datos
+        - generic [ref=f1e227] [cursor=pointer]:
+          - generic [ref=f1e228]:
+            - heading "Automatización y pipelines de datos" [level=3] [ref=f1e235]
+            - paragraph [ref=f1e236]: Elimino trabajo manual y errores con pipelines automatizados. ETLs, integraciones, scraping y procesos que funcionan solos.
+          - list [ref=f1e237]:
+            - listitem [ref=f1e238]:
+              - generic [ref=f1e243]: Diseño de pipelines ETL/ELT
+            - listitem [ref=f1e244]:
+              - generic [ref=f1e249]: Automatización de reportes
+            - listitem [ref=f1e250]:
+              - generic [ref=f1e255]: Web scraping y extracción de datos
+            - listitem [ref=f1e256]:
+              - generic [ref=f1e261]: Orquestación y monitoreo
+        - generic [ref=f1e262] [cursor=pointer]:
+          - generic [ref=f1e263]:
+            - heading "Auditoría de datos, dashboards y KPIs" [level=3] [ref=f1e271]
+            - paragraph [ref=f1e272]: Reviso tus dashboards, métricas y procesos de datos actuales. Identifico problemas, oportunidades de mejora y te entrego un plan de acción.
+          - list [ref=f1e273]:
+            - listitem [ref=f1e274]:
+              - generic [ref=f1e279]: Revisión de calidad de datos
+            - listitem [ref=f1e280]:
+              - generic [ref=f1e285]: Evaluación de KPIs y métricas
+            - listitem [ref=f1e286]:
+              - generic [ref=f1e291]: Optimización de dashboards existentes
+            - listitem [ref=f1e292]:
+              - generic [ref=f1e297]: Documentación y mejores prácticas
+    - generic [ref=f1e299]:
+      - generic [ref=f1e300]:
+        - paragraph [ref=f1e301]: Paquetes
+        - heading "Planes para cada etapa de tu proyecto" [level=2] [ref=f1e302]
+        - paragraph [ref=f1e303]: "Planes pensados para convertir ideas en resultados medibles: estrategia, implementación y crecimiento continuo."
+      - generic [ref=f1e304]:
+        - generic [ref=f1e305] [cursor=pointer]:
+          - generic [ref=f1e312]:
+            - heading "Sprint Estratégico AI" [level=3] [ref=f1e313]
+            - paragraph [ref=f1e314]: Claridad, enfoque y roadmap accionable
+          - paragraph [ref=f1e315]: Diagnóstico intensivo para definir dónde la IA, la automatización y los datos pueden generar mayor impacto en tu negocio desde el primer mes.
+          - list [ref=f1e316]:
+            - listitem [ref=f1e317]:
+              - generic [ref=f1e322]: Workshop estratégico 1:1 (90-120 min)
+            - listitem [ref=f1e323]:
+              - generic [ref=f1e328]: Auditoría de procesos y madurez de datos
+            - listitem [ref=f1e329]:
+              - generic [ref=f1e334]: Priorización de casos de uso por impacto/viabilidad
+            - listitem [ref=f1e335]:
+              - generic [ref=f1e340]: Roadmap 30/60/90 días con entregables claros
+            - listitem [ref=f1e341]:
+              - generic [ref=f1e346]: Recomendación de stack tecnológico inicial
+          - paragraph [ref=f1e347]:
+            - generic [ref=f1e348]: Ideal para
+            - text: Equipos que quieren empezar bien, evitar improvisación y decidir con criterios técnicos y de negocio.
+          - link "Reservar sprint" [ref=f1e350]:
+            - /url: /contacto
+        - generic [ref=f1e356] [cursor=pointer]:
+          - generic [ref=f1e364]:
+            - heading "Web Presencia & Conversión" [level=3] [ref=f1e365]
+            - paragraph [ref=f1e366]: Tu página web lista para vender
+          - paragraph [ref=f1e367]: Diseño y desarrollo de landing page o sitio corporativo profesional, optimizado para posicionar tu marca y captar oportunidades reales.
+          - list [ref=f1e368]:
+            - listitem [ref=f1e369]:
+              - generic [ref=f1e374]: Diseño UX/UI responsive alineado a tu marca
+            - listitem [ref=f1e375]:
+              - generic [ref=f1e380]: Copy estructurado para comunicar tu propuesta de valor
+            - listitem [ref=f1e381]:
+              - generic [ref=f1e386]: Integración de formularios, analítica y SEO base
+            - listitem [ref=f1e387]:
+              - generic [ref=f1e392]: Optimización de rendimiento y buenas prácticas web
+            - listitem [ref=f1e393]:
+              - generic [ref=f1e398]: Entrega con guía de edición y soporte inicial
+          - paragraph [ref=f1e399]:
+            - generic [ref=f1e400]: Ideal para
+            - text: Profesionales y negocios que necesitan una presencia digital sólida, moderna y orientada a conversión.
+          - link "Lanzar mi web" [ref=f1e402]:
+            - /url: /contacto
+        - generic [ref=f1e408] [cursor=pointer]:
+          - generic [ref=f1e409]: Más solicitado
+          - generic [ref=f1e417]:
+            - heading "Aplicación Web AI Native" [level=3] [ref=f1e418]
+            - paragraph [ref=f1e419]: Automatiza procesos y escala operación
+          - paragraph [ref=f1e420]: Construcción de una aplicación web a medida que integra software, datos e IA para resolver un proceso clave de tu negocio con impacto real.
+          - list [ref=f1e421]:
+            - listitem [ref=f1e422]:
+              - generic [ref=f1e427]: Definición de alcance, objetivos y KPIs de éxito
+            - listitem [ref=f1e428]:
+              - generic [ref=f1e433]: Desarrollo frontend + backend + base de datos
+            - listitem [ref=f1e434]:
+              - generic [ref=f1e439]: Integración con APIs, LLMs/agentes y automatizaciones
+            - listitem [ref=f1e440]:
+              - generic [ref=f1e445]: Dashboard de seguimiento y documentación técnica
+            - listitem [ref=f1e446]:
+              - generic [ref=f1e451]: Handoff y capacitación del equipo
+          - paragraph [ref=f1e452]:
+            - generic [ref=f1e453]: Ideal para
+            - text: Equipos que quieren dejar atrás procesos manuales y operar con una solución digital inteligente.
+          - link "Construir mi aplicación" [ref=f1e455]:
+            - /url: /contacto
+        - generic [ref=f1e461] [cursor=pointer]:
+          - generic [ref=f1e468]:
+            - heading "Partner Técnico Mensual" [level=3] [ref=f1e469]
+            - paragraph [ref=f1e470]: Evolución continua con foco en negocio
+          - paragraph [ref=f1e471]: Acompañamiento recurrente para mantener, optimizar y escalar tus soluciones web, de IA y de datos con prioridad y visión estratégica.
+          - list [ref=f1e472]:
+            - listitem [ref=f1e473]:
+              - generic [ref=f1e478]: Bolsa de horas mensual dedicada
+            - listitem [ref=f1e479]:
+              - generic [ref=f1e484]: Mejoras evolutivas y nuevas funcionalidades
+            - listitem [ref=f1e485]:
+              - generic [ref=f1e490]: Mantenimiento, monitoreo y optimización continua
+            - listitem [ref=f1e491]:
+              - generic [ref=f1e496]: Reuniones de estrategia y priorización
+            - listitem [ref=f1e497]:
+              - generic [ref=f1e502]: Soporte técnico prioritario para tu equipo
+          - paragraph [ref=f1e503]:
+            - generic [ref=f1e504]: Ideal para
+            - text: Empresas que buscan un partner técnico confiable para crecer de forma sostenida.
+          - link "Quiero acompañamiento" [ref=f1e506]:
+            - /url: /contacto
+    - generic [ref=f1e513]:
+      - generic [ref=f1e514]:
+        - paragraph [ref=f1e515]: Metodología
+        - heading "Mi proceso de trabajo" [level=2] [ref=f1e516]
+        - paragraph [ref=f1e517]: Metodología clara para entregar resultados.
+      - list [ref=f1e518]:
+        - listitem [ref=f1e519]:
+          - generic [ref=f1e520]: "1"
+          - generic [ref=f1e521]:
+            - heading "Descubrimiento" [level=3] [ref=f1e522]
+            - paragraph [ref=f1e523]: Entiendo tu negocio, objetivos y datos disponibles, y definimos juntos las métricas de éxito.
+        - listitem [ref=f1e524]:
+          - generic [ref=f1e525]: "2"
+          - generic [ref=f1e526]:
+            - heading "Propuesta" [level=3] [ref=f1e527]
+            - paragraph [ref=f1e528]: Te presento un plan detallado con alcance, entregables, timeline y presupuesto transparente.
+        - listitem [ref=f1e529]:
+          - generic [ref=f1e530]: "3"
+          - generic [ref=f1e531]:
+            - heading "Desarrollo" [level=3] [ref=f1e532]
+            - paragraph [ref=f1e533]: Construyo la solución con entregas incrementales, comunicación constante y ajustes según tu feedback.
+        - listitem [ref=f1e534]:
+          - generic [ref=f1e535]: "4"
+          - generic [ref=f1e536]:
+            - heading "Entrega" [level=3] [ref=f1e537]
+            - paragraph [ref=f1e538]: Handoff completo con documentación, capacitación y soporte post-entrega incluido.
+    - generic [ref=f1e540]:
+      - generic [ref=f1e541]:
+        - paragraph [ref=f1e542]: Garantías
+        - heading "Compromisos con tu proyecto" [level=2] [ref=f1e543]
+        - paragraph [ref=f1e544]: Compromisos concretos para que tu inversión en tecnología avance con control, calidad y resultados.
+      - generic [ref=f1e545]:
+        - generic [ref=f1e546] [cursor=pointer]:
+          - heading "Alcance y presupuesto claros" [level=3] [ref=f1e552]
+          - paragraph [ref=f1e553]: Antes de iniciar definimos alcance, entregables, cronograma y costos. Si aparece un cambio, lo documentamos y lo aprobamos contigo.
+        - generic [ref=f1e554] [cursor=pointer]:
+          - heading "Calidad técnica verificable" [level=3] [ref=f1e561]
+          - paragraph [ref=f1e562]: Construyo con buenas prácticas, documentación y handoff ordenado para que tu equipo pueda mantener y escalar la solución sin dependencia.
+        - generic [ref=f1e563] [cursor=pointer]:
+          - heading "Comunicación y seguimiento" [level=3] [ref=f1e569]
+          - paragraph [ref=f1e570]: Recibes avances frecuentes, próximos pasos y riesgos identificados en lenguaje claro, para mantener visibilidad total del proyecto.
+        - generic [ref=f1e571] [cursor=pointer]:
+          - heading "Confidencialidad y soporte post-lanzamiento" [level=3] [ref=f1e577]
+          - paragraph [ref=f1e578]: Trabajo con confidencialidad profesional (NDA cuando aplica) y acompaño la estabilización inicial para asegurar una implementación confiable.
+    - generic [ref=f1e580]:
+      - generic [ref=f1e581]:
+        - paragraph [ref=f1e582]: Preguntas frecuentes
+        - heading "Resuelve tus dudas" [level=2] [ref=f1e583]
+        - paragraph [ref=f1e584]: Respuestas claras para ayudarte a decidir con seguridad el mejor camino para tu proyecto.
+      - generic [ref=f1e586]:
+        - heading [level=3] [ref=f1e588]:
+          - button "¿Qué tipo de proyectos tomas y cómo sé qué paquete elegir?" [ref=f1e589] [cursor=pointer]
+        - heading [level=3] [ref=f1e596]:
+          - button "¿Qué necesito para iniciar y cómo es el proceso de arranque?" [ref=f1e597] [cursor=pointer]
+        - heading [level=3] [ref=f1e604]:
+          - button "¿En cuánto tiempo se ven resultados y entregables?" [ref=f1e605] [cursor=pointer]
+        - heading [level=3] [ref=f1e612]:
+          - button "¿El código, la documentación y la propiedad intelectual son míos?" [ref=f1e613] [cursor=pointer]
+        - heading [level=3] [ref=f1e620]:
+          - button "¿Puedes trabajar con mi equipo actual y firmar NDA?" [ref=f1e621] [cursor=pointer]
+        - heading [level=3] [ref=f1e628]:
+          - button "¿Qué soporte recibo después del lanzamiento?" [ref=f1e629] [cursor=pointer]
+    - region [ref=f1e635]:
+      - generic [ref=f1e637]:
+        - paragraph [ref=f1e638]: Siguiente paso
+        - heading "¿Listo para acelerar tu proyecto?" [level=2] [ref=f1e639]
+        - paragraph [ref=f1e640]: Conversemos sobre tu negocio, definamos objetivos claros y tracemos el camino para convertir tu idea en un resultado medible.
+        - link "Agendar llamada estratégica" [ref=f1e642] [cursor=pointer]:
+          - /url: /contacto
+  - contentinfo [ref=f1e648]:
+    - generic [ref=f1e650]:
+      - generic [ref=f1e651]:
+        - link "Frank Alayza — Inicio" [ref=f1e652] [cursor=pointer]:
+          - /url: /
+          - img "Frank Alayza" [ref=f1e653]
+        - paragraph [ref=f1e657]: "Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real."
+        - generic "Redes sociales" [ref=f1e658]:
+          - link "LinkedIn" [ref=f1e659] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/frank-alayza-herrera-0a79152b1
+          - link "GitHub" [ref=f1e665] [cursor=pointer]:
+            - /url: https://github.com/gamexic
+          - link "X" [ref=f1e670] [cursor=pointer]:
+            - /url: https://x.com/gamexiic
+          - link "Instagram" [ref=f1e675] [cursor=pointer]:
+            - /url: https://www.instagram.com/frank_alayza
+          - link "YouTube" [ref=f1e681] [cursor=pointer]:
+            - /url: https://www.youtube.com/@FrankAlayza44
+      - navigation "Navegación" [ref=f1e686]:
+        - heading "Navegación" [level=2] [ref=f1e687]
+        - list [ref=f1e688]:
+          - listitem [ref=f1e689]:
+            - link "Inicio" [ref=f1e690] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f1e691]:
+            - link "Sobre mí" [ref=f1e692] [cursor=pointer]:
+              - /url: /sobre-mi
+          - listitem [ref=f1e693]:
+            - link "Servicios" [ref=f1e694] [cursor=pointer]:
+              - /url: /servicios
+          - listitem [ref=f1e695]:
+            - link "Proyectos" [ref=f1e696] [cursor=pointer]:
+              - /url: /proyectos
+      - navigation "Explora" [ref=f1e697]:
+        - heading "Explora" [level=2] [ref=f1e698]
+        - list [ref=f1e699]:
+          - listitem [ref=f1e700]:
+            - link "Contenido" [ref=f1e701] [cursor=pointer]:
+              - /url: /contenido
+          - listitem [ref=f1e702]:
+            - link "Recursos" [ref=f1e703] [cursor=pointer]:
+              - /url: /recursos
+          - listitem [ref=f1e704]:
+            - link "Certificados" [ref=f1e705] [cursor=pointer]:
+              - /url: /certificados
+          - listitem [ref=f1e706]:
+            - link "Contacto" [ref=f1e707] [cursor=pointer]:
+              - /url: /contacto
+      - generic [ref=f1e708]:
+        - heading "Contacto" [level=2] [ref=f1e709]
+        - list [ref=f1e710]:
+          - listitem [ref=f1e711]:
+            - link "frankalayzah@gmail.com" [ref=f1e712] [cursor=pointer]:
+              - /url: mailto:frankalayzah@gmail.com
+          - listitem [ref=f1e718]:
+            - generic [ref=f1e719]: Lima, Perú · GMT-5
+    - generic [ref=f1e724]:
+      - paragraph [ref=f1e725]: © 2026 Frank Alayza. Todos los derechos reservados.
+      - navigation "Legal" [ref=f1e726]:
+        - link "Privacidad" [ref=f1e727] [cursor=pointer]:
+          - /url: /privacidad
+        - generic [ref=f1e728]: ·
+        - link "Términos" [ref=f1e729] [cursor=pointer]:
+          - /url: /terminos
+  - status

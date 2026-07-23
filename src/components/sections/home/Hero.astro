@@ -354,8 +354,11 @@ import { site } from '~/data/site';
       if (!t0) t0 = now;
       const elapsed = (now - t0) / 1000;
       const ramp = Math.min(1, elapsed / 6); // se organiza en ~6s
-      const spring = 0.006 + ramp * 0.02;
-      const wander = 0.02 * (1 - ramp * 0.6);
+      // Resorte más suave al asentar (0.004 → 0.016) para que la formación no se
+      // clave rígida, y una deriva que NUNCA muere (piso 0.009): tras armar el
+      // perfil del logo los nodos siguen flotando —el fallback queda vivo—.
+      const spring = 0.004 + ramp * 0.012;
+      const wander = 0.009 + 0.018 * (1 - ramp);
       for (const p of parts) {
         p.vx += (p.tx - p.x) * spring;
         p.vy += (p.ty - p.y) * spring;
