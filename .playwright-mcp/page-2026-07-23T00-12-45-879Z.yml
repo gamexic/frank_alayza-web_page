@@ -1,0 +1,319 @@
+- generic [active] [ref=e1]:
+  - link "Saltar al contenido" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Frank Alayza — Inicio" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Frank Alayza" [ref=e8]
+        - generic [ref=e10]: FRANK ALAYZA
+      - navigation "Navegación principal" [ref=e11]:
+        - list [ref=e12]:
+          - listitem [ref=e13]:
+            - link "Inicio" [ref=e14] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e15]:
+            - link "Sobre mí" [ref=e16] [cursor=pointer]:
+              - /url: /sobre-mi
+          - listitem [ref=e17]:
+            - link "Servicios" [ref=e18] [cursor=pointer]:
+              - /url: /servicios
+          - listitem [ref=e19]:
+            - link "Proyectos" [ref=e20] [cursor=pointer]:
+              - /url: /proyectos
+          - listitem [ref=e21]:
+            - link "Contenido" [ref=e22] [cursor=pointer]:
+              - /url: /contenido
+          - listitem [ref=e23]:
+            - link "Recursos" [ref=e24] [cursor=pointer]:
+              - /url: /recursos
+          - listitem [ref=e25]:
+            - link "Certificados" [ref=e26] [cursor=pointer]:
+              - /url: /certificados
+          - listitem [ref=e27]:
+            - link "Contacto" [ref=e28] [cursor=pointer]:
+              - /url: /contacto
+      - link "Descargar CV en PDF" [ref=e30] [cursor=pointer]:
+        - /url: /assets/cv/cv-frank-alayza.pdf
+        - generic [ref=e34]: CV
+  - main [ref=e35]:
+    - region "Presentación" [ref=e36]:
+      - generic [ref=e41]:
+        - paragraph [ref=e42]: Frank Alayza · Lima, Perú
+        - heading "Construyo negocios de tecnología con inteligencia artificial" [level=1] [ref=e43]:
+          - generic [ref=e44]: Construyo
+          - generic [ref=e46]: negocios de tecnología
+          - generic [ref=e48]: con inteligencia artificial
+        - paragraph [ref=e50]: "Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real."
+        - generic [ref=e51]:
+          - link "Conectar" [ref=e52] [cursor=pointer]:
+            - /url: /contacto
+          - link "Ver proyectos" [ref=e58] [cursor=pointer]:
+            - /url: /proyectos
+      - link "Ir a la siguiente sección" [ref=e61] [cursor=pointer]:
+        - /url: "#enfoque"
+        - generic [ref=e62]: Desliza
+    - generic [ref=e66]:
+      - paragraph [ref=e67]: Mi enfoque
+      - paragraph [ref=e68]: "No solo escribo código: construyo y administro negocios de tecnología. Combino administración, inteligencia artificial, datos y software para convertir una idea en un producto que funciona y en un resultado que se puede medir."
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - paragraph [ref=e72]: Qué hago
+        - heading "Del negocio al producto, con IA de por medio" [level=2] [ref=e73]
+        - paragraph [ref=e74]: Estas son las áreas donde convierto una necesidad de negocio en una solución técnica que genera impacto.
+      - list [ref=e75]:
+        - listitem [ref=e76]:
+          - generic [ref=e77] [cursor=pointer]:
+            - heading "Consultoría de IA aplicada a negocio" [level=3] [ref=e83]
+            - paragraph [ref=e84]: Te ayudo a identificar dónde la IA puede generar impacto real en tu negocio. Evaluamos casos de uso, viabilidad técnica y retorno esperado antes de invertir en desarrollo.
+        - listitem [ref=e85]:
+          - generic [ref=e86] [cursor=pointer]:
+            - heading "Soluciones con LLMs y agentes" [level=3] [ref=e94]
+            - paragraph [ref=e95]: "Diseño y construyo soluciones basadas en modelos de lenguaje y agentes inteligentes: chatbots, asistentes, automatización de documentos y flujos que trabajan solos."
+        - listitem [ref=e96]:
+          - generic [ref=e97] [cursor=pointer]:
+            - heading "Aplicaciones web a medida" [level=3] [ref=e104]
+            - paragraph [ref=e105]: Construyo aplicaciones web que conectan lógica de negocio, datos e IA para digitalizar procesos y escalar operaciones sobre una base técnica sólida.
+        - listitem [ref=e106]:
+          - generic [ref=e107] [cursor=pointer]:
+            - heading "Ciencia de datos para decisiones" [level=3] [ref=e113]
+            - paragraph [ref=e114]: Convierto tus datos en información accionable. Desde análisis exploratorio hasta modelos predictivos que informan decisiones estratégicas.
+        - listitem [ref=e115]:
+          - generic [ref=e116] [cursor=pointer]:
+            - heading "Automatización y pipelines de datos" [level=3] [ref=e122]
+            - paragraph [ref=e123]: Elimino trabajo manual y errores con pipelines automatizados. ETLs, integraciones, scraping y procesos que funcionan solos.
+      - link "Ver todos los servicios" [ref=e125] [cursor=pointer]:
+        - /url: /servicios
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - paragraph [ref=e134]: Negocios que construyo
+        - heading "Productos propios, en producción" [level=2] [ref=e135]
+        - paragraph [ref=e136]: "No solo asesoro: lanzo y opero mis propios negocios de tecnología. Dos que hoy dan servicio a clientes reales."
+      - list [ref=e137]:
+        - listitem [ref=e138]:
+          - generic [ref=e139] [cursor=pointer]:
+            - generic [ref=e140]: Negocio propio
+            - heading "Clevun" [level=3] [ref=e146]
+            - paragraph [ref=e147]: CRM con agente de IA por WhatsApp
+            - paragraph [ref=e148]: Plataforma que atiende, agenda y cobra por WhatsApp con un agente de IA. Los negocios de servicios centralizan a sus clientes, automatizan recordatorios y responden 24/7 sin perder el trato humano.
+            - link "Visitar Clevun (se abre en una pestaña nueva)" [ref=e149]:
+              - /url: https://clevun.com
+              - generic [ref=e150]: Visitar Clevun
+        - listitem [ref=e155]:
+          - generic [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: Negocio propio
+            - heading "Iceguin" [level=3] [ref=e163]
+            - paragraph [ref=e164]: Monitoreo de temperatura para refrigeración comercial
+            - paragraph [ref=e165]: Sistema de monitoreo de temperatura con alertas en tiempo real para refrigeración comercial. Cuida la cadena de frío del sector alimentario y avisa antes de que una falla se convierta en pérdida.
+            - link "Visitar Iceguin (se abre en una pestaña nueva)" [ref=e166]:
+              - /url: https://iceguin.com
+              - generic [ref=e167]: Visitar Iceguin
+      - generic [ref=e172]:
+        - paragraph [ref=e173]: Casos de trabajo
+        - heading "Resultados para otros negocios" [level=2] [ref=e174]
+      - list [ref=e175]:
+        - listitem [ref=e176]:
+          - generic [ref=e177] [cursor=pointer]:
+            - generic [ref=e178]: Analítica predictiva
+            - heading "Simulador de escenarios competitivos para consultora" [level=3] [ref=e179]
+            - generic [ref=e180]:
+              - generic [ref=e181]:
+                - term [ref=e182]: Problema
+                - definition [ref=e183]: Una empresa de consultoría realizaba predicciones de resultados de forma manual; el proceso era lento, complejo y dificultaba reaccionar frente a la competencia.
+              - generic [ref=e184]:
+                - term [ref=e185]: Enfoque
+                - definition [ref=e186]: Desarrollo de una aplicación web con Python (backend y frontend) capaz de iterar múltiples combinaciones de variables para identificar el escenario óptimo con mayor velocidad y consistencia.
+              - generic [ref=e187]:
+                - term [ref=e188]: Resultado
+                - definition [ref=e189]: Simulaciones de predicción en minutos y con un clic, mayor precisión analítica y reducción de costos operativos al disminuir la carga de análisis manual.
+        - listitem [ref=e190]:
+          - generic [ref=e191] [cursor=pointer]:
+            - generic [ref=e192]: Optimización operativa
+            - heading "Digitalización administrativa para negocio particular" [level=3] [ref=e193]
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - term [ref=e196]: Problema
+                - definition [ref=e197]: El negocio tenía procesos administrativos y gestión de datos mayormente manuales, con baja trazabilidad y poca velocidad operativa.
+              - generic [ref=e198]:
+                - term [ref=e199]: Enfoque
+                - definition [ref=e200]: Implementación de plantillas de Excel con fórmulas, digitalización de procesos clave y automatización de flujos entre aplicaciones según cada necesidad.
+              - generic [ref=e201]:
+                - term [ref=e202]: Resultado
+                - definition [ref=e203]: Operación más ordenada y ágil, mejor adopción tecnológica y menor dependencia de tareas repetitivas gracias a automatizaciones.
+        - listitem [ref=e204]:
+          - generic [ref=e205] [cursor=pointer]:
+            - generic [ref=e206]: Transformación digital
+            - heading "Negocio independiente orientado por datos" [level=3] [ref=e207]
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - term [ref=e210]: Problema
+                - definition [ref=e211]: El negocio operaba con registros en hojas físicas, sin visibilidad del desempeño ni información confiable para tomar decisiones.
+              - generic [ref=e212]:
+                - term [ref=e213]: Enfoque
+                - definition [ref=e214]: Digitalización integral del negocio, estructuración de datos y automatización de campañas de marketing para medir resultados y decidir en base a evidencia.
+              - generic [ref=e215]:
+                - term [ref=e216]: Resultado
+                - definition [ref=e217]: Aumento sostenido de clientes e incremento de ingresos superior al 120%.
+            - generic "+120% ingresos" [ref=e218]:
+              - generic [ref=e219]: +0%
+              - generic [ref=e220]: ingresos
+      - link "Ver todos los proyectos" [ref=e222] [cursor=pointer]:
+        - /url: /proyectos
+    - generic [ref=e229]:
+      - generic [ref=e230]:
+        - paragraph [ref=e231]: Stack
+        - heading "Con qué construyo" [level=2] [ref=e232]
+        - paragraph [ref=e233]: Las herramientas y competencias que uso día a día para llevar una idea a producción.
+      - list [ref=e234]:
+        - listitem [ref=e235]:
+          - heading "Lenguajes" [level=3] [ref=e242]
+          - list [ref=e243]:
+            - listitem [ref=e244]: Python
+            - listitem [ref=e245]: SQL
+            - listitem [ref=e246]: JavaScript
+            - listitem [ref=e247]: HTML/CSS
+        - listitem [ref=e248]:
+          - heading "IA Generativa" [level=3] [ref=e256]
+          - list [ref=e257]:
+            - listitem [ref=e258]: LLMs
+            - listitem [ref=e259]: Prompt Engineering
+            - listitem [ref=e260]: LangChain
+            - listitem [ref=e261]: LangGraph
+        - listitem [ref=e262]:
+          - heading "Data" [level=3] [ref=e268]
+          - list [ref=e269]:
+            - listitem [ref=e270]: Ingeniería de Datos
+            - listitem [ref=e271]: SQL Analytics
+            - listitem [ref=e272]: Pandas/NumPy
+            - listitem [ref=e273]: Estadística aplicada
+        - listitem [ref=e274]:
+          - heading "Cloud / Backend" [level=3] [ref=e280]
+          - list [ref=e281]:
+            - listitem [ref=e282]: Google Cloud Platform
+            - listitem [ref=e283]: Azure AI (RAG)
+            - listitem [ref=e284]: FastAPI
+            - listitem [ref=e285]: OpenAI API
+        - listitem [ref=e286]:
+          - heading "Negocio / Comunicación" [level=3] [ref=e292]
+          - list [ref=e293]:
+            - listitem [ref=e294]: Análisis de negocio
+            - listitem [ref=e295]: Liderazgo en proyectos AI
+            - listitem [ref=e296]: Comunicación de datos
+            - listitem [ref=e297]: Inglés avanzado (ICPNA)
+    - generic [ref=e299]:
+      - blockquote [ref=e302]: Frank destaca por su capacidad para transformar problemas complejos en soluciones tecnológicas prácticas y efectivas.
+      - generic [ref=e303]:
+        - generic [ref=e304]: BA
+        - generic [ref=e305]:
+          - generic [ref=e306]: Byron Arriola O.
+          - generic [ref=e307]: CEO, BR Advisory
+        - img "BR Advisory" [ref=e308]
+    - generic [ref=e310]:
+      - generic [ref=e311]:
+        - paragraph [ref=e312]: Mi parte humana
+        - heading "Disciplina fuera de la pantalla" [level=2] [ref=e313]
+        - paragraph [ref=e314]: Más allá del código y los datos hay disciplina, constancia y enfoque.
+        - paragraph [ref=e315]: "La escalada y la calistenia me enseñan que los grandes logros se construyen paso a paso: cada problema técnico es una ruta que analizo, intento, ajusto y vuelvo a intentar hasta llegar a la cima. Esa mentalidad de mejora continua es la que llevo a cada proyecto."
+        - paragraph [ref=e316]:
+          - generic [ref=e320]: Y cuando cierro el editor, produzco música electrónica.
+      - figure [ref=e321]:
+        - img "Frank Alayza en una sesión de escalada" [ref=e324]
+    - generic [ref=e326]:
+      - generic [ref=e327]:
+        - paragraph [ref=e328]: Contenido
+        - heading "Ideas sobre IA, datos y negocio" [level=2] [ref=e329]
+        - paragraph [ref=e330]: Tutoriales y reflexiones prácticas para construir con tecnología.
+      - list [ref=e331]:
+        - listitem [ref=e332]:
+          - 'link "Claude para flujos documentales: de análisis a entrega" [ref=e334] [cursor=pointer]':
+            - /url: /contenido-claude-flujos-documentales
+            - generic [ref=e335]: Modelos fundacionales
+            - 'heading "Claude para flujos documentales: de análisis a entrega" [level=3] [ref=e337]'
+            - paragraph [ref=e338]: "Claude para flujos documentales: análisis de texto largo, herramientas, control de calidad y entrega profesional."
+            - generic [ref=e339]: 8 min de lectura
+        - listitem [ref=e345]:
+          - 'link "Gemini en negocio: dónde aporta valor real hoy" [ref=e347] [cursor=pointer]':
+            - /url: /contenido-gemini-para-negocio
+            - generic [ref=e348]: Modelos fundacionales
+            - 'heading "Gemini en negocio: dónde aporta valor real hoy" [level=3] [ref=e350]'
+            - paragraph [ref=e351]: "Gemini en negocio: casos de uso prácticos, integración por API y controles para operar con impacto real."
+            - generic [ref=e352]: 8 min de lectura
+        - listitem [ref=e358]:
+          - link "Lo que la escalada me enseñó sobre resolver problemas" [ref=e360] [cursor=pointer]:
+            - /url: /contenido-escalada-resolver-problemas
+            - generic [ref=e361]: Escalada y disciplina
+            - heading "Lo que la escalada me enseñó sobre resolver problemas" [level=3] [ref=e363]
+            - paragraph [ref=e364]: "Principios de escalada aplicados a resolución de problemas técnicos y de negocio: estrategia, calma y ejecución."
+            - generic [ref=e365]: 6 min de lectura
+      - link "Ver todo el contenido" [ref=e372] [cursor=pointer]:
+        - /url: /contenido
+    - generic [ref=e382]:
+      - heading "¿Tienes un reto de negocio con datos o IA?" [level=2] [ref=e383]
+      - paragraph [ref=e384]: Cuéntame qué quieres construir o mejorar. Te respondo con un enfoque claro y los próximos pasos.
+      - link "Conectar ahora" [ref=e386] [cursor=pointer]:
+        - /url: /contacto
+  - contentinfo [ref=e392]:
+    - generic [ref=e394]:
+      - generic [ref=e395]:
+        - link "Frank Alayza — Inicio" [ref=e396] [cursor=pointer]:
+          - /url: /
+          - img "Frank Alayza" [ref=e397]
+        - paragraph [ref=e401]: "Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real."
+        - generic "Redes sociales" [ref=e402]:
+          - link "LinkedIn" [ref=e403] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/frank-alayza-herrera-0a79152b1
+          - link "GitHub" [ref=e409] [cursor=pointer]:
+            - /url: https://github.com/gamexic
+          - link "X" [ref=e414] [cursor=pointer]:
+            - /url: https://x.com/gamexiic
+          - link "Instagram" [ref=e419] [cursor=pointer]:
+            - /url: https://www.instagram.com/frank_alayza
+          - link "YouTube" [ref=e425] [cursor=pointer]:
+            - /url: https://www.youtube.com/@FrankAlayza44
+      - navigation "Navegación" [ref=e430]:
+        - heading "Navegación" [level=2] [ref=e431]
+        - list [ref=e432]:
+          - listitem [ref=e433]:
+            - link "Inicio" [ref=e434] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e435]:
+            - link "Sobre mí" [ref=e436] [cursor=pointer]:
+              - /url: /sobre-mi
+          - listitem [ref=e437]:
+            - link "Servicios" [ref=e438] [cursor=pointer]:
+              - /url: /servicios
+          - listitem [ref=e439]:
+            - link "Proyectos" [ref=e440] [cursor=pointer]:
+              - /url: /proyectos
+      - navigation "Explora" [ref=e441]:
+        - heading "Explora" [level=2] [ref=e442]
+        - list [ref=e443]:
+          - listitem [ref=e444]:
+            - link "Contenido" [ref=e445] [cursor=pointer]:
+              - /url: /contenido
+          - listitem [ref=e446]:
+            - link "Recursos" [ref=e447] [cursor=pointer]:
+              - /url: /recursos
+          - listitem [ref=e448]:
+            - link "Certificados" [ref=e449] [cursor=pointer]:
+              - /url: /certificados
+          - listitem [ref=e450]:
+            - link "Contacto" [ref=e451] [cursor=pointer]:
+              - /url: /contacto
+      - generic [ref=e452]:
+        - heading "Contacto" [level=2] [ref=e453]
+        - list [ref=e454]:
+          - listitem [ref=e455]:
+            - link "frankalayzah@gmail.com" [ref=e456] [cursor=pointer]:
+              - /url: mailto:frankalayzah@gmail.com
+          - listitem [ref=e462]:
+            - generic [ref=e463]: Lima, Perú · GMT-5
+    - generic [ref=e468]:
+      - paragraph [ref=e469]: © 2026 Frank Alayza. Todos los derechos reservados.
+      - navigation "Legal" [ref=e470]:
+        - link "Privacidad" [ref=e471] [cursor=pointer]:
+          - /url: /privacidad
+        - generic [ref=e472]: ·
+        - link "Términos" [ref=e473] [cursor=pointer]:
+          - /url: /terminos
+  - status
