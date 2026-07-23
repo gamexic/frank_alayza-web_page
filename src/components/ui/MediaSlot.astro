@@ -9,7 +9,8 @@
  *
  * Nota: se restringe el glob a extensiones de media para no importar README/.gitkeep.
  *
- * Props: name, type ('video'|'image'), alt?, class?, imgAttrs? (extra para <Image>).
+ * Props: name, type ('video'|'image'), alt?, class?, loop? (video, default true),
+ *   imgAttrs? (extra para <Image>).
  */
 import { Image } from 'astro:assets';
 
@@ -18,10 +19,13 @@ export interface Props {
   type?: 'video' | 'image';
   alt?: string;
   class?: string;
+  /** Solo para type='video'. Loop del <video>. Default true (fondos). Usa false
+   *  para reveals que deben terminar y quedarse en el ultimo frame. */
+  loop?: boolean;
   imgAttrs?: Record<string, unknown>;
 }
 
-const { name, type = 'video', alt = '', class: className, imgAttrs = {} } = Astro.props;
+const { name, type = 'video', alt = '', class: className, loop = true, imgAttrs = {} } = Astro.props;
 
 // Eager para poder decidir en build si el asset existe y pasar metadata a <Image>.
 const assets = import.meta.glob<{ default: unknown }>(
@@ -58,7 +62,7 @@ const wrapperClass = ['media-slot', className].filter(Boolean).join(' ');
         class="media-slot__video"
         autoplay
         muted
-        loop
+        loop={loop}
         playsinline
         preload="metadata"
         poster={posterUrl}

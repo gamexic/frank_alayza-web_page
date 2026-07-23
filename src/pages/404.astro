@@ -7,6 +7,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Logo from '~/components/ui/Logo.astro';
 import Button from '~/components/ui/Button.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
 ---
 
 <BaseLayout
@@ -17,7 +18,11 @@ import Button from '~/components/ui/Button.astro';
   <section class="nf">
     <div class="container nf__inner">
       <a href="/" class="nf__logo reveal" aria-label="Frank Alayza — Inicio">
-        <Logo variant="gold" mode="icon" size={76} animated />
+        {/* logo-reveal (Higgsfield): reveal de marca que termina y se queda en el
+            ultimo frame (loop=false). Si no existe el video, cae al Logo animado. */}
+        <MediaSlot name="logo-reveal" type="video" class="nf__reveal" loop={false} alt="Frank Alayza">
+          <Logo slot="fallback" variant="gold" mode="icon" size={76} animated />
+        </MediaSlot>
       </a>
 
       <p class="nf__code reveal"><span class="text-gradient-gold">404</span></p>
@@ -56,6 +61,19 @@ import Button from '~/components/ui/Button.astro';
   .nf__logo {
     display: inline-flex;
     margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  /* Reveal de marca (video Higgsfield). El fallback (Logo 76px) no lo usa.
+     El selector descendente sube la especificidad para ganarle al
+     `.media-slot { height:100% }` base y dejar que aspect-ratio marque la altura. */
+  .nf__logo .nf__reveal {
+    width: min(420px, 100%);
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    box-shadow: var(--shadow-card);
   }
 
   .nf__code {

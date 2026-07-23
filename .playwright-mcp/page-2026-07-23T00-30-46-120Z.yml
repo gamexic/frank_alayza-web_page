@@ -217,103 +217,103 @@
         - paragraph [ref=e316]:
           - generic [ref=e320]: Y cuando cierro el editor, produzco música electrónica.
       - figure [ref=e321]:
-        - img "Frank Alayza en una sesión de escalada" [ref=e324]
-    - generic [ref=e326]:
-      - generic [ref=e327]:
-        - paragraph [ref=e328]: Contenido
-        - heading "Ideas sobre IA, datos y negocio" [level=2] [ref=e329]
-        - paragraph [ref=e330]: Tutoriales y reflexiones prácticas para construir con tecnología.
-      - list [ref=e331]:
-        - listitem [ref=e332]:
-          - 'link "Claude para flujos documentales: de análisis a entrega" [ref=e334] [cursor=pointer]':
+        - img "Frank Alayza — retrato" [ref=e325]
+    - generic [ref=e327]:
+      - generic [ref=e328]:
+        - paragraph [ref=e329]: Contenido
+        - heading "Ideas sobre IA, datos y negocio" [level=2] [ref=e330]
+        - paragraph [ref=e331]: Tutoriales y reflexiones prácticas para construir con tecnología.
+      - list [ref=e332]:
+        - listitem [ref=e333]:
+          - 'link "Claude para flujos documentales: de análisis a entrega" [ref=e335] [cursor=pointer]':
             - /url: /contenido-claude-flujos-documentales
-            - generic [ref=e335]: Modelos fundacionales
-            - 'heading "Claude para flujos documentales: de análisis a entrega" [level=3] [ref=e337]'
-            - paragraph [ref=e338]: "Claude para flujos documentales: análisis de texto largo, herramientas, control de calidad y entrega profesional."
-            - generic [ref=e339]: 8 min de lectura
-        - listitem [ref=e345]:
-          - 'link "Gemini en negocio: dónde aporta valor real hoy" [ref=e347] [cursor=pointer]':
+            - generic [ref=e336]: Modelos fundacionales
+            - 'heading "Claude para flujos documentales: de análisis a entrega" [level=3] [ref=e338]'
+            - paragraph [ref=e339]: "Claude para flujos documentales: análisis de texto largo, herramientas, control de calidad y entrega profesional."
+            - generic [ref=e340]: 8 min de lectura
+        - listitem [ref=e346]:
+          - 'link "Gemini en negocio: dónde aporta valor real hoy" [ref=e348] [cursor=pointer]':
             - /url: /contenido-gemini-para-negocio
-            - generic [ref=e348]: Modelos fundacionales
-            - 'heading "Gemini en negocio: dónde aporta valor real hoy" [level=3] [ref=e350]'
-            - paragraph [ref=e351]: "Gemini en negocio: casos de uso prácticos, integración por API y controles para operar con impacto real."
-            - generic [ref=e352]: 8 min de lectura
-        - listitem [ref=e358]:
-          - link "Lo que la escalada me enseñó sobre resolver problemas" [ref=e360] [cursor=pointer]:
+            - generic [ref=e349]: Modelos fundacionales
+            - 'heading "Gemini en negocio: dónde aporta valor real hoy" [level=3] [ref=e351]'
+            - paragraph [ref=e352]: "Gemini en negocio: casos de uso prácticos, integración por API y controles para operar con impacto real."
+            - generic [ref=e353]: 8 min de lectura
+        - listitem [ref=e359]:
+          - link "Lo que la escalada me enseñó sobre resolver problemas" [ref=e361] [cursor=pointer]:
             - /url: /contenido-escalada-resolver-problemas
-            - generic [ref=e361]: Escalada y disciplina
-            - heading "Lo que la escalada me enseñó sobre resolver problemas" [level=3] [ref=e363]
-            - paragraph [ref=e364]: "Principios de escalada aplicados a resolución de problemas técnicos y de negocio: estrategia, calma y ejecución."
-            - generic [ref=e365]: 6 min de lectura
-      - link "Ver todo el contenido" [ref=e372] [cursor=pointer]:
+            - generic [ref=e362]: Escalada y disciplina
+            - heading "Lo que la escalada me enseñó sobre resolver problemas" [level=3] [ref=e364]
+            - paragraph [ref=e365]: "Principios de escalada aplicados a resolución de problemas técnicos y de negocio: estrategia, calma y ejecución."
+            - generic [ref=e366]: 6 min de lectura
+      - link "Ver todo el contenido" [ref=e373] [cursor=pointer]:
         - /url: /contenido
-    - generic [ref=e382]:
-      - heading "¿Tienes un reto de negocio con datos o IA?" [level=2] [ref=e383]
-      - paragraph [ref=e384]: Cuéntame qué quieres construir o mejorar. Te respondo con un enfoque claro y los próximos pasos.
-      - link "Conectar ahora" [ref=e386] [cursor=pointer]:
+    - generic [ref=e383]:
+      - heading "¿Tienes un reto de negocio con datos o IA?" [level=2] [ref=e384]
+      - paragraph [ref=e385]: Cuéntame qué quieres construir o mejorar. Te respondo con un enfoque claro y los próximos pasos.
+      - link "Conectar ahora" [ref=e387] [cursor=pointer]:
         - /url: /contacto
-  - contentinfo [ref=e392]:
-    - generic [ref=e394]:
-      - generic [ref=e395]:
-        - link "Frank Alayza — Inicio" [ref=e396] [cursor=pointer]:
+  - contentinfo [ref=e393]:
+    - generic [ref=e395]:
+      - generic [ref=e396]:
+        - link "Frank Alayza — Inicio" [ref=e397] [cursor=pointer]:
           - /url: /
-          - img "Frank Alayza" [ref=e397]
-        - paragraph [ref=e401]: "Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real."
-        - generic "Redes sociales" [ref=e402]:
-          - link "LinkedIn" [ref=e403] [cursor=pointer]:
+          - img "Frank Alayza" [ref=e398]
+        - paragraph [ref=e402]: "Administrador de negocios de tecnología y builder AI Native. Construyo y administro negocios con inteligencia artificial: agentes, automatizaciones y software con impacto real."
+        - generic "Redes sociales" [ref=e403]:
+          - link "LinkedIn" [ref=e404] [cursor=pointer]:
             - /url: https://www.linkedin.com/in/frank-alayza-herrera-0a79152b1
-          - link "GitHub" [ref=e409] [cursor=pointer]:
+          - link "GitHub" [ref=e410] [cursor=pointer]:
             - /url: https://github.com/gamexic
-          - link "X" [ref=e414] [cursor=pointer]:
+          - link "X" [ref=e415] [cursor=pointer]:
             - /url: https://x.com/gamexiic
-          - link "Instagram" [ref=e419] [cursor=pointer]:
+          - link "Instagram" [ref=e420] [cursor=pointer]:
             - /url: https://www.instagram.com/frank_alayza
-          - link "YouTube" [ref=e425] [cursor=pointer]:
+          - link "YouTube" [ref=e426] [cursor=pointer]:
             - /url: https://www.youtube.com/@FrankAlayza44
-      - navigation "Navegación" [ref=e430]:
-        - heading "Navegación" [level=2] [ref=e431]
-        - list [ref=e432]:
-          - listitem [ref=e433]:
-            - link "Inicio" [ref=e434] [cursor=pointer]:
+      - navigation "Navegación" [ref=e431]:
+        - heading "Navegación" [level=2] [ref=e432]
+        - list [ref=e433]:
+          - listitem [ref=e434]:
+            - link "Inicio" [ref=e435] [cursor=pointer]:
               - /url: /
-          - listitem [ref=e435]:
-            - link "Sobre mí" [ref=e436] [cursor=pointer]:
+          - listitem [ref=e436]:
+            - link "Sobre mí" [ref=e437] [cursor=pointer]:
               - /url: /sobre-mi
-          - listitem [ref=e437]:
-            - link "Servicios" [ref=e438] [cursor=pointer]:
+          - listitem [ref=e438]:
+            - link "Servicios" [ref=e439] [cursor=pointer]:
               - /url: /servicios
-          - listitem [ref=e439]:
-            - link "Proyectos" [ref=e440] [cursor=pointer]:
+          - listitem [ref=e440]:
+            - link "Proyectos" [ref=e441] [cursor=pointer]:
               - /url: /proyectos
-      - navigation "Explora" [ref=e441]:
-        - heading "Explora" [level=2] [ref=e442]
-        - list [ref=e443]:
-          - listitem [ref=e444]:
-            - link "Contenido" [ref=e445] [cursor=pointer]:
+      - navigation "Explora" [ref=e442]:
+        - heading "Explora" [level=2] [ref=e443]
+        - list [ref=e444]:
+          - listitem [ref=e445]:
+            - link "Contenido" [ref=e446] [cursor=pointer]:
               - /url: /contenido
-          - listitem [ref=e446]:
-            - link "Recursos" [ref=e447] [cursor=pointer]:
+          - listitem [ref=e447]:
+            - link "Recursos" [ref=e448] [cursor=pointer]:
               - /url: /recursos
-          - listitem [ref=e448]:
-            - link "Certificados" [ref=e449] [cursor=pointer]:
+          - listitem [ref=e449]:
+            - link "Certificados" [ref=e450] [cursor=pointer]:
               - /url: /certificados
-          - listitem [ref=e450]:
-            - link "Contacto" [ref=e451] [cursor=pointer]:
+          - listitem [ref=e451]:
+            - link "Contacto" [ref=e452] [cursor=pointer]:
               - /url: /contacto
-      - generic [ref=e452]:
-        - heading "Contacto" [level=2] [ref=e453]
-        - list [ref=e454]:
-          - listitem [ref=e455]:
-            - link "frankalayzah@gmail.com" [ref=e456] [cursor=pointer]:
+      - generic [ref=e453]:
+        - heading "Contacto" [level=2] [ref=e454]
+        - list [ref=e455]:
+          - listitem [ref=e456]:
+            - link "frankalayzah@gmail.com" [ref=e457] [cursor=pointer]:
               - /url: mailto:frankalayzah@gmail.com
-          - listitem [ref=e462]:
-            - generic [ref=e463]: Lima, Perú · GMT-5
-    - generic [ref=e468]:
-      - paragraph [ref=e469]: © 2026 Frank Alayza. Todos los derechos reservados.
-      - navigation "Legal" [ref=e470]:
-        - link "Privacidad" [ref=e471] [cursor=pointer]:
+          - listitem [ref=e463]:
+            - generic [ref=e464]: Lima, Perú · GMT-5
+    - generic [ref=e469]:
+      - paragraph [ref=e470]: © 2026 Frank Alayza. Todos los derechos reservados.
+      - navigation "Legal" [ref=e471]:
+        - link "Privacidad" [ref=e472] [cursor=pointer]:
           - /url: /privacidad
-        - generic [ref=e472]: ·
-        - link "Términos" [ref=e473] [cursor=pointer]:
+        - generic [ref=e473]: ·
+        - link "Términos" [ref=e474] [cursor=pointer]:
           - /url: /terminos
   - status

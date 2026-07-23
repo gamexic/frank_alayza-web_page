@@ -6,6 +6,12 @@
 // Fuentes: src/assets/marca/gold-full.png (logo completo) y gold-icon.png (icono).
 // Paleta de marca (src/styles/tokens.css): bg #06060a, gold #fbbf24, gold-deep #d99a00.
 //
+// NOTA (assets Higgsfield): la `public/assets/og/share.jpg` en produccion proviene
+// del asset Higgsfield `og-base` (recortado a 1200x630 JPEG q85 con sharp). Este
+// script queda como FALLBACK para regenerar la variante compuesta con el logo de
+// marca si algun dia no hay asset Higgsfield disponible. Correrlo SOBRESCRIBE la
+// share.jpg de Higgsfield; hazlo solo si quieres volver a la portada compuesta.
+//
 // Uso:  node scripts/og.mjs
 import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';

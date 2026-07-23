@@ -116,6 +116,110 @@ Documento de encargos para generar estos assets (prompts listos, modelo recomend
 y specs por cada slot): `~/Downloads/ENCARGOS-HIGGSFIELD-frankalayza.md` (y su version
 `.html` imprimible).
 
+## Guía de estilo de prompts (marca Frank Alayza)
+
+Receta para que CUALQUIER imagen o video que se genere en el futuro (Higgsfield u otro
+modelo) salga en marca. Los prompts van en **inglés** (los modelos responden mejor); las
+notas de proceso, en español. Regla de oro: negro profundo + dorado de firma, líneas
+finas neurales, cabeza de perfil fusionada con nodos, premium — nunca gamer ni cartoon.
+
+### Paleta de marca (hex completos)
+
+| Rol | Hex |
+|---|---|
+| Fondo negro profundo | `#06060a` |
+| Dorado — color de firma | `#fbbf24` |
+| Dorado profundo (sombra / degradado) | `#d99a00` |
+| Cian — acento neón | `#00d4ff` |
+| Morado — acento neón | `#a855f7` |
+| Verde WhatsApp (solo Clevun) | `#3DDC84` |
+
+### Bloque de estilo BASE (reutilizable — copiar y pegar en cada prompt)
+
+```
+deep black background (#06060a), gold (#fbbf24) as the signature color, with subtle
+cyan (#00d4ff) and purple (#a855f7) neon accents, extremely thin-line neural/circuit
+aesthetic with softly glowing connected nodes, the brand motif is a human head seen in
+profile fused with a network of connected nodes (human intelligence + technology),
+cinematic lighting, soft bokeh glows, generous negative space, premium and
+sophisticated, never gamer, never cartoon. No text, no logos (unless explicitly asked).
+```
+
+### Plantillas por tipo (bloque BASE + variables)
+
+**Retrato de marca (Frank)** — vertical, editorial.
+```
+Cinematic vertical portrait of a young Latin American man (late 20s), short dark hair,
+calm confident expression, smart dark outfit, warm gold (#fbbf24) rim light, faint
+out-of-focus neural/circuit glow behind him. + [BLOQUE BASE]. Shallow depth of field,
+high skin detail, sharp eyes, authentic and modern, not corporate stock.
+```
+> Crea un `soul_id` (subiendo varias fotos reales de Frank) y reutilízalo en TODOS los
+> retratos para que el rostro sea consistente.
+
+**Fondo abstracto tech** — mucho negro para poner texto encima.
+```
+Ultra-wide abstract background: a vast neural/circuit network. + [BLOQUE BASE]. Plenty
+of darkness and negative space so text can sit on top. Calm, minimal, no focal subject.
+```
+
+**Cover editorial por categoría** — un solo acento por portada.
+```
+Abstract editorial cover. + [BLOQUE BASE], but the single signature accent color is
+{ACENTO}. Motif: {MOTIVO}. Minimal, plenty of negative space, no text.
+```
+Acentos del blog: `ia-vida-real` → cian `#00d4ff` · `data-negocio` → dorado `#fbbf24` ·
+`construyendo-productos` → dorado `#fbbf24` · `modelos-fundacionales` → cian `#00d4ff` ·
+`escalada-disciplina` → morado `#a855f7`.
+
+**Showcase de producto** — cover de negocio propio.
+```
+Abstract product cover for {PRODUCTO}. + [BLOQUE BASE]. Visual metaphor: {METAFORA}.
+A single extra accent {ACENTO-PRODUCTO} blended into the brand palette. High-tech,
+reliable, premium. No readable text, no logos.
+```
+> Ej. Clevun → burbujas de chat como nodos, acento verde `#3DDC84`. Iceguin → red de
+> sensores/termómetros, acentos cian/hielo `#00d4ff`, silueta sutil de pingüino opcional.
+
+**Video loop de fondo (8 s)** — para heros.
+```
+Abstract cinematic seamless loop. + [BLOQUE BASE]. Slow, hypnotic motion, subtle particle
+drift, shallow depth of field. Nodes slowly coalesce toward the silhouette of a human
+head in profile, then gently dissolve back into the network. 8 seconds, no audio.
+```
+> **Loop sin salto**: usa la MISMA imagen como `start_image` y `end_image`.
+> **Audio SIEMPRE off** (ahorra créditos; en la web va en mute).
+
+**Logo reveal (8 s, desde imagen)** — animación de marca.
+```
+Cinematic reveal on deep black (#06060a): dozens of small glowing gold fragments and
+circuit nodes float and precisely assemble, piece by piece, into a single continuous-line
+logo of a human head in profile fused with a network of connected nodes. Thin gold
+(#fbbf24) lines light up as each connection locks into place, with faint cyan (#00d4ff)
+and purple (#a855f7) sparks. Ends on the finished, centered, glowing logo. 8 s, no audio.
+```
+> Parte de una imagen del logo dorado (`src/assets/marca/gold-icon.png` o `gold-full.png`).
+> Es un reveal: termina y se queda en el último frame (no loop).
+
+### Parámetros recomendados por tipo
+
+| Asset | Modelo Higgsfield | Aspect / Resolución | Notas |
+|---|---|---|---|
+| Video hero loop | `seedance1_5` (alt `cinematic_studio_3_0`) | 16:9 (21:9 opc.), 1080p / 4K, 8 s | audio OFF; mismo frame inicio/fin |
+| Logo reveal | `higgsfield_preset` preset ANDROID ASSEMBLE (alt `veo3_1` i2v) | 8 s | imagen de partida = logo dorado; audio OFF |
+| Retrato de marca | `soul_2` / `soul_cinematic` + `soul_id` | vertical 3:4 o 4:5, alta res | aquí se crea el `soul_id` |
+| Retrato secundario | `soul_2` / `soul_cinematic` + MISMO `soul_id` | 16:9 o 4:5 | look documental / b-roll |
+| Fondo neural | `nano_banana_pro` (alt `recraft_v4_1`) | 21:9, 4K | `recraft` fija los hex exactos |
+| Cover de producto | `nano_banana_pro` (alt `recraft_v4_1`) | 16:9, 4K | — |
+| Cover de artículo | `nano_banana_pro` (alt `recraft_v4_1`) | 16:9 (1200×675), 4K | 1 acento por categoría |
+| Open Graph | `nano_banana_pro` | 1200×630 exacto, JPG | dejar espacio a la derecha para texto |
+
+> **Ultra-wide 21:9**: Veo y Kling NO lo hacen (solo 16:9 / 9:16 / 1:1). Para 21:9 usa
+> `seedance` o `cinematic_studio_3_0`.
+> **Videos**: MP4, máximo 8 s, audio OFF, idealmente < 4 MB. Comprimir con ffmpeg:
+> `ffmpeg -i in.mp4 -an -c:v libx264 -crf 25 -pix_fmt yuv420p -movflags +faststart out.mp4`
+> (los assets actuales se comprimieron así: hero-loop 15 MB → 2.6 MB, logo-reveal 7.6 MB → 1.3 MB).
+
 ## Formularios (FormSubmit)
 
 Los formularios de contacto (`ContactForm.astro`) y newsletter (`NewsletterForm.astro`)

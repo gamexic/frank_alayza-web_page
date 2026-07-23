@@ -1,11 +1,14 @@
 ---
 /**
  * ParteHumana.astro — Split asimetrico: texto (disciplina / escalada / calistenia
- * + guiño a la musica electronica) y foto de escalada (astro:assets) con parallax.
- * Acentos morados (el lado humano de la marca).
+ * + guiño a la musica electronica) y retrato secundario con parallax.
+ * El retrato usa MediaSlot (enchufe Higgsfield): si Frank suelta
+ * `retrato-secundario.*` en /src/assets/higgsfield/ se usa; si no, cae a la foto
+ * real de escalada optimizada con astro:assets. Acentos morados (lado humano).
  */
 import { Image } from 'astro:assets';
 import Icon from '~/components/ui/Icon.astro';
+import MediaSlot from '~/components/ui/MediaSlot.astro';
 import escalada from '~/assets/fotos/frank-alayza-escalada.jpeg';
 ---
 
@@ -36,14 +39,22 @@ import escalada from '~/assets/fotos/frank-alayza-escalada.jpeg';
     <figure class="human__figure reveal" data-delay="120">
       <div class="human__frame">
         <div class="human__parallax" data-parallax data-speed="0.1">
-          <Image
+          <MediaSlot
+            name="retrato-secundario"
+            type="image"
             class="human__img"
-            src={escalada}
-            alt="Frank Alayza en una sesión de escalada"
-            widths={[420, 720, 960]}
-            sizes="(max-width: 900px) 90vw, 460px"
-            loading="lazy"
-          />
+            alt="Frank Alayza — retrato"
+          >
+            <Image
+              slot="fallback"
+              class="human__img"
+              src={escalada}
+              alt="Frank Alayza en una sesión de escalada"
+              widths={[420, 720, 960]}
+              sizes="(max-width: 900px) 90vw, 460px"
+              loading="lazy"
+            />
+          </MediaSlot>
         </div>
         <span class="human__frame-glow" aria-hidden="true"></span>
       </div>
