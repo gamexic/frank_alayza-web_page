@@ -87,6 +87,13 @@ const caseAccents: Array<'cyan' | 'purple' | 'gold'> = ['cyan', 'purple', 'gold'
               </div>
             </dl>
 
+            {c.demoUrl && (
+              <div class="case__demo">
+                <Button href={c.demoUrl} variant="secondary" iconName="flecha">Probar demo interactiva</Button>
+                <p>Datos ficticios · Sin registro</p>
+              </div>
+            )}
+
             {c.metric && (
               <div class="case__metric" aria-label={`${c.metric} ${c.metricLabel ?? ''}`.trim()}>
                 {/* data-counter con el string completo: la capa de motion anima
@@ -262,6 +269,25 @@ const caseAccents: Array<'cyan' | 'purple' | 'gold'> = ['cyan', 'purple', 'gold'
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
+  }
+
+  .case__demo {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .case__demo p {
+    margin-top: 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .case__demo :global(.btn) {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+    padding-inline: 1rem;
+    font-size: 0.85rem;
   }
 
   .case__metric-num {

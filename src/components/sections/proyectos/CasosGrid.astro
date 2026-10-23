@@ -9,6 +9,7 @@ import Card from '~/components/ui/Card.astro';
 import Badge from '~/components/ui/Badge.astro';
 import Counter from '~/components/ui/Counter.astro';
 import FilterBar from '~/components/ui/FilterBar.astro';
+import Button from '~/components/ui/Button.astro';
 import { cases, caseCategories } from '~/data/projects';
 
 // FilterBar antepone "Todos" solo → excluimos la categoría 'all' y adaptamos la forma.
@@ -57,6 +58,13 @@ function parseMetric(metric: string): { prefix: string; value: number; suffix: s
               <dd>{c.result}</dd>
             </div>
           </dl>
+
+          {c.demoUrl && (
+            <div class="caso-card__demo">
+              <Button href={c.demoUrl} variant="secondary" iconName="flecha">Probar demo interactiva</Button>
+              <p>Datos ficticios · Sin registro</p>
+            </div>
+          )}
 
           {metric && (
             <div class="caso-card__metric">
@@ -120,5 +128,22 @@ function parseMetric(metric: string): { prefix: string; value: number; suffix: s
     margin-top: auto;
     padding-top: 1.1rem;
     border-top: 1px solid var(--hairline);
+  }
+
+  .caso-card__demo {
+    margin-top: auto;
+    padding-top: 0.7rem;
+  }
+
+  .caso-card__demo p {
+    margin-top: 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .caso-card__demo :global(.btn) {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
   }
 </style>

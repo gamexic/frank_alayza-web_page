@@ -32,6 +32,8 @@ export interface Case {
   metric?: string;
   /** Etiqueta corta de la métrica. */
   metricLabel?: string;
+  /** Demostración pública independiente con información sintética. */
+  demoUrl?: string;
 }
 
 // Categorías para la FilterBar de la página de proyectos (casos anónimos).
@@ -81,13 +83,14 @@ export const cases: Case[] = [
     id: 'simulador-escenarios-consultora',
     badge: 'Analítica predictiva',
     category: 'analitica-predictiva',
-    title: 'Simulador de escenarios competitivos para consultora',
+    title: 'Simulador CPM de equipos y escenarios competitivos',
     problem:
-      'Una empresa de consultoría realizaba predicciones de resultados de forma manual; el proceso era lento, complejo y dificultaba reaccionar frente a la competencia.',
+      'Evaluar equipos para concursos de auditoría exige combinar cargos, experiencia, horas y disponibilidad. La cantidad de alternativas dificulta comparar sociedades y planificar varias entidades.',
     approach:
-      'Desarrollo de una aplicación web con Python (backend y frontend) capaz de iterar múltiples combinaciones de variables para identificar el escenario óptimo con mayor velocidad y consistencia.',
+      'Desarrollo de un simulador que compara puntajes ponderados, busca equipos para una meta de PPP y considera los recursos comprometidos en otros escenarios.',
     result:
-      'Simulaciones de predicción en minutos y con un clic, mayor precisión analítica y reducción de costos operativos al disminuir la carga de análisis manual.',
+      'Una demo interactiva permite explorar el modelo con sociedades, perfiles y entidades ficticias. Muestra equipos viables, puntajes y reservas sin exponer información de trabajo ni estimar probabilidades de ganar.',
+    demoUrl: '/demos/cpm/index.html',
   },
   {
     id: 'digitalizacion-administrativa',
