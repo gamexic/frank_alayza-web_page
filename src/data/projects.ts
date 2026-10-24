@@ -83,14 +83,14 @@ export const cases: Case[] = [
     id: 'simulador-escenarios-consultora',
     badge: 'Analítica predictiva',
     category: 'analitica-predictiva',
-    title: 'Simulador CPM de equipos y escenarios competitivos',
+    title: 'Simulador de equipos y escenarios competitivos',
     problem:
       'Evaluar equipos para concursos de auditoría exige combinar cargos, experiencia, horas y disponibilidad. La cantidad de alternativas dificulta comparar sociedades y planificar varias entidades.',
     approach:
       'Desarrollo de un simulador que compara puntajes ponderados, busca equipos para una meta de PPP y considera los recursos comprometidos en otros escenarios.',
     result:
       'Una demo interactiva permite explorar el modelo con sociedades, perfiles y entidades ficticias. Muestra equipos viables, puntajes y reservas sin exponer información de trabajo ni estimar probabilidades de ganar.',
-    demoUrl: '/demos/cpm/index.html',
+    demoUrl: '/demos/escenarios/index.html',
   },
   {
     id: 'digitalizacion-administrativa',
