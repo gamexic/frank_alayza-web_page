@@ -7,6 +7,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import JsonLd, { organizationSchemas } from '~/components/seo/JsonLd.astro';
 import NegociosDestacados from '~/components/sections/proyectos/NegociosDestacados.astro';
+import JuegosDesarrollados from '~/components/sections/proyectos/JuegosDesarrollados.astro';
 import CasosGrid from '~/components/sections/proyectos/CasosGrid.astro';
 import ProyectosCta from '~/components/sections/proyectos/ProyectosCta.astro';
 
@@ -23,12 +24,13 @@ const description =
       <p class="eyebrow reveal">Portafolio</p>
       <h1 class="reveal" data-delay="60">Proyectos</h1>
       <p class="proyectos-hero__lead reveal" data-delay="120">
-        Negocios que construyo y casos en los que he trabajado.
+        Negocios que construyo, juegos que desarrollé y casos en los que he trabajado.
       </p>
     </div>
   </section>
 
   <NegociosDestacados />
+  <JuegosDesarrollados />
   <CasosGrid />
   <ProyectosCta />
 </BaseLayout>

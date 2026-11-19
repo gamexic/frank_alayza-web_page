@@ -1,5 +1,6 @@
 // Proyectos. Dos niveles:
 //  - businesses: negocios propios estrella (Clevun, Iceguin) con nombre y enlace.
+//  - games: juegos 3D propios (se juegan en el navegador).
 //  - cases: 3 casos anónimos existentes (Problema / Enfoque / Resultado).
 // Fuente: proyectos.html (casos) + posicionamiento del plan (negocios propios).
 
@@ -16,6 +17,19 @@ export interface Business {
   /** Etiqueta de contexto (p. ej. "Negocio propio"). */
   badge: string;
   featured: boolean;
+}
+
+export interface Game {
+  id: string;
+  name: string;
+  tagline: string;
+  genre: string;
+  description: string;
+  url: string;
+  /** Acento de marca para el glow/borde de la tarjeta. */
+  accent: 'cyan' | 'gold' | 'magenta';
+  /** Chips "qué incluye" (derivados de lo que el juego realmente ofrece). */
+  features: string[];
 }
 
 export interface Case {
@@ -75,6 +89,43 @@ export const businesses: Business[] = [
     accent: 'cyan',
     badge: 'Negocio propio',
     featured: true,
+  },
+];
+
+// Juegos 3D que Frank desarrolló. Se juegan en el navegador (GitHub Pages).
+export const games: Game[] = [
+  {
+    id: 'prismate',
+    name: 'PRISMATE',
+    tagline: 'Jaque mate en todos los colores.',
+    genre: 'Ajedrez 3D',
+    description:
+      'Un reino de cristal contra un ejército de obsidiana. Tablero 3D que puedes girar, piezas originales reconocibles por su forma y una computadora a tu medida.',
+    url: 'https://gamexic.github.io/prismate/',
+    accent: 'cyan',
+    features: ['5 niveles de dificultad', 'Tutorial desde cero', 'Dos jugadores'],
+  },
+  {
+    id: 'kabumba',
+    name: 'KABUMBA',
+    tagline: 'Cava, piensa… ¡KABUM!',
+    genre: 'Buscaminas 3D',
+    description:
+      'Buscaminas en relieve con práctica guiada, pistas razonadas y niveles hasta experto. Los récords se guardan en tu navegador.',
+    url: 'https://gamexic.github.io/kabumba/',
+    accent: 'gold',
+    features: ['Práctica guiada', 'Pistas', 'Hasta nivel experto'],
+  },
+  {
+    id: 'billonaria',
+    name: 'BILLONARIA',
+    tagline: 'Compra el mundo, quiebra a tus amigos.',
+    genre: 'Juego de propiedades 3D',
+    description:
+      'Juego de mesa de propiedades con cuatro ediciones temáticas de tablero, fichas 3D, subastas y partidas de 2 a 6 jugadores, con bots.',
+    url: 'https://gamexic.github.io/billonaria/',
+    accent: 'magenta',
+    features: ['4 ediciones temáticas', '2 a 6 jugadores', 'Subastas y bots'],
   },
 ];
 

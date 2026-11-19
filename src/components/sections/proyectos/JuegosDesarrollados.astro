@@ -1,0 +1,200 @@
+---
+/**
+ * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA).
+ * Tres tarjetas con portada (captura estilizada del menú de cada juego), nombre,
+ * descripción, chips y enlace a la versión jugable en GitHub Pages.
+ * Las portadas viven en /src/assets/juegos/juego-<id>.png. Fuente: data/projects.ts.
+ */
+import { Image } from 'astro:assets';
+import Section from '~/components/ui/Section.astro';
+import Button from '~/components/ui/Button.astro';
+import Badge from '~/components/ui/Badge.astro';
+import Icon from '~/components/ui/Icon.astro';
+import { games } from '~/data/projects';
+import prismate from '~/assets/juegos/juego-prismate.png';
+import kabumba from '~/assets/juegos/juego-kabumba.png';
+import billonaria from '~/assets/juegos/juego-billonaria.png';
+
+const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria };
+
+// El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
+const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>
+  a === 'magenta' ? 'purple' : (a as 'gold' | 'cyan' | 'purple');
+
+const accentVar = (a: string): string =>
+  a === 'cyan' ? 'var(--cyan)' : a === 'magenta' ? 'var(--magenta)' : 'var(--gold)';
+---
+
+<Section
+  id="juegos"
+  eyebrow="Juegos"
+  title="Juegos que he desarrollado"
+  intro="Juegos 3D que diseñé y programé para jugar directamente en el navegador, sin instalar nada."
+  tone="base"
+  width="wide"
+>
+  <div class="juegos">
+    {games.map((g, i) => (
+      <article
+        class="juego reveal"
+        data-delay={i * 120}
+        style={`--acc:${accentVar(g.accent)};`}
+      >
+        <a
+          class="juego__media"
+          href={g.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Jugar ${g.name}`}
+          tabindex="-1"
+        >
+          <Image
+            src={covers[g.id]}
+            alt={`Portada de ${g.name}: ${g.genre.toLowerCase()} — ${g.tagline}`}
+            widths={[480, 720, 960]}
+            sizes="(min-width: 960px) 30vw, 92vw"
+            loading="lazy"
+          />
+        </a>
+        <div class="juego__body">
+          <Badge tone={toIconAccent(g.accent)}>{g.genre}</Badge>
+          <h3 class="juego__name">{g.name}</h3>
+          <p class="juego__tagline">{g.tagline}</p>
+          <p class="juego__desc">{g.description}</p>
+          <ul class="juego__chips">
+            {g.features.map((f) => (
+              <li class="juego__chip">
+                <Icon name="check" size={14} accent={toIconAccent(g.accent)} />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="juego__cta">
+            <Button
+              href={g.url}
+              variant="secondary"
+              iconName="enlace-externo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Jugar {g.name}
+            </Button>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .juegos {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 960px) {
+    .juegos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .juego {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition:
+      border-color var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      transform var(--dur) var(--ease-out-expo);
+  }
+
+  .juego:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--acc) 42%, transparent);
+    box-shadow:
+      0 22px 50px -26px rgba(0, 0, 0, 0.85),
+      0 0 30px -8px color-mix(in srgb, var(--acc) 34%, transparent);
+  }
+
+  .juego__media {
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-abyss);
+    overflow: hidden;
+  }
+
+  .juego__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .juego:hover .juego__media :global(img) {
+    transform: scale(1.04);
+  }
+
+  .juego__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: clamp(1.2rem, 2.5vw, 1.7rem);
+    flex: 1;
+  }
+
+  .juego__name {
+    font-size: clamp(1.6rem, 2vw + 0.6rem, 2.1rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+  }
+
+  .juego__tagline {
+    font-family: var(--font-tech);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--acc);
+  }
+
+  .juego__desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .juego__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .juego__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.7rem;
+    font-family: var(--font-tech);
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+  }
+
+  .juego__cta {
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .juego:hover,
+    .juego:hover .juego__media :global(img) {
+      transform: none;
+    }
+  }
+</style>
