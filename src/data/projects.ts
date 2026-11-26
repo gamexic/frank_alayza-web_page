@@ -127,6 +127,17 @@ export const games: Game[] = [
     accent: 'magenta',
     features: ['4 ediciones temáticas', '2 a 6 jugadores', 'Subastas y bots'],
   },
+  {
+    id: 'flipazo',
+    name: 'FLIPAZO',
+    tagline: 'Mira. Memoriza. ¡Flipa!',
+    genre: 'Memoria de cartas 3D',
+    description:
+      'Juego de memoria con cartas 3D y parejas disparatadas, como un gato astronauta o un queso al teléfono. Las cartas se muestran unos segundos, se voltean y tienes tres vidas para encontrar todos los pares.',
+    url: 'https://gamexic.github.io/flipazo/',
+    accent: 'cyan',
+    features: ['8 niveles', '7 ediciones de cartas', '3 vidas'],
+  },
 ];
 
 export const cases: Case[] = [

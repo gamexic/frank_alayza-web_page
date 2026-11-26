@@ -1,7 +1,7 @@
 ---
 /**
- * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA).
- * Tres tarjetas con portada (captura estilizada del menú de cada juego), nombre,
+ * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA, FLIPAZO).
+ * Cuatro tarjetas con portada (captura estilizada del menú de cada juego), nombre,
  * descripción, chips y enlace a la versión jugable en GitHub Pages.
  * Las portadas viven en /src/assets/juegos/juego-<id>.png. Fuente: data/projects.ts.
  */
@@ -14,8 +14,9 @@ import { games } from '~/data/projects';
 import prismate from '~/assets/juegos/juego-prismate.png';
 import kabumba from '~/assets/juegos/juego-kabumba.png';
 import billonaria from '~/assets/juegos/juego-billonaria.png';
+import flipazo from '~/assets/juegos/juego-flipazo.png';
 
-const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria };
+const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo };
 
 // El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
 const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>
@@ -95,7 +96,7 @@ const accentVar = (a: string): string =>
 
   @media (min-width: 960px) {
     .juegos {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
