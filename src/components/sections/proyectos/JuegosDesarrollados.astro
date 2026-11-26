@@ -16,8 +16,9 @@ import kabumba from '~/assets/juegos/juego-kabumba.png';
 import billonaria from '~/assets/juegos/juego-billonaria.png';
 import flipazo from '~/assets/juegos/juego-flipazo.png';
 import reventon from '~/assets/juegos/juego-reventon.png';
+import congelazo from '~/assets/juegos/juego-congelazo.png';
 
-const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon };
+const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon, congelazo };
 
 // El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
 const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>

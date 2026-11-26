@@ -149,6 +149,17 @@ export const games: Game[] = [
     accent: 'magenta',
     features: ['9 formas de placa', '8 mundos de color', '7 materiales y 6 sonidos'],
   },
+  {
+    id: 'congelazo',
+    name: 'CONGELAZO',
+    tagline: 'No te muevas. No parpadees.',
+    genre: 'Terror 3D de congelados',
+    description:
+      'Versión de terror de congelados: avanzas mientras el vigilante mira la pared y te quedas inmóvil cuando se voltea. Juega como participante o como vigilante, con cuatro personajes y tres escenarios con sonido envolvente.',
+    url: 'https://gamexic.github.io/congelazo/',
+    accent: 'magenta',
+    features: ['2 roles', '3 escenarios', '4 personajes'],
+  },
 ];
 
 export const cases: Case[] = [
