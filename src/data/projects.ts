@@ -122,7 +122,7 @@ export const games: Game[] = [
     tagline: 'Compra el mundo, quiebra a tus amigos.',
     genre: 'Juego de propiedades 3D',
     description:
-      'Juego de mesa de propiedades con cuatro ediciones temáticas de tablero, fichas 3D, subastas y partidas de 2 a 6 jugadores, con bots.',
+      'Juego de mesa de propiedades con cuatro ediciones temáticas de tablero, fichas 3D, subastas y partidas de 2 a 6 jugadores, con bots y música ambiental propia de cada edición.',
     url: 'https://gamexic.github.io/billonaria/',
     accent: 'magenta',
     features: ['4 ediciones temáticas', '2 a 6 jugadores', 'Subastas y bots'],
