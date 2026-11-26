@@ -138,6 +138,17 @@ export const games: Game[] = [
     accent: 'cyan',
     features: ['8 niveles', '7 ediciones de cartas', '3 vidas'],
   },
+  {
+    id: 'reventon',
+    name: 'REVENTÓN',
+    tagline: 'Revienta. Voltea. Repite.',
+    genre: 'Pop-it antiestrés 3D',
+    description:
+      'Pop-it de silicona en 3D para reventar burbujas una a una o arrastrando el dedo, con sonidos suaves que cambian según el material. Voltea la placa y vuelve a empezar, tantas veces como quieras.',
+    url: 'https://gamexic.github.io/reventon/',
+    accent: 'magenta',
+    features: ['9 formas de placa', '8 mundos de color', '7 materiales y 6 sonidos'],
+  },
 ];
 
 export const cases: Case[] = [
