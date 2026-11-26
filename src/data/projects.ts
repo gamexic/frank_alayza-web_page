@@ -182,6 +182,17 @@ export const games: Game[] = [
     accent: 'magenta',
     features: ['6 corredores', '4 pistas', 'Rampas y turbo'],
   },
+  {
+    id: 'chiton',
+    name: 'CHITÓN',
+    tagline: 'Escóndete. Aguanta el estornudo.',
+    genre: 'Escondite 3D',
+    description:
+      'Escondite 3D contra un cazador que aparece al azar. Eliges escenario, tu número y tu escondite; los demás jugadores se esconden también, hacen ruido y lanzan piedras mientras el cazador escucha y busca. Todo con humor, sin sangre.',
+    url: 'https://gamexic.github.io/chiton/',
+    accent: 'gold',
+    features: ['4 escenarios', '5 cazadores', 'Hasta 8 jugadores'],
+  },
 ];
 
 export const cases: Case[] = [

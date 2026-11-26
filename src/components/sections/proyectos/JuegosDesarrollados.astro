@@ -1,6 +1,6 @@
 ---
 /**
- * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA, FLIPAZO, REVENTÓN, CONGELAZO, SQUISHAZO, TURBAZO).
+ * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA, FLIPAZO, REVENTÓN, CONGELAZO, SQUISHAZO, TURBAZO, CHITÓN).
  * Tarjetas con portada (captura estilizada del menú de cada juego), nombre,
  * descripción, chips y enlace a la versión jugable en GitHub Pages.
  * Las portadas viven en /src/assets/juegos/juego-<id>.png. Fuente: data/projects.ts.
@@ -19,8 +19,9 @@ import reventon from '~/assets/juegos/juego-reventon.png';
 import congelazo from '~/assets/juegos/juego-congelazo.png';
 import squishazo from '~/assets/juegos/juego-squishazo.png';
 import turbazo from '~/assets/juegos/juego-turbazo.png';
+import chiton from '~/assets/juegos/juego-chiton.png';
 
-const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon, congelazo, squishazo, turbazo };
+const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon, congelazo, squishazo, turbazo, chiton };
 
 // El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
 const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>
@@ -93,8 +94,9 @@ const accentVar = (a: string): string =>
 
 <style>
   .juegos {
+    --juegos-gap: clamp(1.25rem, 3vw, 2rem);
     display: grid;
-    gap: clamp(1.25rem, 3vw, 2rem);
+    gap: var(--juegos-gap);
     grid-template-columns: 1fr;
   }
 
@@ -141,6 +143,15 @@ const accentVar = (a: string): string =>
 
   .juego:hover .juego__media :global(img) {
     transform: scale(1.04);
+  }
+
+  /* Con un número impar de juegos, el último se centra con el mismo ancho que los demás en lugar de quedar solo a la izquierda. */
+  @media (min-width: 960px) {
+    .juego:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc((100% - var(--juegos-gap)) / 2);
+    }
   }
 
   .juego__body {
