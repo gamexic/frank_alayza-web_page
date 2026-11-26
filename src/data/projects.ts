@@ -171,6 +171,17 @@ export const games: Game[] = [
     accent: 'gold',
     features: ['26 formas', '22 texturas', '18 caritas y 12 sonidos'],
   },
+  {
+    id: 'turbazo',
+    name: 'TURBAZO',
+    tagline: 'Derrapa. Salta. ¡Gana!',
+    genre: 'Carreras 3D',
+    description:
+      'Carreras 3D contra cinco rivales en cuatro pistas distintas. Da vueltas, salta rampas rectas y diagonales, derrapa para cargar el turbo y llega primero a la meta, con joystick en pantalla o con el teclado.',
+    url: 'https://gamexic.github.io/turbazo/',
+    accent: 'magenta',
+    features: ['6 corredores', '4 pistas', 'Rampas y turbo'],
+  },
 ];
 
 export const cases: Case[] = [

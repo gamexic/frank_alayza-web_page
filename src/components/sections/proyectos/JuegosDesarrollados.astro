@@ -1,6 +1,6 @@
 ---
 /**
- * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA, FLIPAZO, REVENTÓN, CONGELAZO, SQUISHAZO).
+ * JuegosDesarrollados.astro — Juegos 3D propios (PRISMATE, KABUMBA, BILLONARIA, FLIPAZO, REVENTÓN, CONGELAZO, SQUISHAZO, TURBAZO).
  * Tarjetas con portada (captura estilizada del menú de cada juego), nombre,
  * descripción, chips y enlace a la versión jugable en GitHub Pages.
  * Las portadas viven en /src/assets/juegos/juego-<id>.png. Fuente: data/projects.ts.
@@ -18,8 +18,9 @@ import flipazo from '~/assets/juegos/juego-flipazo.png';
 import reventon from '~/assets/juegos/juego-reventon.png';
 import congelazo from '~/assets/juegos/juego-congelazo.png';
 import squishazo from '~/assets/juegos/juego-squishazo.png';
+import turbazo from '~/assets/juegos/juego-turbazo.png';
 
-const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon, congelazo, squishazo };
+const covers: Record<string, ImageMetadata> = { prismate, kabumba, billonaria, flipazo, reventon, congelazo, squishazo, turbazo };
 
 // El set de iconos sólo acepta gold|cyan|purple; mapeamos magenta -> purple.
 const toIconAccent = (a: string): 'gold' | 'cyan' | 'purple' =>
