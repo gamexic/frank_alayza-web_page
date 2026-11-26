@@ -160,6 +160,17 @@ export const games: Game[] = [
     accent: 'magenta',
     features: ['2 roles', '3 escenarios', '4 personajes'],
   },
+  {
+    id: 'squishazo',
+    name: 'SQUISHAZO',
+    tagline: 'Aprieta y respira.',
+    genre: 'Squishies antiestrés 3D',
+    description:
+      'Squishies 3D blandos y realistas para apretar, arrastrar y soltar mientras se deforman y vuelven despacio a su forma. Cambia la forma, la textura, el color, la carita, el sonido y los efectos, y relájate.',
+    url: 'https://gamexic.github.io/squishazo/',
+    accent: 'gold',
+    features: ['26 formas', '22 texturas', '18 caritas y 12 sonidos'],
+  },
 ];
 
 export const cases: Case[] = [
